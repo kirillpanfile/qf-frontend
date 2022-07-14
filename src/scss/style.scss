@@ -2,7 +2,9 @@
 
 // Подключение миксинов ===========================================================================================================================================================================================================================================================================
 @import "base/mixins";
-
+@import url(https://fonts.googleapis.com/css?family=Manrope:200,300,regular,500,600,700,800);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
 // Подключение шрифтов ===========================================================================================================================================================================================================================================================================
 //&display=swap - добавить при подключении через плагин
 
@@ -14,11 +16,27 @@
 //@import "fonts/icons";
 
 // Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
-$fontFamily: "";
+$fontFamily: "Manrope";
 $fontSize: rem(14); // где 14(px) - размер шрифта по умолчанию из макета
 
 // Основные цвета
-$mainColor: #000; // Цвет шрифта по умолчанию
+$mainColor: #5C5C5C; //? most common used text-color and of titles
+$bgColor: #F5F5F5; //? main background-color of body
+$limeColor: #91C788; //? lime color of buttons, wrappers and icons
+$white: #FFFFFF; //? white color
+$grayColor: #5C5C5C60; //? color of gray text on page ' Lets move to recipes '
+$prodColor: #9FA3A9; //? color of product cell 'Tomato', 'Egg' ...
+$cardColor: #007D6E; //? color of card in categories
+$blackColor: #191D23; //? color of black text in page
+$greenColor: #047857; //? dark green color of text and checkboxes
+$categoryColor: #6E798C; //? color of category and time of a card
+$cardTitleColor: #081F32; //? color of title of a card
+$cardTextColor: #374A59; //? color of text of a card
+$grayBorderColor: #00000031; //? color of gray border
+$redColor: #FF0000; //? regular red color
+$favoriteColor: #D1FAE5; //? color of background of favorite-button
+$favorteTextColor: #064E3B; //? color of favorite-button text
+
 
 // НАСТРОЙКИ ===============================================================================================================================================================================================================================================================================================
 // Минимальная ширина страницы
