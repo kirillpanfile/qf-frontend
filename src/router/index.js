@@ -1,7 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import getJWTFromCookie from '../utils'
-
-getJWTFromCookie()
 const routes = [
     {
         path: '/admin',
@@ -10,17 +8,15 @@ const routes = [
         // create a sub-routing for admin
         beforeEnter: (to, from, next) => {
             if (to.path === '/admin' && getJWTFromCookie() == '') {
-                next('/admin/login')
-            }
-            next()
+                next('/admin-login')
+                return
+            } else next()
         },
-        children: [
-            {
-                path: '/admin/login',
-                name: 'login',
-                component: () => import(/* webpackChunkName: "AdminLogin" */ '../views/AdminLogin.vue'),
-            },
-        ],
+    },
+    {
+        path: '/admin-login',
+        name: 'adminLogin',
+        component: () => import(/* webpackChunkName: "AdminLogin" */ '../views/AdminLogin.vue'),
     },
 ]
 

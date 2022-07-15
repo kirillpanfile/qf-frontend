@@ -3,6 +3,7 @@ import { createApp, defineAsyncComponent } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import Notifications from '@kyvg/vue3-notification'
 
 //styles
 import './scss/style.scss'
@@ -35,4 +36,4 @@ uiComponents
 //If you want to use the custom element as a component, you need to explicitly import it.
 
 //create app
-app.use(store).use(router).mount('#app')
+app.use(store).use(router).use(Notifications).mount('#app')

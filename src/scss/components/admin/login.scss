@@ -1,0 +1,66 @@
+.admin {
+    // .admin__container
+    background-color: $limeColor;
+    &__container {
+        height: 100vh;
+    }
+
+    // .admin__login
+
+    &__login {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        height: 100%;
+    }
+
+    // .admin__login-title
+
+    &__login-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+    }
+
+    // .admin__login-form
+
+    &__login-form {
+        padding: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 8px;
+    }
+
+    // .admin__login-form-group
+
+    &__login-form-group {
+        margin-top: 22px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    // .admin__login-form-label
+
+    &__login-form-label {
+    }
+
+    // .admin__login-form-input
+
+    &__login-form-input {
+        border-bottom: 1px solid #000;
+        font-size: rem(14);
+        padding: 4px;
+    }
+
+    // .admin__login-form-button
+
+    &__login-form-button {
+        flex: 1;
+        align-self: center;
+        margin-top: 14px;
+        background-color: #fff;
+        border: 1px solid#000;
+        padding: 12px 0;
+    }
+}
