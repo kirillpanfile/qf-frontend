@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Notifications from '@kyvg/vue3-notification'
+import VWave from 'v-wave'
 
 //styles
 import './scss/style.scss'
@@ -36,4 +37,4 @@ uiComponents
 //If you want to use the custom element as a component, you need to explicitly import it.
 
 //create app
-app.use(store).use(router).use(Notifications).mount('#app')
+app.use(store).use(router).use(Notifications).use(VWave).mount('#app')

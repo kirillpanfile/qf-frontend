@@ -13,7 +13,7 @@
                         <input type="password" id="password" class="admin__login-form-input" v-model="password" />
                     </div>
                     <div class="admin__login-form-group">
-                        <button type="submit" class="admin__login-form-button">Login</button>
+                        <button v-wave type="submit" class="admin__login-form-button">Login</button>
                     </div>
                 </form>
                 <app-loader v-else></app-loader>
@@ -27,7 +27,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { notify } from '@kyvg/vue3-notification'
+import { notifySimple } from '@/utils/notify'
 
 // refs
 const username = ref('')
@@ -35,27 +35,21 @@ const password = ref('')
 const store = useStore()
 const router = useRouter()
 
-const loading = ref(false)
+let loading = ref(false)
 
 const login = () => {
     loading.value = true
-
-    store
-        .dispatch('admin/authAdmin', { username: username.value, password: password.value })
-        .then(() => {
-            if (store.state.admin.accessToken) {
-                loading.value = false
-                router.push('/admin')
-                notify({
-                    text: 'Login successful :)',
-                })
-            }
+    const user = {
+        username: username.value,
+        password: password.value,
+    }
+    store.dispatch('admin/authAdmin', user).then(() => {
+        if (store.state.admin.accessToken) {
             loading.value = false
-        })
-        .catch((err) => {
-            loading.value = false
-        })
+            router.push('/admin/users')
+            notifySimple('Login successful')
+        }
+        loading.value = false
+    })
 }
 </script>
-
-<style scoped></style>

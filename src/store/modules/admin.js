@@ -1,50 +1,39 @@
-import cfg from '../config'
+import cfg from '@/store/config'
 import axios from 'axios'
-import { notify } from '@kyvg/vue3-notification'
-const state = {
-    accessToken: null,
-}
-const getters = {}
-const mutations = {
-    authAdmin(state, payload) {
-        state.accessToken = payload.accessToken
-        document.cookie = `jwt=${payload.accessToken}; expires=${new Date(
-            Date.now() + cfg.jwtExpiresIn * 24 * 60 * 60 * 1000
-        ).toUTCString()}`
-    },
-}
+import router from '@/router'
+import { notifyError } from '@/utils/notify'
 
-const actions = {
-    async authAdmin({ commit }, payload) {
-        try {
-            const { data } = await axios.post(`${cfg.URL}/api/auth/signin`, payload)
-            console.log(data)
-            if (data.roles.includes('ROLE_ADMIN')) commit('authAdmin', data)
-            else
-                throw {
-                    message: 'You are not authorized to access this page',
-                    code: 'UNAUTHORIZED',
-                }
-        } catch (error) {
-            if (error.code == 'ERR_BAD_REQUEST')
-                notify({
-                    type: 'error',
-                    text: 'Invalid username or password',
-                })
-
-            if (error.code == 'UNAUTHORIZED')
-                notify({
-                    type: 'error',
-                    text: error.message,
-                })
-        }
-    },
-}
+const checkRole = (data) => data?.roles?.some((role) => role == 'ROLE_ADMIN' || role == 'ROLE_MODERATOR')
 
 export default {
     namespaced: true,
-    state,
-    getters,
-    mutations,
-    actions,
+    state: {
+        accessToken: null,
+        user: null,
+    },
+    mutations: {
+        authAdmin(state, payload) {
+            const { accessToken, ...others } = payload
+            state.user = others
+            state.accessToken = accessToken
+        },
+        logoutAdmin(state) {
+            state.accessToken = null
+            state.user = null
+            router.push('/admin-login')
+        },
+    },
+    actions: {
+        async authAdmin({ commit }, payload) {
+            commit('logoutAdmin')
+            try {
+                const { data } = await axios.post(`${cfg.URL}/api/auth/signin`, payload)
+                if (checkRole(data)) commit('authAdmin', data)
+                else throw { message: 'You are not an admin', code: 'UNA' }
+            } catch (error) {
+                if (error.code == 'ERR_BAD_REQUEST') notifyError('Invalid username or password')
+                if (error.code == 'UNA') notifyError(error.message)
+            }
+        },
+    },
 }
