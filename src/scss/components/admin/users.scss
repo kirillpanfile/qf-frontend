@@ -1,0 +1,51 @@
+.admin-user{
+    &__wrapper{
+        width: 100%;
+        padding: 15px
+    }
+    &__card{
+        border-radius: 8px;
+        padding: 5px 10px;
+        color: #081F32;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        outline: 1px solid $limeColor;
+        &-content{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+    }
+    &__info{
+        display: flex;
+        gap: 20px;
+        h1{
+            font-weight: 800;
+            font-size: 24px;
+        }
+    }
+    &__line{
+        width: rem(2);
+        background-color: #191D23;
+    }
+    &__button{
+        padding: 5px 15px;
+        outline: 1px solid;
+        border-radius: 100vh;
+        font-weight: 600;
+        margin-right: 20px;
+    }
+}
+
+.btn-primary{
+    color: #81B9C7;
+    outline: 2px solid #81B9C7;
+}
+
+.btn-danger{
+    color: #FF0000;
+    outline: 2px solid #FF0000;
+}

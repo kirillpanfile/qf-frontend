@@ -4,7 +4,6 @@
 .admin-header {
     width: 100%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-
     align-items: center;
     // .admin-header__title
     &__container {
@@ -69,3 +68,8 @@
         line-height: 58px;
     }
 }
+.admin-content{
+    flex-grow: 1;
+}
+
+@import "users";
