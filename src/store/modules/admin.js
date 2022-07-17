@@ -58,6 +58,10 @@ export default {
                 state.currentPage--
             }
         },
+        setPage(state, page) {
+            state.users = []
+            state.currentPage = page
+        },
     },
     getters: {
         selectedUsers(state) {
@@ -114,6 +118,10 @@ export default {
         },
         prevPage({ dispatch, commit }) {
             commit('prevPage')
+            dispatch('getUsers')
+        },
+        setPage({ dispatch, commit }, page) {
+            commit('setPage', page)
             dispatch('getUsers')
         },
     },
