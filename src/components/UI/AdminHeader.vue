@@ -33,6 +33,7 @@ const store = useStore()
 //user
 const user = computed(() => store.state.admin.user)
 const role = computed(() => (user?.value.roles.includes('ROLE_ADMIN') ? 'SuperAdmin' : 'Moderator'))
+
 //logout
 const logOut = () => store.commit('admin/logoutAdmin')
 </script>

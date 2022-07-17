@@ -6,6 +6,7 @@ import { checkSelected, checkRole, showError, headers } from './admin.utils'
 const signIn = `${cfg.URL}/api/auth/signin`
 const allPages = `${cfg.URL}/api/users/pages`
 const deleteUser = (id) => `${cfg.URL}/api/delete/${id}`
+const deleteMultipleUsers = `${cfg.URL}/api/deleteMultiple`
 const usersPages = (page) => `${cfg.URL}/api/users?page=${page}`
 
 export default {
@@ -111,8 +112,25 @@ export default {
                 showError(error)
             }
         },
+        async deleteMultiple({ commit }) {
+            const selected = this.getters['admin/selectedUsers'].map((user) => user._id)
+            try {
+                const data = await axios.delete(deleteMultipleUsers, {
+                    headers: headers(this.state.admin.accessToken),
+                    ids: selected,
+                })
+                console.log(data)
+                commit(
+                    'users',
+                    this.state.admin.users.filter((user) => !selected.includes(user._id))
+                )
+            } catch (error) {
+                showError(error)
+            }
+        },
 
         nextPage({ dispatch, commit }) {
+            this.getters['admin/selectedUsers']
             commit('nextPage')
             dispatch('getUsers')
         },

@@ -5,9 +5,10 @@
             <div>
                 <button v-wave @click="">Ban</button>
                 <button v-wave @click="">Suspend</button>
-                <button v-wave @click="">Delete</button>
+                <button v-wave @click="deleteMultiple">Delete</button>
             </div>
         </header>
+
         <admin-users-card
             v-wave
             v-for="(item, index) in users"
@@ -71,6 +72,7 @@ const pagesToShow = computed(() => {
     if (currentPage.value >= pages.value - 2) return createPages(pages.value - 3, pages.value)
 })
 
+const deleteMultiple = () => store.dispatch('admin/deleteMultiple')
 // nextPage is a function that returns the next page
 const nextPage = () => store.dispatch('admin/nextPage')
 // prevPage is a function that returns the previous page
