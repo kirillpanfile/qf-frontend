@@ -1,51 +1,76 @@
-.admin-user{
-    &__wrapper{
+.admin-user {
+    &__wrapper {
         width: 100%;
-        padding: 15px
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    &__card{
+    &__card {
+        margin-bottom: 16px;
+        width: 100%;
+        cursor: pointer;
         border-radius: 8px;
-        padding: 5px 10px;
-        color: #081F32;
+        padding: 10px 10px;
+        color: #081f32;
         background-color: white;
         display: flex;
         align-items: center;
         gap: 20px;
-        outline: 1px solid $limeColor;
-        &-content{
+        outline: 1px solid #374a590a;
+        &-content {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
             gap: 20px;
         }
-
     }
-    &__info{
+    &__info {
         display: flex;
         gap: 20px;
-        h1{
-            font-weight: 800;
-            font-size: 24px;
+        h1 {
+            font-size: 18px;
         }
     }
-    &__line{
+    &__line {
         width: rem(2);
-        background-color: #191D23;
+        background-color: #1f2319;
     }
-    &__button{
+    &__button {
         padding: 5px 15px;
-        outline: 1px solid;
-        border-radius: 100vh;
+
         font-weight: 600;
         margin-right: 20px;
     }
 }
-
-.btn-primary{
-    color: #81B9C7;
-    outline: 2px solid #81B9C7;
+.admin-user__card-selected {
+    background: $limeColor;
+    color: white;
 }
 
-.btn-danger{
-    color: #FF0000;
-    outline: 2px solid #FF0000;
+.btn-primary {
+    color: #81b9c7;
+}
+.btn-danger {
+    color: #ff0000;
+}
+
+.admin-users {
+    // .admin-users__header
+
+    &__header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        button {
+            padding: 5px 15px;
+            background-color: $limeColor;
+            color: white;
+            font-weight: 600;
+            margin-right: 20px;
+        }
+    }
 }

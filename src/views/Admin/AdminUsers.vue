@@ -1,30 +1,43 @@
 <template>
     <div class="admin-user__wrapper">
-        <div class="admin-user__card">
-            <input type="checkbox">
-            <div class="admin-user__card-content">
-                <div class="admin-user__info">   
-                    <h1>Username</h1>
-                    <div class="admin-user__line"></div>
-                    <h1>Email</h1>
-                    <div class="admin-user__line"></div>
-                    <h1>Roles: ''</h1>
-                </div>
-                <div class="admin-user__buttons">
-                    <button class="admin-user__button btn-primary">
-                        Edit
-                    </button>
-                    <button class="admin-user__button btn-danger">
-                        Delete
-                    </button>
-                </div>
+        <header class="admin-users__header">
+            <div>Users Selected : {{ selected }}</div>
+            <div>
+                <button v-wave @click="">Ban</button>
+                <button v-wave @click="">Suspend</button>
+                <button v-wave @click="">Delete</button>
             </div>
-        </div>
+        </header>
+        <admin-users-card
+            v-wave
+            v-for="(item, index) in users"
+            :key="index"
+            :user="item"
+            @select="selectUser"
+        ></admin-users-card>
+
+        <footer class="admin-pagination">
+            <div class="admin-pagination__container">
+                <button v-wave @click="prevPage">Prev</button>
+                <button v-wave @click="nextPage">Next</button>
+            </div>
+        </footer>
     </div>
 </template>
 
-<script>
-export default {}
+<script setup>
+import { onMounted, computed } from 'vue'
+import { useStore } from 'vuex'
+const store = useStore()
+
+onMounted(() => store.dispatch('admin/getUsers'))
+const selectUser = (id) => store.commit('admin/setSelectedUser', id)
+
+const users = computed(() => store.state.admin.users)
+const selected = computed(() => store.getters['admin/selectedUsers']?.length)
+
+const nextPage = () => store.dispatch('admin/nextPage')
+const prevPage = () => store.dispatch('admin/prevPage')
 </script>
 
 <style></style>
