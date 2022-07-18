@@ -72,6 +72,11 @@
             font-weight: 600;
             margin-right: 20px;
         }
+        input[type='search'] {
+            border: 1px solid $limeColor;
+            margin-right: 12px;
+            padding: 5px 15px;
+        }
     }
 }
 

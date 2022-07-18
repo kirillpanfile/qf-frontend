@@ -4,7 +4,8 @@
             <div>Users Selected : {{ selected }}</div>
             <div>
                 <button v-wave @click="">Ban</button>
-                <button v-wave @click="">Suspend</button>
+                <input type="search" name="" id="" v-model="search" placeholder="Search by username" />
+                <button v-wave @click="searchUser">Search</button>
                 <button v-wave @click="deleteMultiple">Delete</button>
             </div>
         </header>
@@ -33,7 +34,9 @@
                 >
                     {{ item }}
                 </button>
-                <button class="btn-pagination" v-if="currentPage < pages" @click="setPage(pages)">{{ pages }}</button>
+                <button class="btn-pagination" v-if="currentPage + 2 < pages" @click="setPage(pages)">
+                    {{ pages }}
+                </button>
                 <button v-wave @click="nextPage">Next</button>
             </div>
         </footer>
@@ -41,30 +44,21 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
+const search = ref('')
 
-//load
 onMounted(() => store.dispatch('admin/getUsers'))
 const selectUser = (id) => store.commit('admin/setSelectedUser', id)
+const createPages = (from, to) => [...Array(to - from + 1).keys()].map((i) => i + from)
+const setPage = (page) => store.dispatch('admin/setPage', page)
 
-//Computed
 const users = computed(() => store.state.admin.users)
 const selected = computed(() => store.getters['admin/selectedUsers']?.length)
 const pages = computed(() => store.state.admin.pages)
 const currentPage = computed(() => store.state.admin.currentPage)
 
-// pagesToShow is a  function that returns an array of numbers from to
-const createPages = (from, to) => {
-    let pages = []
-    for (let i = from; i <= to; i++) pages.push(i)
-    return pages
-}
-
-const setPage = (page) => store.dispatch('admin/setPage', page)
-
-// pagesToShow is a computed that returns an array of pages to show
 const pagesToShow = computed(() => {
     if (currentPage.value > 1 && currentPage.value < pages.value - 2)
         return createPages(currentPage.value - 1, currentPage.value + 2)
@@ -72,10 +66,14 @@ const pagesToShow = computed(() => {
     if (currentPage.value >= pages.value - 2) return createPages(pages.value - 3, pages.value)
 })
 
+const searchUser = () => store.dispatch('admin/searchUser', search.value)
+watch(search, (val) => {
+    if (val.length == 0) {
+        store.dispatch('admin/getUsers')
+    }
+})
 const deleteMultiple = () => store.dispatch('admin/deleteMultiple')
-// nextPage is a function that returns the next page
 const nextPage = () => store.dispatch('admin/nextPage')
-// prevPage is a function that returns the previous page
 const prevPage = () => store.dispatch('admin/prevPage')
 </script>
 

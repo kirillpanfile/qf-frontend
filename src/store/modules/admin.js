@@ -5,8 +5,9 @@ import { checkSelected, checkRole, showError, headers } from './admin.utils'
 
 const signIn = `${cfg.URL}/api/auth/signin`
 const allPages = `${cfg.URL}/api/users/pages`
-const deleteUser = (id) => `${cfg.URL}/api/delete/${id}`
 const deleteMultipleUsers = `${cfg.URL}/api/deleteMultiple`
+
+const deleteUser = (id) => `${cfg.URL}/api/delete/${id}`
 const usersPages = (page) => `${cfg.URL}/api/users?page=${page}`
 
 export default {
@@ -82,20 +83,18 @@ export default {
             }
         },
         async getUsers({ commit }) {
-            if (this.state.admin.users.length == 0) {
-                try {
-                    const { data } = await axios.get(usersPages(this.state.admin.currentPage), {
-                        headers: headers(this.state.admin.accessToken),
-                    })
+            try {
+                const { data } = await axios.get(usersPages(this.state.admin.currentPage), {
+                    headers: headers(this.state.admin.accessToken),
+                })
 
-                    const pages = await axios.get(allPages, {
-                        headers: headers(this.state.admin.accessToken),
-                    })
-                    commit('users', data)
-                    commit('pages', pages.data)
-                } catch (error) {
-                    showError(error)
-                }
+                const pages = await axios.get(allPages, {
+                    headers: headers(this.state.admin.accessToken),
+                })
+                commit('users', data)
+                commit('pages', pages.data)
+            } catch (error) {
+                showError(error)
             }
         },
 
@@ -128,9 +127,19 @@ export default {
                 showError(error)
             }
         },
+        async searchUser({ commit }, payload) {
+            try {
+                const { data } = await axios.get(`${cfg.URL}/api/users/search/${payload}`, {
+                    headers: headers(this.state.admin.accessToken),
+                })
+                console.log(data)
+                commit('users', data)
+            } catch (error) {
+                showError(error)
+            }
+        },
 
         nextPage({ dispatch, commit }) {
-            this.getters['admin/selectedUsers']
             commit('nextPage')
             dispatch('getUsers')
         },
