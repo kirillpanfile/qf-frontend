@@ -41,7 +41,7 @@ const props = defineProps({
 })
 
 const roles = computed(() => {
-    return props.user.roles.map((item) => item.name).join(', ')
+    return props.user.roles
 })
 
 const deleteUser = () => {

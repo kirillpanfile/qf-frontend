@@ -5,9 +5,9 @@ import { checkSelected, checkRole, showError, headers } from './admin.utils'
 
 const signIn = `${cfg.URL}/api/auth/signin`
 const allPages = `${cfg.URL}/api/users/pages`
-const deleteMultipleUsers = `${cfg.URL}/api/deleteMultiple`
+const deleteMultipleUsers = `${cfg.URL}/api/users/deleteMultiple`
 
-const deleteUser = (id) => `${cfg.URL}/api/delete/${id}`
+const deleteUser = (id) => `${cfg.URL}/api/users/delete/${id}`
 const usersPages = (page) => `${cfg.URL}/api/users?page=${page}`
 
 export default {
