@@ -38,7 +38,7 @@
             <div class="admin-post__form-wrapper">
                 <div class="admin-post__form-group">
                     <label for="time">Time</label>
-                    <input placeholder="Time" type="number" id="time" required />
+                    <input placeholder="Time" v-model="time" type="number" id="time" required />
                     <small>minutes</small>
                 </div>
                 <div class="admin-post__form-group">
@@ -55,8 +55,20 @@
                 <button type="button" @click="addStep">Add step</button>
                 <div class="admin-post__form-group" v-if="steps.length > 0">
                     <h1>Steps</h1>
-                    <ul class="admin-post__form-cell">
-                        <li v-for="(item,index) in steps"><strong>{{index+1}}.</strong> {{item}}</li>
+                    <ul>
+                        <li class="admin-post__form-cell" v-for="(item, index) in steps" :key="item">
+                            <div v-if="!editStepFlag">
+                                <strong>{{ index + 1 }}.</strong> {{ item }}
+                            </div>
+                            <div v-else>
+                                <input type="textarea" v-model="editedStep">
+                            </div>
+                            <div class="flex-gap5">
+                                <button type="button" v-if="!editStepFlag" @click=" editStep(index)" class="admin-post__button">✍️</button>
+                                <button type="button" v-else @click="confirmEditStep(index)">V</button>
+                                <button type="button" @click="deleteStep(index)" class="admin-post__button">✖</button>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -134,14 +146,20 @@ const title = ref(''),
         { id: 4, name: 'Contact' },
         { id: 5, name: 'Other' },
     ]),
+    time = ref(0),
+    temperature = ref('Cold'),
     step = ref(''),
-    steps = ref([]),
-    temperature = ref('Cold')
+    steps = ref([])
+    
 
 const search = ref(false)
 const searchInput = ref('')
 
 const timer = ref(null)
+
+
+let editStepFlag = ref(false)
+let editedStep = ref('')
 
 const searchValue = (e) => {
     clearTimeout(timer.value)
@@ -150,14 +168,33 @@ const searchValue = (e) => {
     }, 500)
 }
 
-const addStep = () =>{
-    if(step.value.length > 0){
-        steps.value.push(step.value);
+const addStep = () => {
+    if (step.value.length > 0) {
+        steps.value.push(step.value)
         step.value = ''
     }
-} 
+}
+
+const editStep = (index) => {
+    editStepFlag.value = true
+    editedStep.value = steps.value[index]
+}
+
+const confirmEditStep = (index) =>{
+    steps.value[index] = editedStep.value
+    editStepFlag.value = false
+    editedStep.value = ''
+}
+
+const deleteStep = (index) =>{
+    steps.value.splice(index,1);
+}
 
 watch(searchInput, (value) => {
     if (value.length < 1) search.value = false
+})
+
+watch(time, () => {
+    if (time.value < 0) time.value = 0
 })
 </script>
