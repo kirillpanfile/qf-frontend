@@ -35,6 +35,31 @@
                 <label for="image">Image</label>
                 <input placeholder="Select Image" type="file" id="image" required />
             </div>
+            <div class="admin-post__form-wrapper">
+                <div class="admin-post__form-group">
+                    <label for="time">Time</label>
+                    <input placeholder="Time" type="number" id="time" required />
+                    <small>minutes</small>
+                </div>
+                <div class="admin-post__form-group">
+                    <label for="temperature">Temperature</label>
+                    <select id="temperature" v-model="temperature" required>
+                        <option value="Cold">Cold</option>
+                        <option value="Hot">Hot</option>
+                    </select>
+                </div>
+            </div>
+            <div class="admin-post__form-group">
+                <label for="steps">Steps:</label>
+                <textarea v-model="step" id="steps" placeholder="Add a step..."></textarea>
+                <button type="button" @click="addStep">Add step</button>
+                <div class="admin-post__form-group" v-if="steps.length > 0">
+                    <h1>Steps</h1>
+                    <ul class="admin-post__form-cell">
+                        <li v-for="(item,index) in steps"><strong>{{index+1}}.</strong> {{item}}</li>
+                    </ul>
+                </div>
+            </div>
             <div class="admin-post__form-group">
                 <button type="submit">Create</button>
             </div>
@@ -108,7 +133,10 @@ const title = ref(''),
         { id: 3, name: 'About' },
         { id: 4, name: 'Contact' },
         { id: 5, name: 'Other' },
-    ])
+    ]),
+    step = ref(''),
+    steps = ref([]),
+    temperature = ref('Cold')
 
 const search = ref(false)
 const searchInput = ref('')
@@ -122,9 +150,14 @@ const searchValue = (e) => {
     }, 500)
 }
 
+const addStep = () =>{
+    if(step.value.length > 0){
+        steps.value.push(step.value);
+        step.value = ''
+    }
+} 
+
 watch(searchInput, (value) => {
     if (value.length < 1) search.value = false
 })
 </script>
-
-<style></style>
