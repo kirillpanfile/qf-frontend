@@ -12,11 +12,11 @@
                 <h1>{{ user.username }}</h1>
                 <div class="admin-user__line"></div>
                 <h1>{{ user.email }}</h1>
-                <div class="admin-user__line"></div>
-                <h1>Roles: '{{ roles }}'</h1>
+                <div class="admin-user__line hide-tablet"></div>
+                <h1 class="hide-tablet">Roles: '{{ roles }}'</h1>
             </div>
             <div class="admin-user__buttons">
-                <button @click.stop class="admin-user__button btn-primary">✍️</button>
+                <button @click.stop class="admin-user__button">✍️</button>
                 <button @click.stop class="admin-user__button btn-danger" @click="deleteUser">✖</button>
             </div>
         </div>

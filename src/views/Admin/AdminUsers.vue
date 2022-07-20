@@ -2,9 +2,9 @@
     <div class="admin-user__wrapper">
         <header class="admin-users__header">
             <div>Users Selected : {{ selected }}</div>
-            <div>
+            <div class="header-buttons">
                 <button v-wave @click="">Ban</button>
-                <input type="search" name="" id="" v-model="search" placeholder="Search by username" />
+                <input type="search" v-model="search" placeholder="Search by username" />
                 <button v-wave @click="searchUser">Search</button>
                 <button v-wave @click="deleteMultiple">Delete</button>
             </div>

@@ -1,7 +1,10 @@
 <template>
     <header class="admin-header">
         <div class="admin-header__container">
-            <h1 class="admin-header__title">Admin</h1>
+            <div class="admin-header__bungher">
+                <div class="admin-header__menu" @click="$emit('openBungher')"></div>
+                <h1 class="admin-header__title">Admin</h1>
+            </div>    
             <ul class="admin-header__info">
                 <li class="admin-header__item">
                     <h1>{{ user.username }}</h1>
@@ -19,10 +22,11 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed,ref } from 'vue'
 
 // consts
 const store = useStore()
+const bungherFlag = ref(false)
 
 //user
 const user = computed(() => store.state.admin.user)

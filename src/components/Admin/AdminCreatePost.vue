@@ -4,11 +4,11 @@
         <form class="admin-post__form" @submit.prevent="createPost">
             <div class="admin-post__form-group">
                 <label for="title">Title</label>
-                <input placeholder="title" type="text" id="title" v-model="post.title" required />
+                <input placeholder="Title" type="text" id="title" v-model="post.title" required />
             </div>
             <div class="admin-post__form-group">
                 <div class="">Description</div>
-                <textarea placeholder="description" id="content" v-model="post.content" required></textarea>
+                <textarea placeholder="Description" id="content" v-model="post.content" required></textarea>
             </div>
             <div class="admin-post__form-group">
                 <label for="category">Category</label>

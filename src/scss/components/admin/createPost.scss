@@ -14,6 +14,11 @@
     &__form {
         width: 600px;
         margin: 0 auto;
+        @media (max-width: $tablet){
+            max-width: 660px;
+            width: auto;
+            @include adaptiveValue("padding",20,10);
+        }
     }
 
     // .admin-post__form-group
@@ -23,12 +28,15 @@
         margin-bottom: 12px;
         input {
             border: 1px solid $limeColor;
+            max-width: 660px;
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            // border-top: 1px solid $limeColor;
             &:focus {
                 outline: none;
+            }
+            @media (max-width: $tablet){
+                width: 100%;
             }
         }
         textarea {
@@ -36,7 +44,6 @@
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            // border-top: 1px solid $limeColor;
             &:focus {
                 outline: none;
             }
@@ -46,7 +53,6 @@
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            // border-top: 1px solid $limeColor;
             &:focus {
                 outline: none;
             }
