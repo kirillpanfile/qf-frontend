@@ -10,10 +10,9 @@
     </main>
 </template>
 
-<script>
-export default {
-    name: 'Admin',
-}
+<script setup>
+import AdminAside from '@/components/Admin/AdminAside.vue'
+import AdminHeader from '@/components/Admin/AdminHeader.vue'
 </script>
 
 <style></style>

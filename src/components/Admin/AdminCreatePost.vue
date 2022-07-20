@@ -4,15 +4,15 @@
         <form class="admin-post__form" @submit.prevent="createPost">
             <div class="admin-post__form-group">
                 <label for="title">Title</label>
-                <input placeholder="title" type="text" id="title" v-model="title" required />
+                <input placeholder="title" type="text" id="title" v-model="post.title" required />
             </div>
             <div class="admin-post__form-group">
                 <div class="">Description</div>
-                <textarea placeholder="description" id="content" v-model="content" required></textarea>
+                <textarea placeholder="description" id="content" v-model="post.content" required></textarea>
             </div>
             <div class="admin-post__form-group">
                 <label for="category">Category</label>
-                <select id="category" v-model="category" required>
+                <select id="category" v-model="post.category" required>
                     <option value="">Select a category</option>
                     <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                 </select>
@@ -38,12 +38,12 @@
             <div class="admin-post__form-wrapper">
                 <div class="admin-post__form-group">
                     <label for="time">Time</label>
-                    <input placeholder="Time" v-model="time" type="number" id="time" required />
+                    <input placeholder="Time" v-model="post.time" type="number" id="time" required />
                     <small>minutes</small>
                 </div>
                 <div class="admin-post__form-group">
                     <label for="temperature">Temperature</label>
-                    <select id="temperature" v-model="temperature" required>
+                    <select id="temperature" v-model="post.temperature" required>
                         <option value="Cold">Cold</option>
                         <option value="Hot">Hot</option>
                     </select>
@@ -53,20 +53,35 @@
                 <label for="steps">Steps:</label>
                 <textarea v-model="step" id="steps" placeholder="Add a step..."></textarea>
                 <button type="button" @click="addStep">Add step</button>
-                <div class="admin-post__form-group" v-if="steps.length > 0">
+                <div class="admin-post__form-group" v-if="post.steps.length > 0">
                     <h1>Steps</h1>
                     <ul>
-                        <li class="admin-post__form-cell" v-for="(item, index) in steps" :key="item">
-                            <div v-if="!editStepFlag">
+                        <li class="admin-post__form-cell" v-for="(item, index) in post.steps" :key="item">
+                            <div v-if="activeStep.index !== index">
                                 <strong>{{ index + 1 }}.</strong> {{ item }}
                             </div>
                             <div v-else>
-                                <input type="textarea" v-model="editedStep">
+                                <textarea v-model="activeStep.step" name="" id=""></textarea>
                             </div>
                             <div class="flex-gap5">
-                                <button type="button" v-if="!editStepFlag" @click=" editStep(index)" class="admin-post__button">✍️</button>
-                                <button type="button" v-else @click="confirmEditStep(index)">V</button>
-                                <button type="button" @click="deleteStep(index)" class="admin-post__button">✖</button>
+                                <button
+                                    v-if="activeStep.index !== index"
+                                    type="button"
+                                    @click="editStep(index)"
+                                    class="admin-post__button"
+                                >
+                                    ✍️
+                                </button>
+                                <button v-else type="button" @click="saveStep" class="admin-post__button">✔️</button>
+
+                                <button
+                                    v-if="activeStep.index != index"
+                                    type="button"
+                                    @click="deleteStep(index)"
+                                    class="admin-post__button"
+                                >
+                                    ✖
+                                </button>
                             </div>
                         </li>
                     </ul>
@@ -85,116 +100,59 @@ export default { name }
 </script>
 
 <script setup>
-import { ref, watch } from 'vue'
-const title = ref(''),
-    content = ref(''),
-    category = ref(''),
-    ingredients = ref([
-        {
-            id: 1,
-            name: 'Tomato',
-        },
-        {
-            id: 2,
-            name: 'Cheese',
-        },
-        {
-            id: 3,
-            name: 'Onion',
-        },
-        {
-            id: 4,
-            name: 'Garlic',
-        },
-        {
-            id: 5,
-            name: 'Parsley',
-        },
-        {
-            id: 6,
-            name: 'Salt',
-        },
-        {
-            id: 7,
-            name: 'Pepper',
-        },
-        {
-            id: 8,
-            name: 'celery',
-        },
-        {
-            id: 9,
-            name: 'carrot',
-        },
-        {
-            id: 10,
-            name: 'cucumber',
-        },
-        {
-            id: 11,
-            name: 'mushroom',
-        },
-        {
-            id: 12,
-            name: 'olive',
-        },
-    ]),
-    categories = ref([
-        { id: 1, name: 'News' },
-        { id: 2, name: 'Events' },
-        { id: 3, name: 'About' },
-        { id: 4, name: 'Contact' },
-        { id: 5, name: 'Other' },
-    ]),
-    time = ref(0),
-    temperature = ref('Cold'),
-    step = ref(''),
-    steps = ref([])
-    
+import { ref, watch, reactive } from 'vue'
 
+const step = ref('')
 const search = ref(false)
 const searchInput = ref('')
-
 const timer = ref(null)
 
+const post = reactive({
+    title: '',
+    content: '',
+    category: '',
+    ingredients: [],
+    steps: [],
+    category: '',
+    time: 0,
+    temperature: 'Cold',
+})
 
-let editStepFlag = ref(false)
-let editedStep = ref('')
+const ingredients = { ...['Tomato', 'Cheese', 'Onion', 'Garlic', 'Parsley'] }
+const activeStep = reactive({ index: null, step: null })
 
-const searchValue = (e) => {
+const categories = [
+    { id: 1, name: 'Breakfast' },
+    { id: 2, name: 'Lunch' },
+    { id: 3, name: 'Dinner' },
+    { id: 4, name: 'Dessert' },
+    { id: 5, name: 'Snack' },
+]
+
+const searchValue = () => {
     clearTimeout(timer.value)
-    timer.value = setTimeout(() => {
-        search.value = true
-    }, 500)
+    timer.value = setTimeout(() => (search.value = true), 500)
 }
 
-const addStep = () => {
-    if (step.value.length > 0) {
-        steps.value.push(step.value)
-        step.value = ''
-    }
+const clearStep = () => {
+    post.steps.push(step.value)
+    step.value = ''
 }
+
+const addStep = () => (step.value.length > 0 ? clearStep() : void 0)
 
 const editStep = (index) => {
-    editStepFlag.value = true
-    editedStep.value = steps.value[index]
+    saveStep()
+    activeStep.index = index
+    activeStep.step = post.steps[index]
 }
 
-const confirmEditStep = (index) =>{
-    steps.value[index] = editedStep.value
-    editStepFlag.value = false
-    editedStep.value = ''
+const saveStep = () => {
+    post.steps[activeStep.index] = activeStep.step
+    activeStep.index = null
+    activeStep.step = null
 }
 
-const deleteStep = (index) =>{
-    steps.value.splice(index,1);
-}
-
-watch(searchInput, (value) => {
-    if (value.length < 1) search.value = false
-})
-
-watch(time, () => {
-    if (time.value < 0) time.value = 0
-})
+const deleteStep = (index) => post.steps.splice(index, 1)
+watch(searchInput, (value) => (value.length < 1 ? (search.value = false) : void 0))
 </script>

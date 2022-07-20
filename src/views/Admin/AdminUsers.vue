@@ -44,6 +44,7 @@
 </template>
 
 <script setup>
+import AdminUsersCard from '@/components/Admin/AdminUsersCard.vue'
 import { onMounted, computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
@@ -58,6 +59,10 @@ const users = computed(() => store.state.admin.users)
 const selected = computed(() => store.getters['admin/selectedUsers']?.length)
 const pages = computed(() => store.state.admin.pages)
 const currentPage = computed(() => store.state.admin.currentPage)
+const deleteMultiple = () => store.dispatch('admin/deleteMultiple')
+const nextPage = () => store.dispatch('admin/nextPage')
+const prevPage = () => store.dispatch('admin/prevPage')
+const searchUser = () => store.dispatch('admin/searchUser', search.value)
 
 const pagesToShow = computed(() => {
     if (currentPage.value > 1 && currentPage.value < pages.value - 2)
@@ -66,15 +71,7 @@ const pagesToShow = computed(() => {
     if (currentPage.value >= pages.value - 2) return createPages(pages.value - 3, pages.value)
 })
 
-const searchUser = () => store.dispatch('admin/searchUser', search.value)
-watch(search, (val) => {
-    if (val.length == 0) {
-        store.dispatch('admin/getUsers')
-    }
-})
-const deleteMultiple = () => store.dispatch('admin/deleteMultiple')
-const nextPage = () => store.dispatch('admin/nextPage')
-const prevPage = () => store.dispatch('admin/prevPage')
+watch(search, (val) => (val.length == 0 ? store.dispatch('admin/getUsers') : void 0))
 </script>
 
 <style></style>

@@ -17,10 +17,6 @@
     </aside>
 </template>
 
-<script>
-export default {
-    name: 'AdminAside',
-}
-</script>
+<script setup></script>
 
 <style></style>

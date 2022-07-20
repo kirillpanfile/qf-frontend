@@ -23,12 +23,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'AdminUsersCard',
-}
-</script>
-
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
@@ -40,13 +34,8 @@ const props = defineProps({
     },
 })
 
-const roles = computed(() => {
-    return props.user.roles
-})
-
-const deleteUser = () => {
-    store.dispatch('admin/deleteUser', props.user._id)
-}
+const roles = computed(() => props.user.roles)
+const deleteUser = () => store.dispatch('admin/deleteUser', props.user._id)
 </script>
 
 <style></style>

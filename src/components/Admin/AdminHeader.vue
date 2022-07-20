@@ -17,12 +17,6 @@
     </header>
 </template>
 
-<script>
-export default {
-    name: 'AdminHeader',
-}
-</script>
-
 <script setup>
 import { useStore } from 'vuex'
 import { computed } from 'vue'

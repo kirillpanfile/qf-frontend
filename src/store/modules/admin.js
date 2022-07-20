@@ -3,12 +3,14 @@ import axios from 'axios'
 import router from '@/router'
 import { checkSelected, checkRole, showError, headers } from './admin.utils'
 
-const signIn = `${cfg.URL}/api/auth/signin`
-const allPages = `${cfg.URL}/api/users/pages`
-const deleteMultipleUsers = `${cfg.URL}/api/users/deleteMultiple`
-
-const deleteUser = (id) => `${cfg.URL}/api/users/delete/${id}`
-const usersPages = (page) => `${cfg.URL}/api/users?page=${page}`
+const adminApi = {
+    signIn: `${cfg.URL}/api/auth/signin`,
+    allPages: `${cfg.URL}/api/users/pages`,
+    deleteMultipleUsers: `${cfg.URL}/api/users/deleteMultiple`,
+    usersPages: (page) => `${cfg.URL}/api/users?page=${page}`,
+    deleteUser: (id) => `${cfg.URL}/api/users/delete/${id}`,
+    search: (payload) => `${cfg.URL}/api/users/search/${payload}`,
+}
 
 export default {
     namespaced: true,
@@ -75,7 +77,7 @@ export default {
             commit('logoutAdmin')
 
             try {
-                const { data } = await axios.post(signIn, payload)
+                const { data } = await axios.post(adminApi.signIn, payload)
                 if (checkRole(data)) commit('authAdmin', data)
                 else throw { message: 'You are not an admin', code: 'UNA' }
             } catch (error) {
@@ -84,11 +86,11 @@ export default {
         },
         async getUsers({ commit }) {
             try {
-                const { data } = await axios.get(usersPages(this.state.admin.currentPage), {
+                const { data } = await axios.get(adminApi.usersPages(this.state.admin.currentPage), {
                     headers: headers(this.state.admin.accessToken),
                 })
 
-                const pages = await axios.get(allPages, {
+                const pages = await axios.get(adminApi.allPages, {
                     headers: headers(this.state.admin.accessToken),
                 })
                 commit('users', data)
@@ -100,7 +102,7 @@ export default {
 
         async deleteUser({ commit }, id) {
             try {
-                await axios.delete(deleteUser(id), {
+                await axios.delete(adminApi.deleteUser(id), {
                     headers: headers(this.state.admin.accessToken),
                 })
                 commit(
@@ -114,11 +116,10 @@ export default {
         async deleteMultiple({ commit }) {
             const selected = this.getters['admin/selectedUsers'].map((user) => user._id)
             try {
-                const data = await axios.delete(deleteMultipleUsers, {
+                await axios.delete(adminApi.deleteMultipleUsers, {
                     headers: headers(this.state.admin.accessToken),
                     ids: selected,
                 })
-                console.log(data)
                 commit(
                     'users',
                     this.state.admin.users.filter((user) => !selected.includes(user._id))
@@ -129,10 +130,9 @@ export default {
         },
         async searchUser({ commit }, payload) {
             try {
-                const { data } = await axios.get(`${cfg.URL}/api/users/search/${payload}`, {
+                const { data } = await axios.get(adminApi.search(payload), {
                     headers: headers(this.state.admin.accessToken),
                 })
-                console.log(data)
                 commit('users', data)
             } catch (error) {
                 showError(error)
