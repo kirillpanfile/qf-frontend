@@ -13,6 +13,10 @@
                         <input type="password" id="password" class="admin__login-form-input" v-model="password" />
                     </div>
                     <div class="admin__login-form-group">
+                        <input type="checkbox" name="remember">
+                        <label for="remember">Remember</label>
+                    </div>
+                    <div class="admin__login-form-group">
                         <button v-wave type="submit" class="admin__login-form-button">Login</button>
                     </div>
                 </form>
