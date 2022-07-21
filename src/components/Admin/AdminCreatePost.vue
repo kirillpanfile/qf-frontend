@@ -94,65 +94,21 @@
     </div>
 </template>
 
-<script>
-const name = 'AdminCreatePost'
-export default { name }
-</script>
-
 <script setup>
 import { ref, watch, reactive } from 'vue'
+import { usePost, useActiveStep } from '@/composables/post'
 
-const step = ref('')
+const { post, categories, ingredients } = usePost()
+const { activeStep, addStep, editStep, deleteStep, saveStep, step } = useActiveStep()
+
+const timer = ref(null)
 const search = ref(false)
 const searchInput = ref('')
-const timer = ref(null)
-
-const post = reactive({
-    title: '',
-    content: '',
-    category: '',
-    ingredients: [],
-    steps: [],
-    category: '',
-    time: 0,
-    temperature: 'Cold',
-})
-
-const ingredients = { ...['Tomato', 'Cheese', 'Onion', 'Garlic', 'Parsley'] }
-const activeStep = reactive({ index: null, step: null })
-
-const categories = [
-    { id: 1, name: 'Breakfast' },
-    { id: 2, name: 'Lunch' },
-    { id: 3, name: 'Dinner' },
-    { id: 4, name: 'Dessert' },
-    { id: 5, name: 'Snack' },
-]
 
 const searchValue = () => {
     clearTimeout(timer.value)
     timer.value = setTimeout(() => (search.value = true), 500)
 }
 
-const clearStep = () => {
-    post.steps.push(step.value)
-    step.value = ''
-}
-
-const addStep = () => (step.value.length > 0 ? clearStep() : void 0)
-
-const editStep = (index) => {
-    saveStep()
-    activeStep.index = index
-    activeStep.step = post.steps[index]
-}
-
-const saveStep = () => {
-    post.steps[activeStep.index] = activeStep.step
-    activeStep.index = null
-    activeStep.step = null
-}
-
-const deleteStep = (index) => post.steps.splice(index, 1)
 watch(searchInput, (value) => (value.length < 1 ? (search.value = false) : void 0))
 </script>
