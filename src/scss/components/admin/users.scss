@@ -98,6 +98,12 @@
         input[type='search'] {
             border: 1px solid $limeColor;
             padding: 5px 15px;
+            width: 100%;
+            @media (max-width: $mobile){
+                @include adaptiveValue("padding-left",15,5);
+                @include adaptiveValue("padding-right",15,5);
+                
+            }
         }
     }
 }
