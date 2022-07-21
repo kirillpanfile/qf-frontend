@@ -132,5 +132,15 @@
     }
 }
 
+.open{
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    background-color: white;
+    @media (max-width: $mobileSmall){
+        width: 100%;
+    }
+}
+
 @import 'users';
 @import 'createPost'
