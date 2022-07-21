@@ -1,5 +1,5 @@
 <template>
-    <aside class="admin-sidebar">
+    <aside class="admin-sidebar" id="admin-sidebar">
         <ul class="admin-sidebar__lisl">
             <router-link to="/admin/users">
                 <li v-wave class="admin-sidebar__item active">Users</li>
@@ -17,6 +17,10 @@
     </aside>
 </template>
 
-<script setup></script>
+<script setup>
+//? Functa open deschide sidebar -- scrii logica aici (asta vine din emit) ? //
+const open = () => document.getElementById('admin-sidebar').classList.toggle('open')
+defineExpose({ open })
+</script>
 
 <style></style>
