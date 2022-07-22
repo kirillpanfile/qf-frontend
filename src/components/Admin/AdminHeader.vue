@@ -22,14 +22,14 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
 import { computed } from 'vue'
 
-// consts
-const store = useStore()
+import { useAdminStore } from '@/state/adminStore'
+import { storeToRefs } from 'pinia'
+const admin = useAdminStore()
+const { user } = storeToRefs(admin)
 
 //user
-const user = computed(() => store.state.admin.user)
 const role = computed(() => (user?.value.roles.includes('ROLE_ADMIN') ? 'SuperAdmin' : 'Moderator'))
 
 //logout

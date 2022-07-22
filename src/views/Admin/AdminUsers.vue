@@ -3,9 +3,9 @@
         <header class="admin-users__header">
             <div>Users Selected : {{ selected }}</div>
             <div class="header-buttons">
-                <button v-wave @click="">Ban</button>
+                <button v-wave>Ban</button>
                 <input type="search" v-model="search" placeholder="Search by username" />
-                <button v-wave @click="searchUser">Search</button>
+                <button v-wave @click="searchUser(search)">Search</button>
                 <button v-wave @click="deleteMultiple">Delete</button>
             </div>
         </header>
@@ -46,23 +46,18 @@
 <script setup>
 import AdminUsersCard from '@/components/Admin/AdminUsersCard.vue'
 import { onMounted, computed, ref, watch } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
+import { storeToRefs } from 'pinia'
+import { useAdminStore } from '@/state/adminStore'
 const search = ref('')
 
-onMounted(() => store.dispatch('admin/getUsers'))
-const selectUser = (id) => store.commit('admin/setSelectedUser', id)
-const createPages = (from, to) => [...Array(to - from + 1).keys()].map((i) => i + from)
-const setPage = (page) => store.dispatch('admin/setPage', page)
+const admin = useAdminStore()
 
-const users = computed(() => store.state.admin.users)
-const selected = computed(() => store.getters['admin/selectedUsers']?.length)
-const pages = computed(() => store.state.admin.pages)
-const currentPage = computed(() => store.state.admin.currentPage)
-const deleteMultiple = () => store.dispatch('admin/deleteMultiple')
-const nextPage = () => store.dispatch('admin/nextPage')
-const prevPage = () => store.dispatch('admin/prevPage')
-const searchUser = () => store.dispatch('admin/searchUser', search.value)
+const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMultiple } = admin // methods
+const { users, pages, currentPage } = storeToRefs(admin) // state
+
+onMounted(() => loadUsers())
+
+const createPages = (from, to) => [...Array(to - from + 1).keys()].map((i) => i + from)
 
 const pagesToShow = computed(() => {
     if (currentPage.value > 1 && currentPage.value < pages.value - 2)
@@ -71,7 +66,9 @@ const pagesToShow = computed(() => {
     if (currentPage.value >= pages.value - 2) return createPages(pages.value - 3, pages.value)
 })
 
-watch(search, (val) => (val.length == 0 ? store.dispatch('admin/getUsers') : void 0))
+watch(search, (val) => {
+    if (val.length === 0) loadUsers()
+})
 </script>
 
 <style></style>
