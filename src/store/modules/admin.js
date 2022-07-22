@@ -75,11 +75,21 @@ export default {
     actions: {
         async authAdmin({ commit }, payload) {
             commit('logoutAdmin')
-
             try {
                 const { data } = await axios.post(adminApi.signIn, payload)
                 if (checkRole(data)) commit('authAdmin', data)
                 else throw { message: 'You are not an admin', code: 'UNA' }
+            } catch (error) {
+                showError(error)
+            }
+        },
+        async rememberUser(_) {
+            try {
+                console.log(headers(this.state.admin.accessToken))
+                const cookie = await axios.get(`${cfg.URL}/api/auth/remember`, {
+                    headers: headers(this.state.admin.accessToken),
+                })
+                console.log('cookie', cookie)
             } catch (error) {
                 showError(error)
             }

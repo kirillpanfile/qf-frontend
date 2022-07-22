@@ -1,13 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import admin from '@/store/modules/admin'
+import { useAdminStore } from '@/state/adminStore'
+import { storeToRefs } from 'pinia'
 
-// Check if admin is authenticated
 const checkAuth = (to, from, next) => {
-    if (to.path.includes('/admin') && !admin.state.accessToken && !admin.state.user) {
-        next('/admin-login')
-        return
-    }
-    next()
+    const admin = useAdminStore()
+    const { accessToken, user } = storeToRefs(admin)
+    if (!accessToken.value && !user.value) next('/admin-login')
+    else next()
 }
 
 const routes = [
@@ -39,12 +38,23 @@ const routes = [
                 name: 'admin-settings',
                 component: () => import(/* webpackChunkName: "AdminSettings" */ '../views/Admin/AdminSettings.vue'),
             },
+            {
+                //catchall
+                path: '/admin/:catchAll(.*)',
+                redirect: '/admin/dashboard',
+            },
         ],
     },
     {
         path: '/admin-login',
         name: 'admin-login',
-
+        children: [
+            {
+                //
+                path: '/admin-login/:catchAll(.*)',
+                redirect: '/admin/dashboard',
+            },
+        ],
         component: () => import(/* webpackChunkName: "AdminLogin" */ '../views/Admin/AdminLogin.vue'),
     },
 ]

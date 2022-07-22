@@ -3,7 +3,10 @@ import { createApp, defineAsyncComponent } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+// ============================================================
 import Notifications from '@kyvg/vue3-notification'
+import { createPinia } from 'pinia'
 import VWave from 'v-wave'
 
 //styles
@@ -15,6 +18,7 @@ const uiComponents = autoImportComponents()
 
 //create Vue app
 const app = createApp(App)
+const pinia = createPinia()
 
 //if node env is development, then use devtools
 if (process.env.NODE_ENV === 'development') {
@@ -37,4 +41,4 @@ uiComponents
 //If you want to use the custom element as a component, you need to explicitly import it.
 
 //create app
-app.use(store).use(router).use(Notifications).use(VWave).mount('#app')
+app.use(store).use(router).use(Notifications).use(VWave).use(pinia).mount('#app')
