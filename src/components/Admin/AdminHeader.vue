@@ -1,5 +1,5 @@
 <template>
-    <header class="admin-header">
+    <header class="admin-header" v-if="user">
         <div class="admin-header__container">
             <div class="admin-header__bungher">
                 <!-- TODO Clicku lucreaza cand apesi numa pe linie la bunger menu _ De fixanit -->
@@ -23,17 +23,17 @@
 
 <script setup>
 import { computed } from 'vue'
-
-import { useAdminStore } from '@/state/adminStore'
+import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
 const admin = useAdminStore()
-const { user } = storeToRefs(admin)
+
+const { user } = storeToRefs(admin) // state
+const { logOut } = admin // actions
 
 //user
 const role = computed(() => (user?.value.roles.includes('ROLE_ADMIN') ? 'SuperAdmin' : 'Moderator'))
 
 //logout
-const logOut = () => store.commit('admin/logoutAdmin')
 </script>
 
 <style></style>

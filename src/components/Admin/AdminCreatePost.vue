@@ -95,7 +95,7 @@
 </template>
 
 <script setup>
-import { ref, watch, reactive } from 'vue'
+import { ref, watch } from 'vue'
 import { usePost, useActiveStep } from '@/composables/post'
 
 const { post, categories, ingredients } = usePost()

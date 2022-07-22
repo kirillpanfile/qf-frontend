@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { useAdminStore } from '@/state/adminStore'
+import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
 
 const checkAuth = (to, from, next) => {

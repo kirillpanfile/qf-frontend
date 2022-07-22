@@ -1,7 +1,7 @@
 <template>
     <div class="admin-user__wrapper">
         <header class="admin-users__header">
-            <div>Users Selected : {{ selected }}</div>
+            <div>Users Selected : {{ selectedUsers.length }}</div>
             <div class="header-buttons">
                 <button v-wave>Ban</button>
                 <input type="search" v-model="search" placeholder="Search by username" />
@@ -47,15 +47,14 @@
 import AdminUsersCard from '@/components/Admin/AdminUsersCard.vue'
 import { onMounted, computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useAdminStore } from '@/state/adminStore'
+import { useAdminStore } from '@/store/adminStore'
+
 const search = ref('')
-
 const admin = useAdminStore()
-
-const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMultiple } = admin // methods
-const { users, pages, currentPage } = storeToRefs(admin) // state
-
 onMounted(() => loadUsers())
+
+const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMultiple } = admin // actions
+const { users, pages, currentPage, selectedUsers } = storeToRefs(admin) // state
 
 const createPages = (from, to) => [...Array(to - from + 1).keys()].map((i) => i + from)
 
@@ -66,9 +65,7 @@ const pagesToShow = computed(() => {
     if (currentPage.value >= pages.value - 2) return createPages(pages.value - 3, pages.value)
 })
 
-watch(search, (val) => {
-    if (val.length === 0) loadUsers()
-})
+watch(search, (val) => (val.length === 0 ? loadUsers() : void 0))
 </script>
 
 <style></style>

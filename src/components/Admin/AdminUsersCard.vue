@@ -13,29 +13,26 @@
                 <div class="admin-user__line"></div>
                 <h1>{{ user.email }}</h1>
                 <div class="admin-user__line hide-tablet"></div>
-                <h1 class="hide-tablet">Roles: '{{ roles }}'</h1>
+                <h1 class="hide-tablet">Roles: '{{ user.roles }}'</h1>
             </div>
             <div class="admin-user__buttons">
                 <button @click.stop class="admin-user__button">✍️</button>
-                <button @click.stop class="admin-user__button btn-danger" @click="deleteUser">✖</button>
+                <button @click.stop class="admin-user__button btn-danger" @click="deleteUser(user._id)">✖</button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
-const props = defineProps({
+import { useAdminStore } from '@/store/adminStore'
+const admin = useAdminStore()
+const { deleteUser } = admin
+defineProps({
     user: {
         type: Object,
         required: true,
     },
 })
-
-const roles = computed(() => props.user.roles)
-const deleteUser = () => store.dispatch('admin/deleteUser', props.user._id)
 </script>
 
 <style></style>

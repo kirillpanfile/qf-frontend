@@ -30,7 +30,7 @@
 // imports
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAdminStore } from '@/state/adminStore'
+import { useAdminStore } from '@/store/adminStore'
 
 const admin = useAdminStore()
 const { authAdmin } = admin

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { notifySuccess } from '../utils/notify'
 import { adminApi, checkSelected, checkRole, showError, headers } from './utils/admin.util'
+import router from '@/router'
 import axios from 'axios'
 
 export const useAdminStore = defineStore('adminStore', {
@@ -62,27 +63,51 @@ export const useAdminStore = defineStore('adminStore', {
                 showError(error)
             }
         },
+        async deleteUser(id) {
+            try {
+                await axios.delete(adminApi.deleteUser(id), {
+                    headers: headers(this.accessToken),
+                })
+                this.users = this.users.filter((user) => user._id !== id)
+                notifySuccess('User deleted')
+            } catch (error) {
+                showError(error)
+            }
+        },
         async deleteMultiple() {
             try {
                 const selectedUsers = this.selectedUsers.map((user) => user._id)
-                console.log(selectedUsers)
                 if (selectedUsers.length === 0) throw { message: 'No user selected', code: 'NOS' }
 
-                const { data } = await axios.delete(adminApi.deleteMultipleUsers, {
-                    headers: headers(this.accessToken),
-                    ids: selectedUsers,
-                })
-                console.log(data)
+                await axios.post(
+                    adminApi.deleteMultipleUsers,
+                    { ids: selectedUsers },
+                    { headers: headers(this.accessToken) }
+                )
+                this.users = this.users.filter((user) => !selectedUsers.includes(user._id))
+            } catch (error) {
+                showError(error)
+            }
+        },
+        logOut() {
+            try {
+                this.accessToken = null
+                this.user = null
+                this.users = []
+                this.pages = null
+                this.currentPage = 1
+                router.push('/admin-login')
+                notifySuccess('You are logged out')
             } catch (error) {
                 showError(error)
             }
         },
         nextPage() {
-            this.currentPage < this.pages ? this.currentPage++ : void 0
+            this.currentPage < this.pages ? this.currentPage++ : null
             this.loadUsers()
         },
         prevPage() {
-            this.currentPage > 1 ? this.currentPage-- : void 0
+            this.currentPage > 1 ? this.currentPage-- : null
             this.loadUsers()
         },
         setPage(page) {
