@@ -2,8 +2,9 @@
     <header class="admin-header" v-if="user">
         <div class="admin-header__container">
             <div class="admin-header__bungher">
-                <!-- TODO Clicku lucreaza cand apesi numa pe linie la bunger menu _ De fixanit -->
-                <div class="admin-header__menu" @click="$emit('openBungher')"></div>
+                <div class="admin-header__menu-wrapper" @click="$emit('openBungher')">
+                    <div class="admin-header__menu"></div>
+                </div>
                 <h1 class="admin-header__title">Admin</h1>
             </div>
             <ul class="admin-header__info">

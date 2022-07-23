@@ -49,13 +49,11 @@
         gap: 20px;
     }
     &__menu{
-        display: none;
         width: 35px;
         height: 3px;
         background-color: $mainColor;
         border-radius: 100vh;
         position: relative;
-        cursor: pointer;
         &:before{
             content: '';
             position: absolute;
@@ -76,8 +74,17 @@
             bottom: 10px;
             left: 0%;
         }
-        @media (max-width: $tablet){
-            display: block;
+
+        &-wrapper{
+            display: none;
+            cursor: pointer;
+            @media (max-width: $tablet){
+                display: flex;
+            }
+            height: 30px;
+            width: max-content;
+            justify-content: center;
+            align-items: center;
         }
     }
     
