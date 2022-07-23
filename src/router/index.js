@@ -39,6 +39,11 @@ const routes = [
                 component: () => import(/* webpackChunkName: "AdminSettings" */ '../views/Admin/AdminSettings.vue'),
             },
             {
+                path: '/admin/card',
+                name: 'admin-card',
+                component: () => import('../views/AppCard.vue')
+            },
+            {
                 //catchall
                 path: '/admin/:catchAll(.*)',
                 redirect: '/admin/dashboard',

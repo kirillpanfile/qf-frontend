@@ -17,6 +17,9 @@
                 <li class="admin-header__item">
                     <button v-wave @click="logOut">Log Out</button>
                 </li>
+                <li class="admin-header__item">
+                    <button v-wave><router-link to="/admin/card">test</router-link></button>
+                </li>
             </ul>
         </div>
     </header>
