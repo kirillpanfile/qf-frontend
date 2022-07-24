@@ -33,7 +33,7 @@
             </div>
             <div class="admin-post__form-group">
                 <label for="image">Image</label>
-                <input placeholder="Select Image" type="file" id="image" required />
+                <input placeholder="Select Image" type="file" id="image" @change="(event) => addImage(event)" />
             </div>
             <div class="admin-post__form-wrapper">
                 <div class="admin-post__form-group">
@@ -111,6 +111,10 @@ const searchInput = ref('')
 const searchValue = () => {
     clearTimeout(timer.value)
     timer.value = setTimeout(() => (search.value = true), 500)
+}
+
+const addImage = (event) =>{
+    post.image = event.target.files[0].name
 }
 
 watch(searchInput, (value) => (value.length < 1 ? (search.value = false) : void 0))

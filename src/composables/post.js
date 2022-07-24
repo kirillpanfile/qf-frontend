@@ -9,6 +9,7 @@ const post = reactive({
     content: '',
     category: '',
     ingredients: [],
+    image: '',
     steps: [],
     category: '',
     time: 0,

@@ -22,6 +22,18 @@ const routes = [
                 path: '/admin/dashboard',
                 name: 'admin-dashboard',
                 component: () => import(/* webpackChunkName: "AdminDashboard" */ '../views/Admin/AdminDashboard.vue'),
+                children: [
+                    {
+                        path: '/admin/dashboard/post',
+                        name: 'admin-dashboard-post',
+                        component: () => import('../components/Admin/AdminCreatePost'),
+                    },
+                    {
+                        path: '/admin/dashboard/card',
+                        name: 'admin-dashboard-card',
+                        component: () => import('../components/Admin/AdminCard'),
+                    },
+                ],
             },
             {
                 path: '/admin/users',
@@ -41,7 +53,7 @@ const routes = [
             {
                 path: '/admin/card',
                 name: 'admin-card',
-                component: () => import('../views/Admin/AdminCard.vue')
+                component: () => import('../views/Admin/AdminCard.vue'),
             },
             {
                 //catchall

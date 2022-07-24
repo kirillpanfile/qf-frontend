@@ -1,6 +1,6 @@
 <template>
     <div class="card__container">
-        <div class="card__header">
+        <!-- <div class="card__header">
             <div class="card__image">
                 <img src="" alt="">
             </div>
@@ -10,7 +10,8 @@
                     <img src="@/assets/chef.svg" alt="">
                 </h1>
             </div>
-        </div>
+        </div> -->
+        1
     </div>
 </template>
 
