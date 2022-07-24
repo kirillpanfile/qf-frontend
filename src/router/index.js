@@ -41,7 +41,7 @@ const routes = [
             {
                 path: '/admin/card',
                 name: 'admin-card',
-                component: () => import('../views/AppCard.vue')
+                component: () => import('../views/Admin/AdminCard.vue')
             },
             {
                 //catchall

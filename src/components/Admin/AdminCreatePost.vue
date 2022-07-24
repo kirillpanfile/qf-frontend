@@ -88,8 +88,9 @@
                 </div>
             </div>
             <div class="admin-post__form-group">
-                <button type="submit">Create</button>
+                <button type="submit" @click="addPost(post)">Create</button>
             </div>
+            {{ posts }}
         </form>
     </div>
 </template>
@@ -97,9 +98,11 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { usePost, useActiveStep } from '@/composables/post'
+import { usePostStore} from '@/store/postStore'
 
 const { post, categories, ingredients } = usePost()
 const { activeStep, addStep, editStep, deleteStep, saveStep, step } = useActiveStep()
+const { posts, addPost} = usePostStore()
 
 const timer = ref(null)
 const search = ref(false)
