@@ -91,11 +91,7 @@ export const useAdminStore = defineStore('adminStore', {
         },
         logOut() {
             try {
-                this.accessToken = null
-                this.user = null
-                this.users = []
-                this.pages = null
-                this.currentPage = 1
+                this.$reset()
                 router.push('/admin-login')
                 notifySuccess('You are logged out')
             } catch (error) {

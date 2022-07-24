@@ -1,5 +1,5 @@
 import { notifyError } from '@/utils/notify'
-import cfg from '../../store/config'
+import cfg from '../config'
 
 export const adminApi = {
     signIn: `${cfg.URL}/api/auth/signin`,

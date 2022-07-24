@@ -34,26 +34,14 @@ import { useAdminStore } from '@/store/adminStore'
 
 const admin = useAdminStore()
 const { authAdmin } = admin
-
-// refs
-
-const user = reactive({
-    username: '',
-    password: '',
-    remember: false,
-})
-
+const loading = ref(false)
 const router = useRouter()
-let loading = ref(false)
+
+const user = reactive({ username: '', password: '', remember: false })
 
 const login = () => {
     loading.value = true
-    const req = {
-        username: user.username,
-        password: user.password,
-        remember: user.remember,
-    }
-    authAdmin(req).then(() => {
+    authAdmin(user).then(() => {
         loading.value = false
         router.push('/admin/users')
     })
