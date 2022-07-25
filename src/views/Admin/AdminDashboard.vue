@@ -1,7 +1,7 @@
 <template>
-    <admin-create-post></admin-create-post>
+    <router-view></router-view>
 </template>
 
 <script setup>
-import AdminCreatePost from '@/components/Admin/AdminCreatePost.vue'
+
 </script>
