@@ -5,12 +5,41 @@
 
         margin-top: 40px;
     }
+    &__hero{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    &__title{
+        display: flex;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 32px;
+        color: $mainColor;
+        align-items: center;
+    }
+    &__description{
+        color: $cardTitleColor;
+        line-height: 20px;
+        max-width:  596px;
+    }
+    &__temperature{
+        padding: 5px 10px;
+        outline: 1px solid $redColor;
+        border-radius: 5px; 
+        display: flex;
+        align-items: center;
+        height: max-content;
+        gap: 5px;
+        h2{
+            font-size: 12px;
+        }
+    }
     &__image{
         max-width: 596px;
         width: 100%;
         height: 100%;
         max-height: 356px;
-        background-color: red;
         border-radius: 15px;
         overflow: hidden;
         img{
@@ -50,6 +79,17 @@
         border-radius: 10px;
         width: max-content;
     }
+    &__content{
+        display: flex;
+        gap: 20px;
+        // overflow-y: scroll;
+    }
+    &__steps{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 596px;
+    }
 }
 
 .cell{
@@ -77,5 +117,42 @@
         color: $mainColor;
         font-weight: 800;
         font-size: 32px;
+    }
+}
+
+.steps{
+    margin-top: 25px;
+    width: 100%;
+    &__title{
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        h1{
+            font-weight: 800;
+            font-size: 32px;
+            color: $mainColor;
+        }
+    }
+    &__line{
+        height: rem(1);
+        width: 100%;
+        background-color: black;
+    }
+    &__time{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        h2{
+            width: max-content;
+        }
+    }
+    &__step{
+        margin-left: 20px;
+        display: flex;
+        gap: 15px;
+        h3{
+            font-weight: 800;
+            font-size: 20px;
+        }
     }
 }

@@ -31,7 +31,7 @@ const routes = [
                     {
                         path: '/admin/dashboard/card',
                         name: 'admin-dashboard-card',
-                        component: () => import('../components/Admin/AdminCard'),
+                        component: () => import('../views/Admin/AdminCard'),
                     },
                 ],
             },
