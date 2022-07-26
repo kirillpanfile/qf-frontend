@@ -1,5 +1,5 @@
 <template>
-    <div class="admin-user__wrapper">
+    <section class="admin-user__wrapper">
         <header class="admin-users__header">
             <div>Users Selected : {{ selectedUsers.length }}</div>
             <div class="header-buttons">
@@ -40,7 +40,7 @@
                 <button v-wave @click="nextPage">Next</button>
             </div>
         </footer>
-    </div>
+    </section>
 </template>
 
 <script setup>

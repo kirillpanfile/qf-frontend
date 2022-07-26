@@ -9,6 +9,7 @@ export const useAdminStore = defineStore('adminStore', {
         accessToken: null,
         user: null,
         users: [],
+        newUsers: [],
         pages: null,
         currentPage: 1,
     }),
@@ -45,6 +46,17 @@ export const useAdminStore = defineStore('adminStore', {
                 })
                 this.pages = data
             } catch (error) {}
+        },
+        async loadNewUsers() {
+            try {
+                const { data } = await axios.get(adminApi.usersPages(1), {
+                    headers: headers(this.accessToken),
+                })
+                data.forEach((user) => (user.selected = false))
+                this.newUsers = data
+            } catch (error) {
+                showError(error)
+            }
         },
         selectUser(id) {
             this.users.forEach((user) => {

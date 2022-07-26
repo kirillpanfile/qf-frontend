@@ -10,6 +10,7 @@ import VWave from 'v-wave'
 
 //styles
 import './scss/style.scss'
+import './utils/fontpro'
 
 //Auto Import Script
 import autoImportComponents from './utils/import'

@@ -9,7 +9,7 @@
 //&display=swap - добавить при подключении через плагин
 
 // Подключить если есть локальные файлы шрифтов
-//@import "fonts/fonts";
+// @import 'fonts/icofont.scss';
 
 // Подключение иконочных шрифтов ==============================================================================================================================================================================================================================================================================
 // Подключить если есть файл иконочного шрифта
@@ -20,7 +20,8 @@ $fontFamily: 'Manrope';
 $fontSize: rem(16); // где 14(px) - размер шрифта по умолчанию из макета
 
 // Основные цвета
-$mainColor: #5c5c5c; //? most common used text-color and of titles
+// $mainColor: #5c5c5c; //? most common used text-color and of titles
+$mainColor: #000; //? most common used text-color and of titles
 $bgColor: #f5f5f5; //? main background-color of body
 $limeColor: #91c788; //? lime color of buttons, wrappers and icons
 $white: #ffffff; //? white color
@@ -155,4 +156,3 @@ body {
 //* Admin
 @import './components/admin/login';
 @import './components/admin/main';
-

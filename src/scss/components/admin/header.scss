@@ -1,0 +1,126 @@
+.admin {
+    &-header {
+        width: 100%;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+        align-items: center;
+        background-color: #fff;
+        position: absolute;
+        // .admin-header__title
+        &__container {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            padding: 16px;
+            margin: 0 auto;
+        }
+        &__title {
+            font-size: rem(18);
+            @media (max-width: $mobileSmall) {
+                display: none;
+            }
+        }
+
+        // .admin-header__info
+
+        &__info {
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 24px;
+            @media (max-width: $tablet) {
+                @include adaptiveValue('gap', 40, 10);
+            }
+        }
+
+        // .admin-header__item
+
+        &__item {
+            position: relative;
+            button {
+                padding: 8px 24px;
+                background-color: $limeColor;
+                color: #fff;
+            }
+            @media (max-width: $tablet) {
+                &:nth-child(2) {
+                    display: none; //hide the role of User
+                }
+            }
+            img {
+                width: 32px;
+                height: 32px;
+                border-radius: 100px;
+                cursor: pointer;
+            }
+            i {
+                cursor: pointer;
+            }
+        }
+
+        &__drop {
+            right: 0;
+            position: absolute;
+            top: 50px;
+            background-color: #fff;
+            padding: 12px;
+            width: 200px;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+
+            span {
+                margin-left: 12px;
+            }
+            li {
+                margin-top: 6px;
+                margin-bottom: 6px;
+            }
+        }
+
+        &__bungher {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        &__menu {
+            width: 35px;
+            height: 3px;
+            background-color: $mainColor;
+            border-radius: 100vh;
+            position: relative;
+            &:before {
+                content: '';
+                position: absolute;
+                background-color: $mainColor;
+                border-radius: 100vh;
+                width: 35px;
+                height: 3px;
+                top: 10px;
+                left: 0%;
+            }
+            &:after {
+                content: '';
+                position: absolute;
+                background-color: $mainColor;
+                border-radius: 100vh;
+                width: 35px;
+                height: 3px;
+                bottom: 10px;
+                left: 0%;
+            }
+
+            &-wrapper {
+                display: none;
+                cursor: pointer;
+                @media (max-width: $tablet) {
+                    display: flex;
+                }
+                height: 30px;
+                width: max-content;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}

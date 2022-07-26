@@ -55,7 +55,7 @@ const login = () => {
     }
     authAdmin(req).then(() => {
         loading.value = false
-        router.push('/admin/users')
+        router.push('/admin/dashboard')
     })
 }
 </script>

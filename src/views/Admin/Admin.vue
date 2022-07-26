@@ -1,10 +1,12 @@
 <template>
     <main class="admin-page">
-        <admin-header @openBungher="openAside"></admin-header>
+        <admin-aside ref="sidemenu"></admin-aside>
         <section class="admin-main">
-            <admin-aside ref="sidemenu"></admin-aside>
+            <admin-header @openBungher="openAside"></admin-header>
             <div class="admin-content">
-                <router-view></router-view>
+                <div class="admin-container">
+                    <router-view></router-view>
+                </div>
             </div>
         </section>
     </main>

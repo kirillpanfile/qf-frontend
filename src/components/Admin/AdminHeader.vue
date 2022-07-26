@@ -5,32 +5,42 @@
                 <div class="admin-header__menu-wrapper" @click="$emit('openBungher')">
                     <div class="admin-header__menu"></div>
                 </div>
-                <h1 class="admin-header__title">Admin</h1>
             </div>
             <ul class="admin-header__info">
                 <li class="admin-header__item">
-                    <h1>{{ user.username }}</h1>
+                    <i class="fa-solid fa-bell"></i>
+                </li>
+                <li class="admin-header__item" @click="logOut">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </li>
                 <li class="admin-header__item">
-                    <span>role : {{ role }}</span>
+                    <img
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        alt="profilePic"
+                        @click="dropOpen = !dropOpen"
+                    />
                 </li>
-                <li class="admin-header__item">
-                    <button v-wave @click="logOut">Log Out</button>
-                </li>
-                <li class="admin-header__item">
-                    <button v-wave><router-link to="/admin/card">test</router-link></button>
-                </li>
+                <ul class="admin-header__drop" v-if="dropOpen">
+                    <li class="admin-header__item">
+                        <i class="fa-solid fa-user"></i>
+                        <span>{{ user.username }}</span>
+                    </li>
+                    <li class="admin-header__item">
+                        <i class="fa-solid fa-crown"></i>
+                        <span>{{ role }}</span>
+                    </li>
+                </ul>
             </ul>
         </div>
     </header>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
 const admin = useAdminStore()
-
+const dropOpen = ref(false)
 const { user } = storeToRefs(admin) // state
 const { logOut } = admin // actions
 
