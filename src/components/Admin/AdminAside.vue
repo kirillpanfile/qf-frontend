@@ -1,6 +1,10 @@
 <template>
     <aside class="admin-sidebar" id="admin-sidebar">
-        <h1 class="admin-sidebar__title">QuickFood Admin</h1>
+        <div class="admin-sidebar__title">
+            <div class="admin-sidebar__bungher-exit" @click="open"></div>
+            <h1>QuickFood Admin</h1>
+
+        </div>
         <ul class="admin-sidebar__list">
             <router-link to="/admin/dashboard">
                 <li v-wave class="admin-sidebar__item"><i class="fa-solid fa-chart-pie"></i> Dashboard</li>
@@ -39,5 +43,3 @@ const open = () => document.getElementById('admin-sidebar').classList.toggle('op
 const dropOpen = ref(false)
 defineExpose({ open })
 </script>
-
-<style></style>
