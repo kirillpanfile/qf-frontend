@@ -1,6 +1,9 @@
 <template>
     <aside class="admin-sidebar" id="admin-sidebar">
-        <h1 class="admin-sidebar__title">QuickFood Admin</h1>
+        <div class="admin-sidebar__title">
+            <div clas="admin-sidebar__bungher-exit" @click="open"></div>
+            <h1>QuickFood Admin</h1>
+        </div>
         <ul class="admin-sidebar__list">
             <router-link to="/admin/dashboard">
                 <li v-wave class="admin-sidebar__item"><i class="fa-solid fa-chart-pie"></i> Dashboard</li>
