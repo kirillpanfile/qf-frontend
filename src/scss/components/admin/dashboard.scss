@@ -33,19 +33,12 @@
             gap: 10px;
             align-items: center;
         }
-        @media (max-width: $mobile){
-            @include adaptiveValue("font-size",16,14);
-            padding: 12px 16px;
-        }
     }
 
     // .admin-dash__item
 
     &__item {
         margin-top: 48px;
-        @media (max-width: $mobile){
-            text-align: center;
-        }
     }
     &__users {
         height: 480px;
@@ -65,11 +58,6 @@
         display: flex;
         justify-content: space-between;
         gap: 24px;
-        @media (max-width: $mobileSmall){
-            display: grid;
-            grid-template-columns: 1fr;
-            justify-items: center;
-        }
     }
 
     // .admin-dash__content-item
@@ -96,13 +84,6 @@
         i {
             color: white;
             font-size: rem(24);
-        }
-        @media (max-width: $mobile){
-            justify-content: center;
-            text-align: center;
-        }
-        @media (max-width: $mobileSmall){
-            width: 80%;
         }
     }
 
