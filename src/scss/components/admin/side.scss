@@ -11,7 +11,7 @@
         display: none;
     }
     &__title {
-        padding-top: rem(14);
+        padding-top: rem(24);
         font-size: rem(18);
         font-weight: 700;
         margin-left: rem(16);
@@ -68,7 +68,6 @@
         text-align: center;
     }
     &__bungher-exit{
-        cursor: pointer;
         display: block;
         position: relative;
         width: 35px;

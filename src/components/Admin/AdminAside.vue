@@ -1,7 +1,7 @@
 <template>
     <aside class="admin-sidebar" id="admin-sidebar">
         <div class="admin-sidebar__title">
-            <div class="admin-sidebar__bungher-exit" @click="open"></div>
+            <div clas="admin-sidebar__bungher-exit" @click="open"></div>
             <h1>QuickFood Admin</h1>
         </div>
         <ul class="admin-sidebar__list">
