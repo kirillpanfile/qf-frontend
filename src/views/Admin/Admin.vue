@@ -1,15 +1,15 @@
 <template>
-    <main class="admin-page">
+    <div class="flex h-screen bg-gray-50">
         <admin-aside ref="sidemenu"></admin-aside>
-        <section class="admin-main">
-            <admin-header @openBungher="openAside"></admin-header>
-            <div class="admin-content">
-                <div class="admin-container">
+        <section class="flex flex-col flex-1">
+            <admin-header @toggleSideMenu="openAside"></admin-header>
+            <div class="h-full pb-16 overflow-y-auto">
+                <div class="container max-w-7xl px-6 mx-auto grid">
                     <router-view></router-view>
                 </div>
             </div>
         </section>
-    </main>
+    </div>
 </template>
 
 <script setup>

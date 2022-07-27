@@ -1,46 +1,99 @@
 <template>
-    <aside class="admin-sidebar" id="admin-sidebar">
-        <div class="admin-sidebar__title">
-            <div clas="admin-sidebar__bungher-exit" @click="open"></div>
-            <h1>QuickFood Admin</h1>
-        </div>
-        <ul class="admin-sidebar__list">
-            <router-link to="/admin/dashboard">
-                <li v-wave class="admin-sidebar__item"><i class="fa-solid fa-chart-pie"></i> Dashboard</li>
-            </router-link>
-            <router-link to="/admin/users">
-                <li v-wave class="admin-sidebar__item"><i class="fa-solid fa-users"></i> Users</li>
-            </router-link>
-            <router-link to="/admin/posts">
-                <li v-wave class="admin-sidebar__item"><i class="fa-solid fa-paste"></i> Posts</li>
-            </router-link>
-            <a href="#" @click.prevent="dropOpen = !dropOpen">
-                <li v-wave class="admin-sidebar__item">
-                    <i class="fa-brands fa-wpforms"></i> Forms
-                    <span v-if="!dropOpen"><i class="fa-solid fa-angle-down"></i></span>
-                    <span v-else><i class="fa-solid fa-angle-up"></i></span>
-                </li>
-            </a>
-
-            <div class="admin-sidebar__drop" v-if="dropOpen">
-                <router-link to="/admin/form/post">
-                    <li v-wave class="admin-sidebar__item"><i class="fa-solid fa-chart-pie"></i> Create Data</li>
-                </router-link>
+    <aside
+        class="z-20 hidden w-64 overflow-y-auto bg-white md:block flex-shrink-0 duration-200 mobile-menu"
+        :class="{ active: menuOpen }"
+    >
+        <div class="py-4 text-gray-500">
+            <a class="ml-6 text-lg font-bold text-gray-800"> QuickFood </a>
+            <div class="mt-6">
+                <AdminSidebarItem
+                    v-for="(item, index) in items"
+                    :key="index"
+                    :link="item.link"
+                    :icon="item.icon"
+                    :text="item.text"
+                />
             </div>
-            <router-link to="/admin/settings">
-                <li v-wave class="admin-sidebar__item"><i class="fa-solid fa-gear"></i> Settings</li>
-            </router-link>
-        </ul>
+
+            <div class="px-6 my-6">
+                <button
+                    @click="refreshPage"
+                    class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-white duration-150 bg-lime border border-transparent rounded-lg"
+                >
+                    Refresh Page
+                    <span class="ml-2" aria-hidden="true"><i class="fa-solid fa-rotate-right"></i></span>
+                </button>
+            </div>
+        </div>
     </aside>
+    <div class="overlay" v-if="menuOpen" @click="menuOpen = false"></div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import AdminSidebarItem from './AdminSidebarItem.vue'
+const menuOpen = ref(false)
+const router = useRouter()
+const isMobile = ref(false)
 
-const open = () => document.getElementById('admin-sidebar').classList.toggle('open')
+const open = () => (menuOpen.value = true)
+const refreshPage = () => router.go()
 
-const dropOpen = ref(false)
+const items = reactive([
+    {
+        link: 'dashboard',
+        icon: 'fa-solid fa-chart-pie',
+        text: 'Dashboard',
+    },
+    {
+        link: 'users',
+        icon: 'fa-solid fa-users',
+        text: 'Users',
+    },
+    {
+        link: 'posts',
+        icon: 'fa-solid fa-paste',
+        text: 'Posts',
+    },
+    // {
+    //     link: 'post',
+    //     icon: 'fa-solid fa-plus',
+    //     text: 'Create Data',
+    // },
+    {
+        link: 'settings',
+        icon: 'fa-solid fa-gear',
+        text: 'Settings',
+    },
+])
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) menuOpen.value = false
+})
 defineExpose({ open })
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.router-link-exact-active {
+    border-left: 4px solid #91c788;
+    color: #1f2937;
+}
+
+.mobile-menu {
+    display: block;
+    @media (max-width: 768px) {
+        position: absolute;
+        height: 100vh;
+        left: -100%;
+    }
+}
+.active {
+    left: 0;
+}
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #0000003a;
+}
+</style>

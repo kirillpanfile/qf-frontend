@@ -1,35 +1,41 @@
 <template>
-    <header class="admin-header" v-if="user">
-        <div class="admin-header__container">
-            <div class="admin-header__bungher">
-                <div class="admin-header__menu-wrapper" @click="$emit('openBungher')">
-                    <div class="admin-header__menu"></div>
-                </div>
-            </div>
-            <ul class="admin-header__info">
-                <li class="admin-header__item">
-                    <i class="fa-solid fa-bell"></i>
+    <header class="z-10 py-4 bg-white shadow-md">
+        <div
+            class="container max-w-7xl flex items-center md:justify-end justify-between h-full px-6 mx-auto text-purple-600"
+        >
+            <button class="p-1 mr-5 -ml-1 rounded-md md:hidden" @click="$emit('toggleSideMenu')" aria-label="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="flex flex-shrink-0 space-x-6">
+                <li class="relative flex gap-8">
+                    <button class="relative align-middle rounded-md">
+                        <i class="fa-solid fa-bell"></i>
+                    </button>
+                    <button class="relative align-middle rounded-md" @click="logOut">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
                 </li>
-                <li class="admin-header__item" @click="logOut">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <li class="relative">
+                    <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none">
+                        <img
+                            class="object-cover w-8 h-8 rounded-full"
+                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                            alt="profilePic"
+                            @click="dropOpen = !dropOpen"
+                            aria-hidden="true"
+                        />
+                    </button>
+                    <ul class="absolute bg-white w-max px-5 right-0 top-12" v-if="dropOpen">
+                        <li class="admin-header__item">
+                            <i class="fa-solid fa-user"></i>
+                            <span>{{ user.username }}</span>
+                        </li>
+                        <li class="admin-header__item">
+                            <i class="fa-solid fa-crown"></i>
+                            <span>{{ role }}</span>
+                        </li>
+                    </ul>
                 </li>
-                <li class="admin-header__item">
-                    <img
-                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                        alt="profilePic"
-                        @click="dropOpen = !dropOpen"
-                    />
-                </li>
-                <ul class="admin-header__drop" v-if="dropOpen">
-                    <li class="admin-header__item">
-                        <i class="fa-solid fa-user"></i>
-                        <span>{{ user.username }}</span>
-                    </li>
-                    <li class="admin-header__item">
-                        <i class="fa-solid fa-crown"></i>
-                        <span>{{ role }}</span>
-                    </li>
-                </ul>
             </ul>
         </div>
     </header>

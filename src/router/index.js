@@ -44,18 +44,6 @@ const routes = [
                 component: () => import('../views/Admin/AdminCard.vue'),
             },
             {
-                path: '/admin/form',
-                name: 'admin-form',
-                component: () => import('../views/Admin/AdminForm.vue'),
-                children: [
-                    {
-                        path: '/admin/form/post',
-                        name: 'admin-dashboard-post',
-                        component: () => import('../components/Admin/AdminCreatePost'),
-                    },
-                ],
-            },
-            {
                 //catchall
                 path: '/admin/:catchAll(.*)',
                 redirect: '/admin/dashboard',

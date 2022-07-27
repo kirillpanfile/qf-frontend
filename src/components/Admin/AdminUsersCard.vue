@@ -1,32 +1,46 @@
 <template>
-    <div
+    <tr
+        class="text-gray-700"
         :class="{
-            'admin-user__card-selected': user.selected,
+            'bg-lime': user.selected,
         }"
-        class="admin-user__card"
+        v-wave
         @click="$emit('select', user._id)"
     >
-        <div class="admin-user__card-content">
-            <div class="admin-user__info">
-                <img
-                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                    alt="profilePic"
-                    @click="dropOpen = !dropOpen"
-                />
-                <h1>{{ user.username }}</h1>
-                <div class="admin-user__line"></div>
-                <h1>{{ user.email }}</h1>
-                <div class="admin-user__line hide-tablet"></div>
-                <h1 class="hide-tablet role">{{ user.roles[0] }}</h1>
+        <td class="px-4 py-3 hidden md:block">
+            <div class="flex items-center text-sm">
+                <div class="relative w-8 h-8 mr-3 rounded-full">
+                    <img
+                        class="object-cover w-full h-full rounded-full"
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        alt="ProfilePic"
+                    />
+                </div>
             </div>
-            <div class="admin-user__buttons">
-                <button @click.stop class="admin-user__button"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button @click.stop class="admin-user__button btn-danger" @click="deleteUser(user._id)">
+        </td>
+        <td class="px-4 py-3 text-sm">{{ user.username }}</td>
+        <td class="px-4 py-3 text-xs">
+            <p class="bg-teal-300 w-max p-1 rounded-sm">
+                {{ user.roles[0] }}
+            </p>
+        </td>
+        <td class="px-4 py-3 text-sm lg:block hidden">{{ user.email }}</td>
+        <td class="px-4 py-3 text-sm">
+            <div class="flex items-center space-x-4 text-sm">
+                <button
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg"
+                >
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button
+                    @click="deleteUser(user._id)"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg"
+                >
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
             </div>
-        </div>
-    </div>
+        </td>
+    </tr>
 </template>
 
 <script setup>
