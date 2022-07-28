@@ -62,6 +62,11 @@ const items = reactive([
     //     text: 'Create Data',
     // },
     {
+        link: 'notifications',
+        icon: 'fa-solid fa-bell',
+        text: 'Notifications'
+    },
+    {
         link: 'settings',
         icon: 'fa-solid fa-gear',
         text: 'Settings',

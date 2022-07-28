@@ -6,11 +6,13 @@
             <button class="p-1 mr-5 -ml-1 rounded-md md:hidden" @click="$emit('toggleSideMenu')" aria-label="Menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
+
             <ul class="flex flex-shrink-0 space-x-6">
                 <li class="relative flex gap-8">
-                    <button class="relative align-middle rounded-md">
-                        <i class="fa-solid fa-bell"></i>
+                    <button class="relative align-middle rounded-md cursor-default">
+                        <i class="fa-solid fa-bell cursor-pointer" @click="notificationsOpen = !notificationsOpen"></i>
                     </button>
+                    <AdminNotificationMenu v-if="notificationsOpen" @close="notificationsOpen = false" />
                     <button class="relative align-middle rounded-md" @click="logOut">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>
@@ -45,15 +47,27 @@
 import { computed, ref } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
+
+import AdminNotificationMenu from './AdminNotificationMenu.vue'
+
 const admin = useAdminStore()
 const dropOpen = ref(false)
-const { user } = storeToRefs(admin) // state
-const { logOut } = admin // actions
+const notificationsOpen = ref(false)
+const { user } = storeToRefs(admin)
+const { logOut } = admin
 
 //user
 const role = computed(() => (user?.value.roles.includes('ROLE_ADMIN') ? 'SuperAdmin' : 'Moderator'))
-
-//logout
 </script>
 
-<style></style>
+<style>
+.text-xsm {
+    font-size: 0.5rem;
+}
+.h-xs {
+    height: 1px;
+}
+.border-b-1 {
+    border-bottom-width: 1px;
+}
+</style>
