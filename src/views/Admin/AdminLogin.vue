@@ -50,12 +50,12 @@
 
 <script setup>
 // imports
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAdminStore } from '@/store/adminStore'
 
 const admin = useAdminStore()
-const { authAdmin } = admin
+const { authAdmin, authRemeber } = admin
 
 // refs
 
@@ -63,6 +63,10 @@ const user = reactive({
     username: '',
     password: '',
     remember: false,
+})
+
+onMounted(() => {
+    authRemeber()
 })
 
 const router = useRouter()

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { notifySuccess } from '../utils/notify'
 import { adminApi, checkSelected, checkRole, showError, headers } from './utils/admin.util'
+import getJWTFromCookie from '../utils'
 import router from '@/router'
 import axios from 'axios'
 
@@ -24,10 +25,34 @@ export const useAdminStore = defineStore('adminStore', {
                 if (checkRole(data)) {
                     this.user = others
                     this.accessToken = accessToken
+                    if (user.remember) {
+                        //set cookie expires 1h
+                        document.cookie = `accessToken=${accessToken};expires=${new Date(
+                            Date.now() + 3600000
+                        ).toUTCString()}`
+                    }
                 } else throw { message: 'You are not an admin', code: 'UNA' }
                 notifySuccess('You are logged in')
             } catch (error) {
                 showError(error)
+            }
+        },
+        async authRemeber() {
+            const token = getJWTFromCookie()
+            if (token) {
+                const { data } = await axios.post(
+                    adminApi.remember,
+                    {},
+                    {
+                        headers: headers(token),
+                    }
+                )
+                const { ...others } = data
+                if (data) {
+                    this.user = others
+                    this.accessToken = token
+                    router.push('/admin/dashboard')
+                }
             }
         },
         async loadUsers() {
@@ -110,6 +135,8 @@ export const useAdminStore = defineStore('adminStore', {
                 this.currentPage = 1
                 router.push('/admin-login')
                 notifySuccess('You are logged out')
+                //remove cookie expires
+                document.cookie = `accessToken=;expires=${new Date(0).toUTCString()}`
             } catch (error) {
                 showError(error)
             }
