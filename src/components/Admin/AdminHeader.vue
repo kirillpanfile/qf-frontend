@@ -6,37 +6,13 @@
             <button class="p-1 mr-5 -ml-1 rounded-md md:hidden" @click="$emit('toggleSideMenu')" aria-label="Menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
+
             <ul class="flex flex-shrink-0 space-x-6">
                 <li class="relative flex gap-8">
                     <button class="relative align-middle rounded-md cursor-default">
                         <i class="fa-solid fa-bell cursor-pointer" @click="notificationsOpen = !notificationsOpen"></i>
-                        <div
-                            class="flex-col flex gap-2 w-60 bg-white shadow-sm absolute top-12 -right-24 p-3"
-                            v-if="notificationsOpen"
-                        >
-                            <div class="flex justify-between items-center">
-                                <!-- Header -->
-                                <h1 class="font-extrabold">Notifications</h1>
-                                <button class="text-xs text-white bg-lime px-3 py-1 font-bold">Read all</button>
-                            </div>
-
-                            <div class="w-auto bg-black opacity-20 h-xs"></div>
-                            <!-- Line -->
-
-                            <div
-                                class="flex items-center gap-2 flex-shrink-0 border-b-1 border-black/20"
-                                v-for="item in newNotifications"
-                            >
-                                <i class="fa-solid fa-circle text-xsm text-lime"></i>
-                                <!-- circle -->
-                                <div class="pb-2 text-left">{{ item }}</div>
-                                <!-- notification-text -->
-                            </div>
-                            <router-link to="/admin/notifications" @click="notificationsOpen = !notificationsOpen">
-                                <button class="px-4 py-2 bg-lime text-white">Show all notifications</button>
-                            </router-link>
-                        </div>
                     </button>
+                    <AdminNotificationMenu v-if="notificationsOpen" />
                     <button class="relative align-middle rounded-md" @click="logOut">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>
@@ -70,15 +46,15 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
-import { usePostStore } from '@/store/postStore'
 import { storeToRefs } from 'pinia'
+
+import AdminNotificationMenu from './AdminNotificationMenu.vue'
+
 const admin = useAdminStore()
-const postStore = usePostStore()
-const { newNotifications } = storeToRefs(postStore)
 const dropOpen = ref(false)
 const notificationsOpen = ref(false)
-const { user } = storeToRefs(admin) // state
-const { logOut } = admin // actions
+const { user } = storeToRefs(admin)
+const { logOut } = admin
 
 //user
 const role = computed(() => (user?.value.roles.includes('ROLE_ADMIN') ? 'SuperAdmin' : 'Moderator'))
