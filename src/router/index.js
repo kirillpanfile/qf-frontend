@@ -1,3 +1,4 @@
+
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
@@ -9,7 +10,13 @@ const checkAuth = (to, from, next) => {
     else next()
 }
 
+
 const routes = [
+  {
+    path: "/",
+    name: "home",
+    component: Home,
+  },
     {
         path: '/admin',
         name: 'admin',

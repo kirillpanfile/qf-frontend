@@ -5,4 +5,12 @@
 
 <script setup></script>
 
-<style lang="scss"></style>
+
+<script>
+import AppNavbar from "./components/AppNavbar.vue";
+export default{
+    components: {
+        AppNavbar
+    }
+}
+</script>
