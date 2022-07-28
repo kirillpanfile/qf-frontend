@@ -1,9 +1,9 @@
 <template>
     <header class="z-10 py-4 bg-white shadow-md">
         <div
-            class="container max-w-7xl flex items-center md:justify-end justify-between h-full px-6 mx-auto text-purple-600"
+            class="container max-w-7xl flex items-center mobile:justify-end justify-between h-full px-6 mx-auto text-purple-600"
         >
-            <button class="p-1 mr-5 -ml-1 rounded-md md:hidden" @click="$emit('toggleSideMenu')" aria-label="Menu">
+            <button class="p-1 mr-5 -ml-1 rounded-md block mobile:hidden" @click="$emit('toggleSideMenu')" aria-label="Menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
 

@@ -12,6 +12,7 @@
                     :link="item.link"
                     :icon="item.icon"
                     :text="item.text"
+                    @press="menuOpen = false"
                 />
             </div>
 

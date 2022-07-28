@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto block w-14 h-14 border-4 rounded-full border-t-lime animate-spin"></div>
+    <div class="m-auto block w-14 h-14 border-4 rounded-full border-t-lime animate-spin"></div>
 </template>
 
 <script>
