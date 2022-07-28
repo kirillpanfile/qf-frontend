@@ -1,8 +1,15 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import getJWTFromCookie from '../utils'
+
+import { createRouter, createWebHashHistory } from "vue-router";
+import Home from "../views/Home.vue";
+
 
 getJWTFromCookie()
 const routes = [
+  {
+    path: "/",
+    name: "home",
+    component: Home,
+  },
     {
         path: '/admin',
         name: 'admin',
