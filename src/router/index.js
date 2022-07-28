@@ -49,6 +49,11 @@ const routes = [
                 component: () => import('../views/Admin/AdminCard.vue'),
             },
             {
+                path: '/admin/notifications',
+                name: 'admin-notifications',
+                component: () => import('../views/Admin/AdminNotifications.vue')
+            },
+            {
                 //catchall
                 path: '/admin/:catchAll(.*)',
                 redirect: '/admin/dashboard',
