@@ -5,6 +5,7 @@ export const adminApi = {
     signIn: `${cfg.URL}/api/auth/signin`,
     allPages: `${cfg.URL}/api/users/pages`,
     deleteMultipleUsers: `${cfg.URL}/api/users/deleteMultiple`,
+    remember: `${cfg.URL}/api/auth/remember`,
     usersPages: (page) => `${cfg.URL}/api/users?page=${page}`,
     deleteUser: (id) => `${cfg.URL}/api/users/delete/${id}`,
     search: (payload) => `${cfg.URL}/api/users/search/${payload}`,
