@@ -12,7 +12,7 @@
                     <button class="relative align-middle rounded-md cursor-default">
                         <i class="fa-solid fa-bell cursor-pointer" @click="notificationsOpen = !notificationsOpen"></i>
                     </button>
-                    <AdminNotificationMenu v-if="notificationsOpen" />
+                    <AdminNotificationMenu v-if="notificationsOpen" @close="notificationsOpen = false" />
                     <button class="relative align-middle rounded-md" @click="logOut">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>

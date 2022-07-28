@@ -17,6 +17,7 @@
             <router-link
                 to="/admin/notifications"
                 class="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100"
+                @click="$emit('close')"
             >
                 <div class="flex items-center justify-center">
                     <i class="fa-solid fa-eye mr-2 flex items-center text-gray-500"></i>
