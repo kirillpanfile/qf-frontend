@@ -37,7 +37,7 @@ const getColor = `text-${props.color}-500 bg-${props.color}-100`
 </script>
 
 <style>
-.text-orange-500 {
+/* .text-orange-500 {
     color: #f97316;
 }
 .bg-orange-100 {
@@ -60,5 +60,5 @@ const getColor = `text-${props.color}-500 bg-${props.color}-100`
 }
 .bg-teal-100 {
     background-color: #ccfbf1;
-}
+} */
 </style>

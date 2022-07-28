@@ -53,24 +53,16 @@
             <nav>
                 <ul class="inline-flex items-center">
                     <li>
-                        <button
-                            v-wave
-                            @click="prevPage"
-                            class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                        >
+                        <button v-wave @click="prevPage" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none">
                             <i class="fa-solid fa-chevron-left"></i>
                         </button>
                     </li>
 
-                    <button
-                        class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        v-if="currentPage > 2"
-                        @click="setPage(1)"
-                    >
+                    <button class="px-3 py-1 rounded-md focus:outline-none" v-if="currentPage > 2" @click="setPage(1)">
                         1
                     </button>
                     <button
-                        class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                        class="px-3 py-1 rounded-md focus:outline-none"
                         :class="{
                             'btn-pagination-active': currentPage == item,
                         }"
@@ -81,7 +73,7 @@
                         {{ item }}
                     </button>
                     <button
-                        class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                        class="px-3 py-1 rounded-md focus:outline-none"
                         v-if="currentPage + 2 < pages"
                         @click="setPage(pages)"
                     >
@@ -89,11 +81,7 @@
                     </button>
 
                     <li>
-                        <button
-                            v-wave
-                            @click="nextPage"
-                            class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                        >
+                        <button v-wave @click="nextPage" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none">
                             <i class="fa-solid fa-chevron-right"></i>
                         </button>
                     </li>
@@ -128,4 +116,9 @@ const pagesToShow = computed(() => {
 watch(search, (val) => (val.length === 0 ? loadUsers() : void 0))
 </script>
 
-<style></style>
+<style>
+.btn-pagination-active {
+    background-color: #00bcd4;
+    color: #fff;
+}
+</style>

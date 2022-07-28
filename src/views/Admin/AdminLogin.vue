@@ -1,29 +1,51 @@
 <template>
-    <div class="admin">
-        <div class="admin__container">
-            <div class="admin__login">
-                <form class="admin__login-form" @submit.prevent="login" v-if="!loading">
-                    <h1 class="admin__login-title">Admin Login</h1>
-                    <div class="admin__login-form-group">
-                        <label for="username" class="admin__login-form-label">Username</label>
-                        <input type="text" id="username" class="admin__login-form-input" v-model="user.username" />
+    <section class="w-full flex md:flex-row flex-col h-screen items-center">
+        <div class="bg-lime hidden lg:block md:w-1/4 h-screen">
+            <img src="../../assets/pattern.png" alt="" class="w-full h-full object-cover" />
+        </div>
+        <div
+            v-if="!loading"
+            class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center"
+        >
+            <div class="w-full h-100">
+                <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">Log in to your account</h1>
+
+                <form class="mt-6" action="#" method="POST" @submit.prevent="login">
+                    <div>
+                        <label class="block text-gray-700">Username</label>
+                        <input
+                            type="text"
+                            v-model="user.username"
+                            placeholder="Username"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-lime focus:bg-white focus:outline-none"
+                        />
                     </div>
-                    <div class="admin__login-form-group">
-                        <label for="password" class="admin__login-form-label">Password</label>
-                        <input type="password" id="password" class="admin__login-form-input" v-model="user.password" />
+
+                    <div class="mt-4">
+                        <label class="block text-gray-700">Password</label>
+                        <input
+                            type="password"
+                            placeholder="Enter Password"
+                            v-model="user.password"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-lime focus:bg-white focus:outline-none"
+                        />
                     </div>
-                    <div class="admin__login-form-group">
-                        <input type="checkbox" v-model="user.remember" name="remember" />
-                        <label for="remember">Remember</label>
+
+                    <div class="mt-4">
+                        <input type="checkbox" v-model="user.remember" class="mr-2" />
+                        <label class="text-gray-700">Remember</label>
                     </div>
-                    <div class="admin__login-form-group">
-                        <button v-wave type="submit" class="admin__login-form-button">Login</button>
-                    </div>
+                    <button
+                        type="submit"
+                        class="w-full block bg-lime hover:bg-green-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
+                    >
+                        Log In
+                    </button>
                 </form>
-                <app-loader v-else></app-loader>
             </div>
         </div>
-    </div>
+        <app-loader v-else></app-loader>
+    </section>
 </template>
 
 <script setup>

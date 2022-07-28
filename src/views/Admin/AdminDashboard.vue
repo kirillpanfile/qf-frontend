@@ -20,6 +20,7 @@
         <AdminDashCard text="New Recepies" count="100" color="blue" icon="fa-solid fa-pizza-slice" />
         <AdminDashCard text="New Ingredients" count="100" color="teal" icon="fa-solid fa-carrot" />
     </div>
+    <h1 class="my-6 text-2xl font-semibold text-gray-700">New Users</h1>
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
         <div class="w-full overflow-x-auto max-h-96 overflow-y-scroll">
@@ -47,16 +48,46 @@
             </table>
         </div>
     </div>
-</template>
+    <h1 class="my-6 text-2xl font-semibold text-gray-700">Charts</h1>
 
+    <div class="grid gap-6 mb-8 mt-14">
+        <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs">
+            <div class="chartjs-size-monitor">
+                <div class="chartjs-size-monitor-expand"><div class=""></div></div>
+                <div class="chartjs-size-monitor-shrink"><div class=""></div></div>
+            </div>
+            <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">Traffic</h4>
+            <AdminChart :width="chartData.width" :height="chartData.height" class="block w-full h-full" />
+        </div>
+    </div>
+</template>
 <script setup>
-import { onMounted } from 'vue'
-import { useAdminStore } from '@/store/adminStore'
 import AdminUsersCard from '@/components/Admin/AdminUsersCard.vue'
 import AdminDashCard from '@/components/Admin/AdminDashCard.vue'
+import AdminChart from '@/components/Admin/AdminChart.vue'
+import { onMounted } from 'vue'
+import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
+
 const admin = useAdminStore()
 const { loadNewUsers } = admin
 const { newUsers } = storeToRefs(admin)
+
+const chartData = {
+    width: 1144,
+    height: 532,
+}
 onMounted(() => loadNewUsers())
 </script>
+
+<style>
+.w-400 {
+    max-width: 500px;
+    width: 100%;
+}
+.chart > div > canvas {
+    display: block;
+    position: relative !important;
+    width: 100%;
+}
+</style>
