@@ -1,7 +1,10 @@
 <template>
-    <app-navbar></app-navbar>
-    <router-view to="/"></router-view>
+    <router-view></router-view>
+    <notifications />
 </template>
+
+<script setup></script>
+
 
 <script>
 import AppNavbar from "./components/AppNavbar.vue";
