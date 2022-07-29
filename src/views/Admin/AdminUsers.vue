@@ -18,19 +18,17 @@
     </header>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
         <div class="w-full overflow-x-auto">
-            <table class="w-full whitespace-nowrap">
-                <thead>
-                    <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50 mb-2"
-                    >
-                        <th class="pb-4 md:block hidden">Pic</th>
-                        <th class="pb-4">User</th>
-                        <th class="pb-4">Role</th>
-                        <th class="pb-4 lg:block hidden">Email</th>
-                        <th class="pb-4">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y">
+            <div class="w-full whitespace-nowrap">
+                <div
+                    class="text-xs font-semibold flex justify-between tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50 mb-2"
+                >
+                    <div class="pb-4 md:block hidden">Pic</div>
+                    <div class="pb-4">User</div>
+                    <div class="pb-4">Role</div>
+                    <div class="pb-4 lg:block hidden">Email</div>
+                    <div class="pb-4">Action</div>
+                </div>
+                <div class="bg-white divide-y">
                     <admin-users-card
                         v-for="(item, index) in users"
                         :key="index"
@@ -38,8 +36,8 @@
                         :user="item"
                         @select="selectUser"
                     ></admin-users-card>
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     </div>
     <div

@@ -23,28 +23,28 @@
     <h1 class="my-6 text-2xl font-semibold text-gray-700">New Users</h1>
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-        <div class="w-full overflow-x-auto max-h-96 overflow-y-scroll">
-            <table class="w-full whitespace-nowrap">
-                <thead>
-                    <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50 mb-2"
+        <div class="w-full overflow-y-scroll">
+            <div class="w-full whitespace-nowrap">
+                <div>
+                    <div
+                        class="text-xs font-semibold flex justify-between tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50 mb-2"
                     >
-                        <th class="pb-4 md:block hidden">Pic</th>
-                        <th class="pb-4">User</th>
-                        <th class="pb-4">Role</th>
-                        <th class="pb-4 lg:block hidden">Email</th>
-                        <th class="pb-4">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y">
+                        <div class="pb-4 md:block hidden">Pic</div>
+                        <div class="pb-4">User</div>
+                        <div class="pb-4 md:block hidden">Role</div>
+                        <div class="pb-4 lg:block hidden">Email</div>
+                        <div class="pb-4">Action</div>
+                    </div>
+                </div>
+                <div class="bg-white divide-y overflow-x-scroll max-h-96">
                     <admin-users-card
                         v-for="(item, index) in newUsers"
                         :key="index"
                         :user="item"
                         @select="newUsers"
                     ></admin-users-card>
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     </div>
     <h1 class="my-6 text-2xl font-semibold text-gray-700">Charts</h1>
