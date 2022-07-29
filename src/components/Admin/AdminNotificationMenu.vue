@@ -1,6 +1,8 @@
 <template>
     <transition name="fade">
-        <div class="bg-white w-80 shadow-md absolute top-14 -right-1/2 translate-x-[15%] mobile:-right-0 mobile:translate-x-0 rounded-md overflow-hidden">
+        <div
+            class="bg-white w-80 shadow-md absolute top-14 md:-right-1/2 translate-x-[15%] -right-0 md:translate-x-0 rounded-md overflow-hidden"
+        >
             <h1 class="block py-2 px-4 font-medium text-center text-gray-700 bg-gray-50">Notifications</h1>
 
             <main v-for="item in newNotifications">
@@ -35,6 +37,4 @@ const postStore = usePostStore()
 const { newNotifications } = storeToRefs(postStore)
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

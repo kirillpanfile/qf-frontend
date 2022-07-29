@@ -5,7 +5,7 @@
         href="https://github.com/kirillpanfile/qf-frontend"
         target="_blank"
         v-wave
-        class="flex items-center justify-between p-3 mobileSmall:p-4 mb-8 text-sm shrink font-semibold bg-lime rounded-lg shadow-md text-white"
+        class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-lime rounded-lg shadow-md text-white"
     >
         <div class="flex items-center">
             <i class="fa-solid fa-code-branch w-5 mr-2"></i>
@@ -51,7 +51,7 @@
     <h1 class="my-6 text-2xl font-semibold text-gray-700">Charts</h1>
 
     <div class="grid gap-6 mb-8 mt-14">
-        <div class="min-w-0 mobileSmall:p-4 p-0 bg-white rounded-lg shadow-xs">
+        <div class="min-w-0 p-4 sm:p-0 bg-white rounded-lg shadow-xs">
             <div class="chartjs-size-monitor">
                 <div class="chartjs-size-monitor-expand"><div class=""></div></div>
                 <div class="chartjs-size-monitor-shrink"><div class=""></div></div>
