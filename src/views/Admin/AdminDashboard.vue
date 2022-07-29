@@ -4,7 +4,7 @@
     <a
         href="https://github.com/kirillpanfile/qf-frontend"
         target="_blank"
-        v-wave
+        v-ripple
         class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-lime rounded-lg shadow-md text-white"
     >
         <div class="flex items-center">
@@ -38,7 +38,6 @@
                 </thead>
                 <tbody class="bg-white divide-y">
                     <admin-users-card
-                        v-wave
                         v-for="(item, index) in newUsers"
                         :key="index"
                         :user="item"

@@ -1,10 +1,10 @@
 <template>
     <tr
-        class="text-gray-700"
+        class="text-gray-700 relative"
         :class="{
             'bg-lime': user.selected,
         }"
-        v-wave
+        v-ripple
         @click="$emit('select', user._id)"
     >
         <td class="px-4 py-3 hidden md:block">

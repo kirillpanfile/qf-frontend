@@ -4,16 +4,16 @@
     <header class="w-full md:flex block justify-between pb-8">
         <div>Users Selected : {{ selectedUsers.length }}</div>
         <div class="flex gap-6 md:pt-0 pt-6">
-            <button class="bg-green-300 p-2" v-wave>Ban</button>
+            <button class="bg-green-300 p-2" v-ripple>Ban</button>
 
             <input
                 class="appearance-none bg-transparent border-b border-lime w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                type="text"
+                type="search"
                 placeholder="Jane Doe"
                 v-model="search"
             />
-            <button class="bg-green-300 p-2" v-wave @click="searchUser(search)">Search</button>
-            <button class="bg-green-300 p-2" v-wave @click="deleteMultiple">Delete</button>
+            <button class="bg-green-300 p-2" v-ripple @click="searchUser(search)">Search</button>
+            <button class="bg-green-300 p-2" v-ripple @click="deleteMultiple">Delete</button>
         </div>
     </header>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -32,7 +32,6 @@
                 </thead>
                 <tbody class="bg-white divide-y">
                     <admin-users-card
-                        v-wave
                         v-for="(item, index) in users"
                         :key="index"
                         v-memo="users"
@@ -53,7 +52,7 @@
             <nav>
                 <ul class="inline-flex items-center">
                     <li>
-                        <button v-wave @click="prevPage" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none">
+                        <button v-ripple @click="prevPage" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none">
                             <i class="fa-solid fa-chevron-left"></i>
                         </button>
                     </li>
@@ -81,7 +80,7 @@
                     </button>
 
                     <li>
-                        <button v-wave @click="nextPage" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none">
+                        <button v-ripple @click="nextPage" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none">
                             <i class="fa-solid fa-chevron-right"></i>
                         </button>
                     </li>

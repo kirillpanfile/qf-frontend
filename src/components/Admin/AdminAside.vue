@@ -65,7 +65,7 @@ const items = reactive([
     {
         link: 'notifications',
         icon: 'fa-solid fa-bell',
-        text: 'Notifications'
+        text: 'Notifications',
     },
     {
         link: 'settings',

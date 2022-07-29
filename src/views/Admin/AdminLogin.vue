@@ -32,8 +32,14 @@
                     </div>
 
                     <div class="mt-4">
-                        <input type="checkbox" v-model="user.remember" class="mr-2" />
-                        <label class="text-gray-700">Remember</label>
+                        <input
+                            type="checkbox"
+                            name="remeber"
+                            v-model="user.remember"
+                            class="mr-2"
+                            placeholder="remember"
+                        />
+                        <label class="text-gray-700" for="remember">Remember</label>
                     </div>
                     <button
                         type="submit"

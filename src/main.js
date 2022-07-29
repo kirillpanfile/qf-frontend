@@ -5,8 +5,8 @@ import router from './router'
 
 // ============================================================
 import Notifications from '@kyvg/vue3-notification'
+import ripple from '@/directives/ripple'
 import { createPinia } from 'pinia'
-import VWave from 'v-wave'
 
 //styles
 import './scss/style.scss'
@@ -20,6 +20,9 @@ const uiComponents = autoImportComponents()
 //create Vue app
 const app = createApp(App)
 const pinia = createPinia()
+
+//ripple
+app.directive('ripple', ripple)
 
 //if node env is development, then use devtools
 if (process.env.NODE_ENV === 'development') {
@@ -42,4 +45,4 @@ uiComponents
 //If you want to use the custom element as a component, you need to explicitly import it.
 
 //create app
-app.use(router).use(Notifications).use(VWave).use(pinia).mount('#app')
+app.use(router).use(Notifications).use(pinia).mount('#app')

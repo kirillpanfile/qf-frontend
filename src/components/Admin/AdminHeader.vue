@@ -1,34 +1,32 @@
 <template>
-    <header class="z-10 py-4 bg-white shadow-md">
+    <header class="z-10 py-4 bg-white shadow-md relative">
         <div
             class="container max-w-7xl flex items-center md:justify-end justify-between h-full px-6 mx-auto text-purple-600"
         >
-            <button
-                class="p-1 mr-5 -ml-1 rounded-md block md:hidden"
-                @click="$emit('toggleSideMenu')"
-                aria-label="Menu"
-            >
+            <button class="p-1 mr-5 -ml-1 rounded-md block md:hidden" @click="$emit('toggleSideMenu')" type="button">
                 <i class="fa-solid fa-bars"></i>
             </button>
 
             <ul class="flex flex-shrink-0 space-x-6">
                 <li class="relative flex gap-8">
-                    <button class="relative align-middle rounded-md cursor-default">
+                    <button class="relative align-middle rounded-md cursor-default" type="button">
                         <i class="fa-solid fa-bell cursor-pointer" @click="notificationsOpen = !notificationsOpen"></i>
                     </button>
                     <AdminNotificationMenu v-if="notificationsOpen" @close="notificationsOpen = false" />
-                    <button class="relative align-middle rounded-md" @click="logOut">
+                    <button class="relative align-middle rounded-md" @click="logOut" type="button">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>
                 </li>
                 <li class="relative">
-                    <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none">
+                    <button
+                        class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                        type="button"
+                    >
                         <img
                             class="object-cover w-8 h-8 rounded-full"
                             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                             alt="profilePic"
                             @click="dropOpen = !dropOpen"
-                            aria-hidden="true"
                         />
                     </button>
                     <ul class="absolute bg-white w-max px-5 right-0 top-12" v-if="dropOpen">
@@ -36,7 +34,7 @@
                             <i class="fa-solid fa-user"></i>
                             <span>{{ user.username }}</span>
                         </li>
-                        <li class="admin-header__item">
+                        <li class="admin-header__item" v-ripple>
                             <i class="fa-solid fa-crown"></i>
                             <span>{{ role }}</span>
                         </li>
@@ -51,7 +49,6 @@
 import { computed, ref } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
-
 import AdminNotificationMenu from './AdminNotificationMenu.vue'
 
 const admin = useAdminStore()
@@ -60,6 +57,7 @@ const notificationsOpen = ref(false)
 const { user } = storeToRefs(admin)
 const { logOut } = admin
 
+defineEmits(['toggleSideMenu'])
 //user
 const role = computed(() => (user?.value.roles.includes('ROLE_ADMIN') ? 'SuperAdmin' : 'Moderator'))
 </script>
