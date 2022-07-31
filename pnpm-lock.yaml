@@ -11,7 +11,7 @@ specifiers:
   path: ^0.12.7
   prettier: ^2.4.1
   sass: ^1.32.7
-  sass-loader: ^12.0.0
+  sass-loader: ^13.0.2
   vue: ^3.2.13
   vue-router: ^4.0.3
   vuex: ^4.0.0
@@ -29,10 +29,10 @@ devDependencies:
   '@vue/cli-plugin-babel': 5.0.8_2siogx5p3s7hfpnhjofuerri2e
   '@vue/cli-plugin-router': 5.0.8_@vue+cli-service@5.0.8
   '@vue/cli-plugin-vuex': 5.0.8_@vue+cli-service@5.0.8
-  '@vue/cli-service': 5.0.8_tnhkrzgky3eoonasdwlh3p5ecm
+  '@vue/cli-service': 5.0.8_fnvf7axjbiwe3u5iu7nztzsvy4
   prettier: 2.7.1
   sass: 1.53.0
-  sass-loader: 12.6.0_sass@1.53.0
+  sass-loader: 13.0.2_sass@1.53.0
 
 packages:
 
@@ -1664,7 +1664,7 @@ packages:
     dependencies:
       '@babel/core': 7.18.6
       '@vue/babel-preset-app': 5.0.8_vue@3.2.37
-      '@vue/cli-service': 5.0.8_tnhkrzgky3eoonasdwlh3p5ecm
+      '@vue/cli-service': 5.0.8_fnvf7axjbiwe3u5iu7nztzsvy4
       '@vue/cli-shared-utils': 5.0.8
       babel-loader: 8.2.5_fswvdo7jykdwhfxrdcvghfn6pa
       thread-loader: 3.0.4_webpack@5.73.0
@@ -1684,7 +1684,7 @@ packages:
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
-      '@vue/cli-service': 5.0.8_tnhkrzgky3eoonasdwlh3p5ecm
+      '@vue/cli-service': 5.0.8_fnvf7axjbiwe3u5iu7nztzsvy4
       '@vue/cli-shared-utils': 5.0.8
     transitivePeerDependencies:
       - encoding
@@ -1695,10 +1695,10 @@ packages:
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
-      '@vue/cli-service': 5.0.8_tnhkrzgky3eoonasdwlh3p5ecm
+      '@vue/cli-service': 5.0.8_fnvf7axjbiwe3u5iu7nztzsvy4
     dev: true
 
-  /@vue/cli-service/5.0.8_tnhkrzgky3eoonasdwlh3p5ecm:
+  /@vue/cli-service/5.0.8_fnvf7axjbiwe3u5iu7nztzsvy4:
     resolution: {integrity: sha512-nV7tYQLe7YsTtzFrfOMIHc5N2hp5lHG2rpYr0aNja9rNljdgcPZLyQRb2YRivTHqTv7lI962UXFURcpStHgyFw==}
     engines: {node: ^12.0.0 || >= 14.0.0}
     hasBin: true
@@ -1772,7 +1772,7 @@ packages:
       postcss: 8.4.14
       postcss-loader: 6.2.1_mepnsno3xmng6eyses4tepu7bu
       progress-webpack-plugin: 1.0.16_webpack@5.73.0
-      sass-loader: 12.6.0_sass@1.53.0
+      sass-loader: 13.0.2_sass@1.53.0
       ssri: 8.0.1
       terser-webpack-plugin: 5.3.3_webpack@5.73.0
       thread-loader: 3.0.4_webpack@5.73.0
@@ -2744,7 +2744,7 @@ packages:
       lodash: ^4.17.20
       marko: ^3.14.4
       mote: ^0.2.0
-      mustache: ^4.0.1
+      mustache: ^3.0.0
       nunjucks: ^3.2.2
       plates: ~0.4.11
       pug: ^3.0.0
@@ -5382,9 +5382,9 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /sass-loader/12.6.0_sass@1.53.0:
-    resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==}
-    engines: {node: '>= 12.13.0'}
+  /sass-loader/13.0.2_sass@1.53.0:
+    resolution: {integrity: sha512-BbiqbVmbfJaWVeOOAu2o7DhYWtcNmTfvroVgFXa6k2hHheMxNAeDHLNoDy/Q5aoaVlz0LH+MbMktKwm9vN/j8Q==}
+    engines: {node: '>= 14.15.0'}
     peerDependencies:
       fibers: '>= 3.1.0'
       node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
