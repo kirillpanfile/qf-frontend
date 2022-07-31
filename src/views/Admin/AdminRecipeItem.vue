@@ -52,8 +52,8 @@
                     <i class="fa-solid fa-seedling text-2xl text-lime"></i>
                 </div>
                 <ul class="ml-4 mt-2">
-                    <li class="flex items-center gap-1" v-for="item in currentRecipeLang.ingredients" :key="item._id"> <!--? Ingredients -->
-                        <i class="fa-regular fa-circle-check font-light text-2xl text-lime"></i>
+                    <li class="flex items-center mb-2 gap-2" v-for="item in currentRecipeLang.ingredients" :key="item._id"> <!--? Ingredients -->
+                        <i class="fa-regular fa-circle-check font-light h-[26.5px] text-2xl text-lime"></i>
                         <div class="font-extrabold font-Manrope ">{{ item }}</div>
                     </li>
                 </ul>
