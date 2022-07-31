@@ -5,7 +5,12 @@ module.exports = {
         extend: {
             colors: {
                 lime: '#91c788',
+                main: '#5c5c5c',
+                desc: '#374A59'
             },
+            fontFamily: {
+                'Open': ['"Open Sans"']
+            }
         },
         // screens: {
         //     tablet: '991.98px',

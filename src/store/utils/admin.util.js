@@ -9,6 +9,10 @@ export const adminApi = {
     usersPages: (page) => `${cfg.URL}/api/users?page=${page}`,
     deleteUser: (id) => `${cfg.URL}/api/users/delete/${id}`,
     search: (payload) => `${cfg.URL}/api/users/search/${payload}`,
+    allRecipes: `${cfg.URL}/api/recipes/all`,
+    recipe: (id) => `${cfg.URL}/api/recipes/${id}`,
+    createRecipe: `${cfg.URL}/api/recipes/admin/create`,
+    deleteRecipe: (id) => `${cfg.URL}/api/recipes/${id}`
 }
 
 export const checkRole = (data) => data?.roles?.some((role) => role === 'ROLE_ADMIN' || role === 'ROLE_MODERATOR')

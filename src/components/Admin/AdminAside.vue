@@ -53,9 +53,9 @@ const items = reactive([
         text: 'Users',
     },
     {
-        link: 'posts',
+        link: 'recipes',
         icon: 'fa-solid fa-paste',
-        text: 'Posts',
+        text: 'Recipes',
     },
     // {
     //     link: 'post',

@@ -31,10 +31,10 @@
 </template>
 
 <script setup>
-import { usePostStore } from '@/store/postStore'
+import { useRecipeStore } from '@/store/recipeStore'
 import { storeToRefs } from 'pinia'
-const postStore = usePostStore()
-const { newNotifications } = storeToRefs(postStore)
+const recipeStore = useRecipeStore()
+const { newNotifications } = storeToRefs(recipeStore)
 </script>
 
 <style scoped></style>

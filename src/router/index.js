@@ -34,9 +34,14 @@ const routes = [
                 component: () => import(/* webpackChunkName: "AdminUsers" */ '../views/Admin/AdminUsers.vue'),
             },
             {
-                path: '/admin/posts',
-                name: 'admin-posts',
-                component: () => import(/* webpackChunkName: "AdminPosts" */ '../views/Admin/AdminPosts.vue'),
+                path: '/admin/recipes',
+                name: 'admin-recipes',
+                component: () => import(/* webpackChunkName: "AdminPosts" */ '../views/Admin/AdminRecipes.vue'),
+            },
+            {
+                path: '/admin/recipe/:id',
+                name: 'admin-recipe-edit',
+                component: () => import(/* webpackChunkName: "AdminRecipeItem" */ '../views/Admin/AdminRecipeItem.vue')
             },
             {
                 path: '/admin/settings',
