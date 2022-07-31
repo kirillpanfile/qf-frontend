@@ -1,5 +1,5 @@
 <template>
-    <section class="w-full flex md:flex-row flex-col h-screen items-center">
+    <section class="w-full flex md:flex-row flex-col h-screen items-center" v-if="remember">
         <div class="bg-lime hidden lg:block md:w-1/4 h-screen">
             <img src="../../assets/pattern.png" alt="" class="w-full h-full object-cover" />
         </div>
@@ -52,6 +52,9 @@
         </div>
         <app-loader v-else></app-loader>
     </section>
+    <div v-else class="h-[100vh] flex items-center">
+        <app-loader></app-loader>
+    </div>
 </template>
 
 <script setup>
@@ -63,6 +66,15 @@ import { useAdminStore } from '@/store/adminStore'
 const admin = useAdminStore()
 const { authAdmin, authRemeber } = admin
 
+const remember = ref(false)
+
+onMounted(() => {
+    remember.value = false
+    authRemeber().finally(() => {
+        remember.value = true
+    })
+})
+
 // refs
 
 const user = reactive({
@@ -71,12 +83,9 @@ const user = reactive({
     remember: false,
 })
 
-onMounted(() => {
-    authRemeber()
-})
+let loading = ref(false)
 
 const router = useRouter()
-let loading = ref(false)
 
 const login = () => {
     loading.value = true

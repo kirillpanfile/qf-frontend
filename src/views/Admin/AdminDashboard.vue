@@ -72,11 +72,12 @@ const admin = useAdminStore()
 const { loadNewUsers } = admin
 const { newUsers } = storeToRefs(admin)
 
+onMounted(() => loadNewUsers())
+
 const chartData = {
     width: 1144,
     height: 532,
 }
-onMounted(() => loadNewUsers())
 </script>
 
 <style>

@@ -15,7 +15,9 @@
 <script setup>
 import AdminAside from '@/components/Admin/AdminAside.vue'
 import AdminHeader from '@/components/Admin/AdminHeader.vue'
+import AppLoader from '@/components/UI/AppLoader.vue'
 import { ref } from 'vue'
+
 const sidemenu = ref(null)
 const openAside = () => sidemenu.value.open()
 </script>

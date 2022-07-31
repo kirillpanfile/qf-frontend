@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
-import { adminApi, checkSelected, checkRole, showError, headers } from './utils/admin.util'
-import axios from 'axios'
+import { adminApi, showError, headers } from './utils/admin.util'
 import { useAdminStore } from '@/store/adminStore'
+import axios from 'axios'
 
 export const useRecipeStore = defineStore('recipeStore', {
     state: () => ({
         recipe: [],
         currentRecipe: {},
+        admin: useAdminStore(),
         notifications: [
             {
                 username: 'andrii123',
@@ -41,14 +42,17 @@ export const useRecipeStore = defineStore('recipeStore', {
         newNotifications() {
             return this.notifications.slice(0, 10)
         },
+        currentRecipeLang() {
+            return this.currentRecipe.langs.ro
+        },
     },
     actions: {
-
-        async getAllRecipes(){ //? Functia care returneaza TOATE recetele
-            try{
-                const admin = useAdminStore()
-                const { data } = await axios.get(adminApi.allRecipes,{
-                    headers: headers(admin.accessToken)
+        async getAllRecipes() {
+            //? Functia care returneaza TOATE recetele
+            try {
+                const { accessToken } = this.admin
+                const { data } = await axios.get(adminApi.allRecipes, {
+                    headers: headers(accessToken),
                 })
                 this.recipe = data
             } catch (e) {
@@ -56,16 +60,17 @@ export const useRecipeStore = defineStore('recipeStore', {
             }
         },
 
-        async getRecipe(id){ //? Functia care returneaza o recete dupa ID
-            try{
-                const admin = useAdminStore()
-                const { data } = await axios.get(adminApi.recipe(id),{
-                    headers: headers(admin.accessToken)
+        async getRecipe(id) {
+            //? Functia care returneaza o recete dupa ID
+            try {
+                const { accessToken } = this.admin
+                const { data } = await axios.get(adminApi.recipe(id), {
+                    headers: headers(accessToken),
                 })
                 this.currentRecipe = data
             } catch (e) {
                 showError(e)
             }
-        }
+        },
     },
 })
