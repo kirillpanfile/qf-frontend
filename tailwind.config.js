@@ -6,10 +6,15 @@ module.exports = {
             colors: {
                 lime: '#91c788',
                 main: '#5c5c5c',
-                desc: '#374A59'
+                desc: '#374A59',
+                gray: '#9FA3A9',
+                favorite: '#D1FAE5',
+                favText: '#064E3B'
             },
             fontFamily: {
-                'Open': ['"Open Sans"']
+                'Open': ['"Open Sans"'],
+                'Mont': ['"Montserrat"'],
+                'Manrope': ['"Manrope"']
             }
         },
         // screens: {
