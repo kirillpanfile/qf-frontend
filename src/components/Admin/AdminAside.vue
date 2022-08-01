@@ -9,7 +9,7 @@
                 <AdminSidebarItem
                     v-for="(item, index) in items"
                     :key="index"
-                    :link="item.link"
+                    :path="item.path"
                     :icon="item.icon"
                     :text="item.text"
                     :children="item.children"
@@ -32,9 +32,10 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import AdminSidebarItem from './AdminSidebarItem.vue'
+import { routes } from '@/router'
 const menuOpen = ref(false)
 const router = useRouter()
 const isMobile = ref(false)
@@ -42,43 +43,44 @@ const isMobile = ref(false)
 const open = () => (menuOpen.value = true)
 const refreshPage = () => router.go()
 
-const items = reactive([
-    {
-        link: 'dashboard',
-        icon: 'fa-solid fa-chart-pie',
-        text: 'Dashboard',
-    },
-    {
-        link: 'users',
-        icon: 'fa-solid fa-users',
-        text: 'Users',
-    },
-    {
-        link: 'recipes',
-        icon: 'fa-solid fa-paste',
-        text: 'Recipes',
-        children: {
-            link: 'recipes/create',
-            icon: 'fa-solid fa-plus',
-            text: 'Create',
-        },
-    },
-    // {
-    //     link: 'post',
-    //     icon: 'fa-solid fa-plus',
-    //     text: 'Create Data',
-    // },
-    {
-        link: 'notifications',
-        icon: 'fa-solid fa-bell',
-        text: 'Notifications',
-    },
-    {
-        link: 'settings',
-        icon: 'fa-solid fa-gear',
-        text: 'Settings',
-    },
-])
+let items = routes
+    .find((route) => route.path === '/admin')
+    .children.filter((route) => !route.path.includes('/:id') && !route.path.includes('/:catchAll(.*)'))
+onMounted(() => {
+    console.log(items)
+})
+
+// const items = reactive([
+//     {
+//         link: 'dashboard',
+//         icon: 'fa-solid fa-chart-pie',
+//         text: 'Dashboard',
+//     },
+//     {
+//         link: 'users',
+//         icon: 'fa-solid fa-users',
+//         text: 'Users',
+//     },
+//     {
+//         icon: 'fa-solid fa-paste',
+//         text: 'Recipes',
+//         children: {
+//             link: 'recipes/create',
+//             icon: 'fa-solid fa-plus',
+//             text: 'Create',
+//         },
+//     },
+//     {
+//         link: 'notifications',
+//         icon: 'fa-solid fa-bell',
+//         text: 'Notifications',
+//     },
+//     {
+//         link: 'settings',
+//         icon: 'fa-solid fa-gear',
+//         text: 'Settings',
+//     },
+// ])
 defineExpose({ open })
 window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) menuOpen.value = false
