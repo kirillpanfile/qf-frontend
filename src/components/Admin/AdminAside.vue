@@ -19,7 +19,7 @@
 
             <div class="px-6 my-6">
                 <button
-                    @click="refreshPage"
+                    @click="router.go"
                     class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-white duration-150 bg-lime border border-transparent rounded-lg"
                 >
                     Refresh Page
@@ -32,59 +32,27 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import AdminSidebarItem from './AdminSidebarItem.vue'
 import { routes } from '@/router'
+
+import AdminSidebarItem from './AdminSidebarItem.vue'
 const menuOpen = ref(false)
-const router = useRouter()
 const isMobile = ref(false)
 
+const router = useRouter()
+
 const open = () => (menuOpen.value = true)
-const refreshPage = () => router.go()
 
-let items = routes
-    .find((route) => route.path === '/admin')
-    .children.filter((route) => !route.path.includes('/:id') && !route.path.includes('/:catchAll(.*)'))
-onMounted(() => {
-    console.log(items)
-})
+const items = routes.find((route) => route.path === '/admin').children.filter((route) => !route.exclude)
 
-// const items = reactive([
-//     {
-//         link: 'dashboard',
-//         icon: 'fa-solid fa-chart-pie',
-//         text: 'Dashboard',
-//     },
-//     {
-//         link: 'users',
-//         icon: 'fa-solid fa-users',
-//         text: 'Users',
-//     },
-//     {
-//         icon: 'fa-solid fa-paste',
-//         text: 'Recipes',
-//         children: {
-//             link: 'recipes/create',
-//             icon: 'fa-solid fa-plus',
-//             text: 'Create',
-//         },
-//     },
-//     {
-//         link: 'notifications',
-//         icon: 'fa-solid fa-bell',
-//         text: 'Notifications',
-//     },
-//     {
-//         link: 'settings',
-//         icon: 'fa-solid fa-gear',
-//         text: 'Settings',
-//     },
-// ])
 defineExpose({ open })
-window.addEventListener('resize', () => {
-    if (window.innerWidth >= 768) menuOpen.value = false
+
+onMounted(() => {
+    window.addEventListener('resize', () => (window.innerWidth >= 768 ? (menuOpen.value = false) : void 0))
 })
+
+onUnmounted(() => window.removeEventListener('resize'))
 </script>
 
 <style scoped lang="scss">

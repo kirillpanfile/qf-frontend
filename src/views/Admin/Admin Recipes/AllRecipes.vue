@@ -61,9 +61,7 @@ const recipeStore = useRecipeStore()
 
 let loading = ref(true)
 
-const itemTemp = () => (item) => item.hot == false ? 'Cold' : 'Hot'
-
-const getTemperature = computed(itemTemp)
+const getTemperature = computed(() => (item) => item.hot == false ? 'Cold' : 'Hot')
 
 onMounted(() => {
     loading.value = true

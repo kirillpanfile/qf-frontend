@@ -58,6 +58,7 @@ const routes = [
                     {
                         path: '/admin/recipes/:id',
                         name: 'admin-recipes-item',
+                        exclude: true,
                         component: () =>
                             import(/* webpackChunkName: "AdminRecipesItem" */ '@/views/Admin/Admin Recipes/Recipe.vue'),
                     },
@@ -81,11 +82,6 @@ const routes = [
                 component: () => import(/* webpackChunkName: "AdminSettings" */ '@/views/Admin/AdminSettings.vue'),
             },
             {
-                path: '/admin/card',
-                name: 'admin-card',
-                component: () => import('@/views/Admin/AdminCard.vue'),
-            },
-            {
                 path: '/admin/notifications',
                 name: 'admin-notifications',
                 text: 'Notifications',
@@ -96,6 +92,7 @@ const routes = [
                 //catchall
                 path: '/admin/:catchAll(.*)',
                 redirect: '/admin/dashboard',
+                exclude: true,
             },
         ],
     },

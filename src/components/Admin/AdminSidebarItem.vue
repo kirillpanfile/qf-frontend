@@ -1,8 +1,8 @@
 <template>
     <router-link
-        v-if="link"
+        v-if="!children"
         v-ripple
-        class="px-6 py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors select-none duration-150 hover:text-gray-800"
+        class="px-6 overflow-hidden select-none py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
         :to="path"
         @click="$emit('press'), (open = !open)"
     >
@@ -12,17 +12,19 @@
     <a
         v-else
         v-ripple
-        @click.prevent
-        href=""
-        class="px-6 py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors select-none duration-150 hover:text-gray-800"
+        @click.prevent="open = !open"
+        href="#"
+        class="link px-6 overflow-hidden select-none py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
     >
+        <i :class="icon" class="w-5 text-lg"></i>
+        <span class="ml-4 block">{{ text }}</span>
     </a>
-    <div class="pl-4" v-if="children && open">
+    <div class="w-full bg-gray-200" v-if="children && open">
         <router-link
             v-for="(item, index) in childs"
             :key="index"
             v-ripple
-            class="px-6 py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors select-none duration-150 hover:text-gray-800"
+            class="px-6 overflow-hidden select-none py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
             :to="item.path"
             @click.prevent="$emit('press')"
         >
@@ -42,11 +44,10 @@ const props = defineProps({
     },
     icon: {
         type: String,
-        // required: true,
+        required: true,
     },
     text: {
         type: String,
-        default: '',
         required: true,
     },
     children: {
@@ -56,18 +57,10 @@ const props = defineProps({
 })
 const emit = defineEmits(['press'])
 
+const open = ref(false)
 const childs = ref(null)
 
-onMounted(function () {
-    if (props.children) {
-        childs.value = props.children.filter(
-            (route) => !route.path.includes('/:id') && !route.path.includes('/:catchAll(.*)')
-        )
-    }
-})
-// const childs = props.children.filter((route) => !route.path.includes('/:id') && !route.path.includes('/:catchAll(.*)'))
-const open = ref(false)
-const link = `/admin/${props.link}`
+onMounted(() => (props.children ? (childs.value = props.children.filter((route) => !route.exclude)) : void 0))
 </script>
 
 <style scoped>
