@@ -43,7 +43,8 @@ export const useRecipeStore = defineStore('recipeStore', {
             return this.notifications.slice(0, 10)
         },
         currentRecipeLang() {
-            return this.currentRecipe.langs.ro
+            const { langs, ...rest } = this.currentRecipe
+            return { ...rest, ...langs?.ro }
         },
     },
     actions: {

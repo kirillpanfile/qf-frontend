@@ -12,6 +12,7 @@
                     :link="item.link"
                     :icon="item.icon"
                     :text="item.text"
+                    :children="item.children"
                     @press="menuOpen = false"
                 />
             </div>
@@ -56,6 +57,11 @@ const items = reactive([
         link: 'recipes',
         icon: 'fa-solid fa-paste',
         text: 'Recipes',
+        children: {
+            link: 'recipes/create',
+            icon: 'fa-solid fa-plus',
+            text: 'Create',
+        },
     },
     // {
     //     link: 'post',
@@ -73,18 +79,13 @@ const items = reactive([
         text: 'Settings',
     },
 ])
+defineExpose({ open })
 window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) menuOpen.value = false
 })
-defineExpose({ open })
 </script>
 
 <style scoped lang="scss">
-.router-link-exact-active {
-    border-left: 4px solid #91c788;
-    color: #1f2937;
-}
-
 .mobile-menu {
     display: block;
     @media (max-width: 768px) {
