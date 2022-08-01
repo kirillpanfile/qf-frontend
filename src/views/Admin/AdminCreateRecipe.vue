@@ -1,6 +1,5 @@
 <template>
-    <div>Create Recipe</div>
-    <!-- <div class="admin-post">
+    <div class="admin-post">
         <h1 class="admin-post__title">Create a new recipe</h1>
         <form class="admin-post__form" @submit.prevent="addRecipe">
             <div class="admin-post__form-group">
@@ -92,7 +91,7 @@
                 <button type="submit" @click="addRecipe(recipe)">Create</button>
             </div>
         </form>
-    </div> -->
+    </div>
 </template>
 
 <script setup>
