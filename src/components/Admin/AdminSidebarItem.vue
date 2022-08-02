@@ -10,7 +10,7 @@
         <span class="ml-4 block">{{ text }}</span>
     </router-link>
     <a
-        v-else
+            v-else
         v-ripple
         @click.prevent="open = !open"
         href="#"
@@ -18,7 +18,10 @@
     >
         <i :class="icon" class="w-5 text-lg"></i>
         <span class="ml-4 block">{{ text }}</span>
+        <i v-if="!open" class="fa-solid text-xl fa-angle-down ml-auto"></i>
+        <i v-else class="fa-solid text-xl fa-angle-up  ml-auto"></i>
     </a>
+        
     <div class="w-full bg-gray-200" v-if="children && open">
         <router-link
             v-for="(item, index) in childs"
