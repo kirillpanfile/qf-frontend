@@ -73,5 +73,19 @@ export const useRecipeStore = defineStore('recipeStore', {
                 showError(e)
             }
         },
+        
+        async createRecipe(payload){
+            //? Functia care creeaza o receta noua
+            try{
+                const { accessToken } = this.admin
+                await axios.post(adminApi.createRecipe, {
+                    headers: headers(accessToken),
+                    payload
+                })
+            } catch (e) {
+                showError(e)
+                console.log(e.msg)
+            }
+        }
     },
 })
