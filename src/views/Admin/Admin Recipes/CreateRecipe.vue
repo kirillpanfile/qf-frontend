@@ -48,7 +48,7 @@
             <input type="radio" name="trans" checked />Automatic translation <input type="radio" name="trans" />Manual
             translation
         </div>
-        <button class="bg-lime rounded-lg text-white text-lg px-4 py-1" type="button" @click="submit(recipe)">
+        <button class="bg-lime rounded-lg text-white text-lg px-4 py-1" type="button" @click="submit(recipe)"> <!--! Daca e type="submit" nu se creeaza post -->
             Submit
         </button>
     </form>

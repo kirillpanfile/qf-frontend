@@ -5,9 +5,9 @@
             <app-loader></app-loader>
         </div>
         <div class="mt-16 flex gap-5 text-main font-Open" v-else>
-            <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-3 max-w-[596px]">
                 <!--? Left side of card -->
-                <div class="max-w-[596px]">
+                <div>
                     <img class="w-auto h-auto object-cover" src="@/assets/cookies.jpg" alt="recipeImage" />
                     <!--? Recipe image -->
                 </div>
