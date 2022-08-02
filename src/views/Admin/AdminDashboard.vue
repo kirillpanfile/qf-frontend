@@ -23,7 +23,6 @@
     <h1 class="my-6 text-2xl font-semibold text-gray-700">New Users</h1>
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-        <div class="w-full overflow-y-scroll">
             <div class="w-full whitespace-nowrap">
                 <div>
                     <div
@@ -36,7 +35,7 @@
                         <div class="pb-4">Action</div>
                     </div>
                 </div>
-                <div class="bg-white divide-y overflow-x-scroll max-h-96">
+                <div class="bg-white divide-y overflow-y-scroll max-h-96">
                     <admin-users-card
                         v-for="(item, index) in newUsers"
                         :key="index"
@@ -45,7 +44,6 @@
                     ></admin-users-card>
                 </div>
             </div>
-        </div>
     </div>
     <h1 class="my-6 text-2xl font-semibold text-gray-700">Charts</h1>
 
