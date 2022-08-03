@@ -13,9 +13,7 @@
 </template>
 
 <script setup>
-import AdminAside from '@/components/Admin/AdminAside.vue'
-import AdminHeader from '@/components/Admin/AdminHeader.vue'
-import AppLoader from '@/components/UI/AppLoader.vue'
+import { AdminHeader, AdminAside } from '@/components'
 import { ref } from 'vue'
 
 const sidemenu = ref(null)

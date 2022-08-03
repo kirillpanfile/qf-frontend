@@ -1,4 +1,4 @@
-import { reactive, toRefs } from 'vue'
+import { reactive } from 'vue'
 import { useRecipeStore } from '@/store/recipeStore'
 const recipeStore = useRecipeStore()
 
@@ -17,24 +17,21 @@ const utils = reactive({
     step: null,
 })
 
-const { steps, ingredients } = recipe
-const { ingredient, step } = toRefs(utils)
-
 const addIngredient = (ing) => {
     if (ing.length > 0) {
-        ingredients.push(ing)
-        ingredient.value = ''
+        recipe.ingredients.push(ing)
+        utils.ingredient.value = ''
     }
 }
 
 const addStep = (value) => {
     if (value.length > 0) {
-        steps.push(value)
-        step.value = ''
+        recipe.steps.push(value)
+        utils.step.value = ''
     }
 }
 
-const deleteIngredient = (index) => ingredients.splice(index, 1)
+const deleteIngredient = (index) => recipe.ingredients.splice(index, 1)
 const deleteStep = (index) => steps.splice(index, 1)
 const submit = (payload) => recipeStore.createRecipe(payload)
 

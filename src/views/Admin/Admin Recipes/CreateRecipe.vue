@@ -48,7 +48,8 @@
             <input type="radio" name="trans" checked />Automatic translation <input type="radio" name="trans" />Manual
             translation
         </div>
-        <button class="bg-lime rounded-lg text-white text-lg px-4 py-1" type="button" @click="submit(recipe)"> <!--! Daca e type="submit" nu se creeaza post -->
+        <button class="bg-lime rounded-lg text-white text-lg px-4 py-1" type="button" @click="submit(recipe)">
+            <!--! Daca e type="submit" nu se creeaza post -->
             Submit
         </button>
     </form>
@@ -58,8 +59,7 @@
 import { toRefs } from 'vue'
 import { useRecipe } from '@/composables/useRecipe.js'
 const { recipe, utils, addIngredient, addStep, deleteIngredient, deleteStep, submit } = useRecipe()
-
-const { steps, ingredients } = recipe
 const { ingredient, step } = toRefs(utils)
-const { title, description, time, hot, image } = toRefs(recipe)
+const { title, description, time, hot } = toRefs(recipe)
+const { steps, ingredients } = recipe
 </script>

@@ -2,7 +2,7 @@
 
 export default function autoImportComponents() {
     //get all files in src/component/UI folder
-    const components = require.context('../../src/components/UI', true, /\.vue$/)
+    const components = require.context('../../src/components/global', true, /\.vue$/)
     //for each file in folder
     const exportComponents = []
     components.keys().forEach((key) => {

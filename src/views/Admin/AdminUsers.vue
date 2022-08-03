@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import AdminUsersCard from '@/components/Admin/AdminUsersCard.vue'
+import { AdminUsersCard } from '@/components'
 import { onMounted, computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAdminStore } from '@/store/adminStore'

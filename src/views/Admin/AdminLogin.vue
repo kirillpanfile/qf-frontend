@@ -59,44 +59,32 @@
 
 <script setup>
 // imports
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAdminStore } from '@/store/adminStore'
+import { useLoader } from '@/composables/useLoader.js'
+import { AppLoader } from '@/components'
 
+const loader = useLoader()
 const admin = useAdminStore()
-const { authAdmin, authRemeber } = admin
-
 const remember = ref(false)
+const router = useRouter()
+
+const user = reactive({ username: '', password: '', remember: false })
+const { loading } = toRefs(loader)
+const { setLoader } = loader
+const { authAdmin, authRemeber } = admin
 
 onMounted(() => {
     remember.value = false
-    authRemeber().finally(() => {
-        remember.value = true
-    })
+    authRemeber().finally(() => (remember.value = true))
 })
-
-// refs
-
-const user = reactive({
-    username: '',
-    password: '',
-    remember: false,
-})
-
-let loading = ref(false)
-
-const router = useRouter()
 
 const login = () => {
-    loading.value = true
-    const req = {
-        username: user.username,
-        password: user.password,
-        remember: user.remember,
-    }
-    authAdmin(req).then(() => {
-        loading.value = false
+    setLoader(true)
+    authAdmin(user).then(() => {
         router.push('/admin/dashboard')
+        setLoader(false)
     })
 }
 </script>

@@ -56,17 +56,21 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRecipeStore } from '@/store/recipeStore'
-import AppLoader from '@/components/UI/AppLoader.vue'
+// import AppLoader from '@/components/AppLoader.vue'
+import { AppLoader } from '@/components/'
+import { useLoader } from '@/composables/useLoader.js'
+import { toRefs } from '@vue/reactivity'
+
+const loader = useLoader()
 const recipeStore = useRecipeStore()
 
-let loading = ref(true)
+const { loading } = toRefs(loader)
+const { setLoader } = loader
 
 const getTemperature = computed(() => (item) => item.hot == false ? 'Cold' : 'Hot')
 
 onMounted(() => {
-    loading.value = true
-    recipeStore.getAllRecipes().then(() => (loading.value = false))
+    setLoader(true)
+    recipeStore.getAllRecipes().then(() => setLoader(false))
 })
 </script>
-
-<style></style>
