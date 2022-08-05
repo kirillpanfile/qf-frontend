@@ -21,6 +21,8 @@ const uiComponents = autoImportComponents()
 const app = createApp(App)
 const pinia = createPinia()
 
+import { initGlobalApp } from '@/globals'
+
 //ripple
 app.directive('ripple', ripple)
 
@@ -46,3 +48,4 @@ uiComponents
 
 //create app
 app.use(router).use(Notifications).use(pinia).mount('#app')
+initGlobalApp(app)

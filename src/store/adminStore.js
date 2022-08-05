@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
-import { notifySuccess } from '../utils/notify'
-import { adminApi, checkSelected, checkRole, showError, headers } from './utils/admin.util'
-import getJWTFromCookie from '../utils'
+import { Notify } from '@/helpers/notify.helper'
+import { api, checkSelected, checkRole, showError, headers } from './utils/admin.util'
+// import getJWTFromCookie from '../utils'
 import router from '@/router'
 import axios from 'axios'
+
+import { jwtExpiresIn, getJWTFromCookie, removeJwtCookie, setJwtCookie } from '@/helpers/jwt.helper'
 
 export const useAdminStore = defineStore('adminStore', {
     state: () => ({
@@ -20,19 +22,12 @@ export const useAdminStore = defineStore('adminStore', {
     actions: {
         async authAdmin(user) {
             try {
-                const { data } = await axios.post(adminApi.signIn, user)
-                const { accessToken, ...others } = data
-                if (checkRole(data)) {
+                const { accessToken, ...others } = await Window.$http.post(api.signIn, user)
+                if (accessToken) {
                     this.user = others
                     this.accessToken = accessToken
-                    if (user.remember) {
-                        //set cookie expires 1h
-                        document.cookie = `accessToken=${accessToken};expires=${new Date(
-                            Date.now() + 3600000
-                        ).toUTCString()}`
-                    }
-                } else throw { message: 'You are not an admin', code: 'UNA' }
-                notifySuccess('You are logged in')
+                    if (user.remember) setJwtCookie(accessToken)
+                } else throw { message: 'You are not an admin' }
             } catch (error) {
                 showError(error)
             }
@@ -40,41 +35,28 @@ export const useAdminStore = defineStore('adminStore', {
         async authRemeber() {
             const token = getJWTFromCookie()
             if (token) {
-                const { data } = await axios.post(
-                    adminApi.remember,
-                    {},
-                    {
-                        headers: headers(token),
-                    }
-                )
-                const { ...others } = data
-                if (data) {
-                    this.user = others
-                    this.accessToken = token
-                    router.push('/admin/dashboard')
-                }
+                this.user = await Window.$http.post(api.remember, {}, token)
+                this.accessToken = token
+                router.push('/admin/dashboard')
             }
         },
         async loadUsers() {
             try {
-                const { data } = await axios.get(adminApi.usersPages(this.currentPage), {
-                    headers: headers(this.accessToken),
-                })
-                data.forEach((user) => (user.selected = false))
-                this.users = data
+                const res = await window.$http.get(api.usersPages(this.currentPage), this.accessToken)
+                res.forEach((user) => (user.selected = false))
+                this.users = res
             } catch (error) {
-                showError(error)
+                Notify(error)
             }
             try {
-                const { data } = await axios.get(adminApi.allPages, {
-                    headers: headers(this.accessToken),
-                })
-                this.pages = data
-            } catch (error) {}
+                this.pages = await window.$http.get(api.allPages, this.accessToken)
+            } catch (error) {
+                Notify(error, 'error')
+            }
         },
         async loadNewUsers() {
             try {
-                const { data } = await axios.get(adminApi.usersPages(1), {
+                const { data } = await axios.get(api.usersPages(1), {
                     headers: headers(this.accessToken),
                 })
                 data.forEach((user) => (user.selected = false))
@@ -91,7 +73,7 @@ export const useAdminStore = defineStore('adminStore', {
         },
         async searchUser(user) {
             try {
-                const { data } = await axios.get(adminApi.search(user), {
+                const { data } = await axios.get(api.search(user), {
                     headers: headers(this.accessToken),
                 })
                 data.forEach((user) => (user.selected = false))
@@ -102,7 +84,7 @@ export const useAdminStore = defineStore('adminStore', {
         },
         async deleteUser(id) {
             try {
-                await axios.delete(adminApi.deleteUser(id), {
+                await axios.delete(api.deleteUser(id), {
                     headers: headers(this.accessToken),
                 })
                 this.users = this.users.filter((user) => user._id !== id)
@@ -117,7 +99,7 @@ export const useAdminStore = defineStore('adminStore', {
                 if (selectedUsers.length === 0) throw { message: 'No user selected', code: 'NOS' }
 
                 await axios.post(
-                    adminApi.deleteMultipleUsers,
+                    api.deleteMultipleUsers,
                     { ids: selectedUsers },
                     { headers: headers(this.accessToken) }
                 )
@@ -128,15 +110,8 @@ export const useAdminStore = defineStore('adminStore', {
         },
         logOut() {
             try {
-                this.accessToken = null
-                this.user = null
-                this.users = []
-                this.pages = null
-                this.currentPage = 1
-                router.push('/admin-login')
+                this.$reset()
                 notifySuccess('You are logged out')
-                //remove cookie expires
-                document.cookie = `accessToken=;expires=${new Date(0).toUTCString()}`
             } catch (error) {
                 showError(error)
             }

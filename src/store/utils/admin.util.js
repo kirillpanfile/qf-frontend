@@ -1,7 +1,7 @@
 import { notifyError } from '@/utils/notify'
 import cfg from '../../store/config'
 
-export const adminApi = {
+export const api = {
     signIn: `${cfg.URL}/api/auth/signin`,
     allPages: `${cfg.URL}/api/users/pages`,
     deleteMultipleUsers: `${cfg.URL}/api/users/deleteMultiple`,
@@ -12,7 +12,7 @@ export const adminApi = {
     allRecipes: `${cfg.URL}/api/recipes/all`,
     recipe: (id) => `${cfg.URL}/api/recipes/${id}`,
     createRecipe: `${cfg.URL}/api/recipes/admin/create`,
-    deleteRecipe: (id) => `${cfg.URL}/api/recipes/${id}`
+    deleteRecipe: (id) => `${cfg.URL}/api/recipes/${id}`,
 }
 
 export const checkRole = (data) => data?.roles?.some((role) => role === 'ROLE_ADMIN' || role === 'ROLE_MODERATOR')

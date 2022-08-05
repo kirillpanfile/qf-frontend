@@ -59,7 +59,7 @@
 
 <script setup>
 // imports
-import { ref, reactive, onMounted, toRefs } from 'vue'
+import { ref, reactive, onMounted, toRefs, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAdminStore } from '@/store/adminStore'
 import { useLoader } from '@/composables/useLoader.js'
@@ -69,10 +69,8 @@ const loader = useLoader()
 const admin = useAdminStore()
 const remember = ref(false)
 const router = useRouter()
-
 const user = reactive({ username: '', password: '', remember: false })
-const { loading } = toRefs(loader)
-const { setLoader } = loader
+const { loading, setLoader } = loader
 const { authAdmin, authRemeber } = admin
 
 onMounted(() => {
