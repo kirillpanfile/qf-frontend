@@ -24,6 +24,7 @@ export const useAdminStore = defineStore('adminStore', {
             try {
                 const { accessToken, ...others } = await Window.$http.post(adminSignIn, user)
                 if (accessToken) {
+                    console.log('accessToken', accessToken)
                     ;(this.user = others), (this.accessToken = accessToken), user.remember && jwt.set(accessToken)
                     Notify('You are now logged in', 'success')
                 } else throw { message: 'You are not an admin' }
@@ -35,6 +36,7 @@ export const useAdminStore = defineStore('adminStore', {
             jwt.get() && (this.user = await Window.$http.post(rememberAdmin, {}, jwt.get())),
                 (this.accessToken = jwt.get()),
                 router.push('/admin/dashboard')
+            Notify('You are now logged in', 'success')
         },
         async loadUsers() {
             try {
