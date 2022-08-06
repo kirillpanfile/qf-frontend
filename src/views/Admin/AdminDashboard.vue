@@ -64,16 +64,12 @@ import { onMounted } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
 
-const admin = useAdminStore()
-const { loadNewUsers } = admin
-const { newUsers } = storeToRefs(admin)
+const { loadNewUsers } = useAdminStore()
+const { newUsers } = storeToRefs(useAdminStore())
 
 onMounted(() => loadNewUsers())
 
-const chartData = {
-    width: 1144,
-    height: 532,
-}
+const chartData = { width: 1144, height: 532 }
 </script>
 
 <style>

@@ -92,20 +92,16 @@ import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { AppLoader } from '@/components'
 import { useLoader } from '@/composables/useLoader.js'
-import { toRefs } from '@vue/reactivity'
 
 const route = useRoute()
-const recipeStore = useRecipeStore()
-const { currentRecipeLang } = storeToRefs(recipeStore)
-const { getRecipe } = recipeStore
-
-const loader = useLoader()
-
-const { loading } = toRefs(loader)
-const { setLoader } = loader
+const { currentRecipeLang } = storeToRefs(useRecipeStore())
+const { getRecipe } = useRecipeStore()
+const { setLoader, loading } = useLoader()
 
 onMounted(() => {
     setLoader(true)
-    getRecipe(route.params.id).then(() => setLoader(false))
+    getRecipe(route.params.id)
+        .then(() => setLoader(false))
+        .catch(() => setLoader(false))
 })
 </script>

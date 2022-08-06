@@ -94,15 +94,22 @@ import { onMounted, computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAdminStore } from '@/store/adminStore'
 
-const search = ref('')
-const admin = useAdminStore()
-onMounted(() => loadUsers())
+const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMultiple } = useAdminStore(),
+    { users, pages, currentPage, selectedUsers } = storeToRefs(useAdminStore()),
+    search = ref('')
 
-const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMultiple } = admin // actions
-const { users, pages, currentPage, selectedUsers } = storeToRefs(admin) // state
+onMounted(() => loadUsers())
+/**
+ * @description Create an array of pages to show in the pagination
+ * @param {number} from  - start index
+ * @param {number} to   - end index
+ */
 
 const createPages = (from, to) => [...Array(to - from + 1).keys()].map((i) => i + from)
 
+/**
+ * @description Pages to show in the pagination depending on the current page
+ */
 const pagesToShow = computed(() => {
     if (currentPage.value > 1 && currentPage.value < pages.value - 2)
         return createPages(currentPage.value - 1, currentPage.value + 2)
@@ -110,7 +117,10 @@ const pagesToShow = computed(() => {
     if (currentPage.value >= pages.value - 2) return createPages(pages.value - 3, pages.value)
 })
 
-watch(search, (val) => (val.length === 0 ? loadUsers() : void 0))
+/**
+ * @description Search for a user
+ */
+watch(search, (val) => val.length === 0 && loadUsers())
 </script>
 
 <style>

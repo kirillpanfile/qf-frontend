@@ -58,31 +58,35 @@
 </template>
 
 <script setup>
-// imports
-import { ref, reactive, onMounted, toRefs, inject } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAdminStore } from '@/store/adminStore'
 import { useLoader } from '@/composables/useLoader.js'
 import { AppLoader } from '@/components'
 
-const loader = useLoader()
-const admin = useAdminStore()
-const remember = ref(false)
-const router = useRouter()
-const user = reactive({ username: '', password: '', remember: false })
-const { loading, setLoader } = loader
-const { authAdmin, authRemeber } = admin
+const loader = useLoader(),
+    user = reactive({ username: '', password: '', remember: false }),
+    { authAdmin, authRemeber } = useAdminStore(),
+    { push } = useRouter(),
+    { loading, setLoader } = loader,
+    remember = ref(false)
 
 onMounted(() => {
-    remember.value = false
-    authRemeber().finally(() => (remember.value = true))
+    ;(remember.value = false), authRemeber().finally(() => (remember.value = true))
 })
 
+/**
+ * Login the admin
+ */
+
 const login = () => {
-    setLoader(true)
-    authAdmin(user).then(() => {
-        router.push('/admin/dashboard')
-        setLoader(false)
-    })
+    setLoader(true),
+        authAdmin(user)
+            .then(() => {
+                push('/admin/dashboard'), setLoader(false)
+            })
+            .catch(() => {
+                setLoader(false)
+            })
 }
 </script>

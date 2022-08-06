@@ -1,13 +1,13 @@
 /**
- * Use this file to register any variables or functions that should be available globally
- * ideally you should make it available via the window object
- * as well as the Vue prototype for access throughout the app
- * (register globals with care, only when it makes since to be accessible app wide)
+ *? Use this file to register any variables or functions that should be available globally
+ *? ideally you should make it available via the window object
+ *? as well as the Vue prototype for access throughout the app
+ *? (register globals with care, only when it makes since to be accessible app wide)
  */
 import { Notify } from '@/helpers/notify.helper'
 import { jwtExpiresIn, getJWTFromCookie, removeJwtCookie, setJwtCookie } from '@/helpers/jwt.helper'
 
-import { $http, init } from '@/helpers/http.helper'
+import { init } from '@/helpers/http.helper'
 
 /**
  * Working with global Components
@@ -17,23 +17,18 @@ import { $http, init } from '@/helpers/http.helper'
 
 export function autoImportComponents() {
     const components = require.context('@/components/global', true, /\.vue$/)
-    //for each file in folder
     const exportComponents = []
     components.keys().forEach((key) => {
-        //get file name
         const component = components(key)
-        //get file name without extension
-        const componentName = key.replace(/^\.\/(.*)\.\w+$/, '$1')
-        //import component
         exportComponents.push(component)
     })
     return exportComponents
 }
 
 /**
- * object for providing global variables
- * to be used in the app
- * (e.g. global variables, functions, etc.)
+ *? object for providing global variables
+ *? to be used in the app
+ *? (e.g. global variables, functions, etc.)
  */
 
 /**

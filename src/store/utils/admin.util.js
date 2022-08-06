@@ -1,40 +1,29 @@
-import { notifyError } from '@/utils/notify'
-import cfg from '../../store/config'
+const URL = process.env.VUE_APP_API
 
-export const api = {
-    signIn: `${cfg.URL}/api/auth/signin`,
-    allPages: `${cfg.URL}/api/users/pages`,
-    deleteMultipleUsers: `${cfg.URL}/api/users/deleteMultiple`,
-    remember: `${cfg.URL}/api/auth/remember`,
-    usersPages: (page) => `${cfg.URL}/api/users?page=${page}`,
-    deleteUser: (id) => `${cfg.URL}/api/users/delete/${id}`,
-    search: (payload) => `${cfg.URL}/api/users/search/${payload}`,
-    allRecipes: `${cfg.URL}/api/recipes/all`,
-    recipe: (id) => `${cfg.URL}/api/recipes/${id}`,
-    createRecipe: `${cfg.URL}/api/recipes/admin/create`,
-    deleteRecipe: (id) => `${cfg.URL}/api/recipes/${id}`,
-}
+// ============================== Dependencies ================================
 
+export const adminSignIn = URL + '/api/auth/signin'
+export const adminPages = URL + '/api/users/pages'
+export const rememberAdmin = URL + '/api/auth/remember'
+export const adminUsers = (page) => URL + '/api/users?page=' + page
+export const adminDeleteUser = (id) => URL + '/api/users/delete/' + id
+export const adminDeleteMultipleUsers = URL + '/api/users/deleteMultiple'
+export const adminSearchUser = (user) => URL + '/api/users/search?user=' + user
+
+// ============================================================================
+
+/**
+ * @description checkRole is a helper for checking if the user has the correct role
+ * @param {object} data - data got from the server
+ * @returns {boolean} true if data is an object and has at least one property
+ */
 export const checkRole = (data) => data?.roles?.some((role) => role === 'ROLE_ADMIN' || role === 'ROLE_MODERATOR')
-export const checkSelected = (user, id, task) => user._id === id && user.selected === task
-export const showError = (error) => {
-    switch (error.code) {
-        case 'ERR_BAD_REQUEST':
-            notifyError('Invalid credentials')
-            break
-        case 'UNA':
-            notifyError('You dont have permission to do this')
-            break
-        default:
-            notifyError(`Something went wrong: ${error.message}`)
-            break
-    }
-}
 
-export const headers = (token) => ({
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'x-access-token': token,
-})
+/**
+ * @description checkSelected is a helper for checking if the user is selected or not
+ * @param {object} user - user object
+ * @param {number} id - id of the user
+ * @param {boolean} task - if true, it checks if the user is selected, if false, it checks if the user is not selected
+ * @returns
+ */
+export const checkSelected = (user, id, task) => user._id === id && user.selected === task

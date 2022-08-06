@@ -28,10 +28,7 @@ const options = (token) => ({
  * @description Registering global $http on window object
  * @returns {void}
  */
-export const init = () => {
-    console.log('hello')
-    Window.$http = $http
-}
+export const init = () => (Window.$http = $http)
 
 /**
  * @description $http is a helper for axios requests, it is used to create a new axios instance for each request
@@ -50,7 +47,6 @@ export const $http = {
 
     get: async (url, token) => {
         const { data } = await axios.get(url, options(token))
-        console.log(data)
         return data
     },
 

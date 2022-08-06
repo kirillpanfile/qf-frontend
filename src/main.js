@@ -2,50 +2,54 @@
 import { createApp, defineAsyncComponent } from 'vue'
 import App from './App.vue'
 import router from './router'
-
-// ============================================================
 import Notifications from '@kyvg/vue3-notification'
 import ripple from '@/directives/ripple'
 import { createPinia } from 'pinia'
+import '@/assets/scss/style.scss'
+import '@/assets/scss/tailwind.css'
+import './services/fontpro'
+import { autoImportComponents, initGlobalApp } from '@/globals'
 
-//styles
-import './scss/style.scss'
-import './scss/tailwind.css'
-import './utils/fontpro'
-
-//Auto Import Script
-import autoImportComponents from './utils/import'
 const uiComponents = autoImportComponents()
-
-//create Vue app
 const app = createApp(App)
 const pinia = createPinia()
 
-import { initGlobalApp } from '@/globals'
-
-//ripple
 app.directive('ripple', ripple)
 
-//if node env is development, then use devtools
+/**
+ * @description if mode is development, then use devtools
+ */
+
 if (process.env.NODE_ENV === 'development') {
     app.config.devtools = true
 }
 
-//! IMPORTS ONLY FROM src/components/UI
+/**
+ * @description - import global components from src/components/global folder
+ */
+
 uiComponents
     ? uiComponents.forEach((component) => {
-          //import component asynchronously
           app.component(
               component.default.name,
-              defineAsyncComponent(() => import(`./components/UI/${component.default.name}`))
+              defineAsyncComponent(() => import(`./components/global/${component.default.name}`))
           )
       })
     : console.log('No components found')
 
-//If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement.
-//This is because the compiler will automatically generate a wrapper component for the custom element.
-//If you want to use the custom element as a component, you need to explicitly import it.
+/**
+ * @description - import global components from src/components/global folder
+ * @param {object} app - Vue app
+ * @param {object} pinia - Pinia store
+ * @param {object} router - Vue router
+ * @param {object} Notifications - Vue notification component
+ * @returns {Element} - Vue app
+ */
 
-//create app
 app.use(router).use(Notifications).use(pinia).mount('#app')
+
+/**
+ * @description - initialize global initGlobalApp function from globals.js to provide global functionality
+ * @param {Element} app - Vue app
+ */
 initGlobalApp(app)

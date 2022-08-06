@@ -19,7 +19,7 @@
 
             <div class="px-6 my-6">
                 <button
-                    @click="router.go"
+                    @click="go"
                     class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-white duration-150 bg-lime border border-transparent rounded-lg"
                 >
                     Refresh Page
@@ -32,27 +32,30 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted, onUnmounted } from 'vue'
+import { AdminSidebarItem } from '@/components'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { routes } from '@/router'
 
-import AdminSidebarItem from './AdminSidebarItem.vue'
-const menuOpen = ref(false)
-const isMobile = ref(false)
-
-const router = useRouter()
+const { go } = useRouter(),
+    menuOpen = ref(false),
+    isMobile = ref(false)
 
 const open = () => (menuOpen.value = true)
 
+/**
+ * @description Automatic Sidebar creation with routes used in admin panel
+ */
 const items = routes.find((route) => route.path === '/admin').children.filter((route) => !route.exclude)
 
+/**
+ * @description on mobile leave the menu closes
+ */
+const watchResize = () => window.innerWidth >= 768 && (menuOpen.value = false)
+
+onMounted(() => window.addEventListener('resize', watchResize))
+onUnmounted(() => window.removeEventListener('resize', watchResize))
 defineExpose({ open })
-
-onMounted(() => {
-    window.addEventListener('resize', () => (window.innerWidth >= 768 ? (menuOpen.value = false) : void 0))
-})
-
-onUnmounted(() => window.removeEventListener('resize'))
 </script>
 
 <style scoped lang="scss">

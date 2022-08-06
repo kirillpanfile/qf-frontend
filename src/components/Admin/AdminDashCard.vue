@@ -36,29 +36,4 @@ const props = defineProps({
 const getColor = `text-${props.color}-500 bg-${props.color}-100`
 </script>
 
-<style>
-/* .text-orange-500 {
-    color: #f97316;
-}
-.bg-orange-100 {
-    background-color: #ffedd5;
-}
-.text-green-500 {
-    color: #22c55e;
-}
-.bg-green-100 {
-    background-color: #dcfce7;
-}
-.text-blue-500 {
-    color: #3b82f6;
-}
-.bg-blue-100 {
-    background-color: #dbeafe;
-}
-.text-teal-500 {
-    color: #14b8a6;
-}
-.bg-teal-100 {
-    background-color: #ccfbf1;
-} */
-</style>
+<style></style>

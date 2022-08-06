@@ -1,132 +1,111 @@
+import { jwt } from '@/helpers/jwt.helper'
 import { defineStore } from 'pinia'
 import { Notify } from '@/helpers/notify.helper'
-import { api, checkSelected, checkRole, showError, headers } from './utils/admin.util'
-// import getJWTFromCookie from '../utils'
 import router from '@/router'
-import axios from 'axios'
 
-import { jwtExpiresIn, getJWTFromCookie, removeJwtCookie, setJwtCookie } from '@/helpers/jwt.helper'
+import {
+    adminSignIn,
+    adminPages,
+    rememberAdmin,
+    adminUsers,
+    adminDeleteUser,
+    adminDeleteMultipleUsers,
+    adminSearchUser,
+    checkSelected,
+} from '@/store/utils/admin.util'
 
 export const useAdminStore = defineStore('adminStore', {
-    state: () => ({
-        accessToken: null,
-        user: null,
-        users: [],
-        newUsers: [],
-        pages: null,
-        currentPage: 1,
-    }),
+    state: () => ({ accessToken: null, user: null, users: [], newUsers: [], pages: null, currentPage: 1 }),
     getters: {
         selectedUsers: (state) => state.users.filter((user) => user.selected === true),
     },
     actions: {
         async authAdmin(user) {
             try {
-                const { accessToken, ...others } = await Window.$http.post(api.signIn, user)
+                const { accessToken, ...others } = await Window.$http.post(adminSignIn, user)
                 if (accessToken) {
-                    this.user = others
-                    this.accessToken = accessToken
-                    if (user.remember) setJwtCookie(accessToken)
+                    ;(this.user = others), (this.accessToken = accessToken), user.remember && jwt.set(accessToken)
+                    Notify('You are now logged in', 'success')
                 } else throw { message: 'You are not an admin' }
             } catch (error) {
-                showError(error)
+                Notify(error, 'error')
             }
         },
         async authRemeber() {
-            const token = getJWTFromCookie()
-            if (token) {
-                this.user = await Window.$http.post(api.remember, {}, token)
-                this.accessToken = token
+            jwt.get() && (this.user = await Window.$http.post(rememberAdmin, {}, jwt.get())),
+                (this.accessToken = jwt.get()),
                 router.push('/admin/dashboard')
-            }
         },
         async loadUsers() {
             try {
-                const res = await window.$http.get(api.usersPages(this.currentPage), this.accessToken)
-                res.forEach((user) => (user.selected = false))
-                this.users = res
+                const res = await Window.$http.get(adminUsers(this.currentPage), this.accessToken)
+                res.forEach((user) => (user.selected = false)), (this.users = res)
+                Notify('Users successfully loaded', 'success')
             } catch (error) {
-                Notify(error)
+                Notify(error, 'error')
             }
             try {
-                this.pages = await window.$http.get(api.allPages, this.accessToken)
+                this.pages = await Window.$http.get(adminPages, this.accessToken)
+                Notify('Pages came from server', 'success')
             } catch (error) {
                 Notify(error, 'error')
             }
         },
         async loadNewUsers() {
             try {
-                const { data } = await axios.get(api.usersPages(1), {
-                    headers: headers(this.accessToken),
-                })
-                data.forEach((user) => (user.selected = false))
-                this.newUsers = data
+                const res = await Window.$http.get(adminUsers(1), this.accessToken)
+                res.forEach((user) => (user.selected = false)), (this.newUsers = res)
+                Notify('New users successfully loaded', 'success')
             } catch (error) {
-                showError(error)
+                Notify(error, 'error')
             }
         },
         selectUser(id) {
             this.users.forEach((user) => {
-                if (checkSelected(user, id, false)) user.selected = true
-                else if (checkSelected(user, id, true)) user.selected = false
+                checkSelected(user, id, false)
+                    ? (user.selected = true)
+                    : checkSelected(user, id, true) && (user.selected = false)
             })
         },
         async searchUser(user) {
             try {
-                const { data } = await axios.get(api.search(user), {
-                    headers: headers(this.accessToken),
-                })
-                data.forEach((user) => (user.selected = false))
-                this.users = data
+                const res = await Window.$http.get(adminSearchUser(user), this.accessToken)
+                res.forEach((user) => (user.selected = false)), (this.users = res)
             } catch (error) {
-                showError(error)
+                Notify(error, 'error')
             }
         },
         async deleteUser(id) {
             try {
-                await axios.delete(api.deleteUser(id), {
-                    headers: headers(this.accessToken),
-                })
-                this.users = this.users.filter((user) => user._id !== id)
-                notifySuccess('User deleted')
+                await Window.$http.delete(adminDeleteUser(id), this.accessToken)
+                ;(this.users = this.users.filter((user) => user._id !== id)), Notify('User deleted', 'success')
             } catch (error) {
-                showError(error)
+                Notify(error, 'error')
             }
         },
         async deleteMultiple() {
             try {
                 const selectedUsers = this.selectedUsers.map((user) => user._id)
-                if (selectedUsers.length === 0) throw { message: 'No user selected', code: 'NOS' }
+                if (selectedUsers.length === 0) throw { message: 'No user selected' }
 
-                await axios.post(
-                    api.deleteMultipleUsers,
-                    { ids: selectedUsers },
-                    { headers: headers(this.accessToken) }
-                )
+                await Window.$http.post(adminDeleteMultipleUsers, { ids: selectedUsers }, this.accessToken)
                 this.users = this.users.filter((user) => !selectedUsers.includes(user._id))
+                Notify('Users deleted', 'success')
             } catch (error) {
-                showError(error)
+                Notify(error, 'error')
             }
         },
         logOut() {
-            try {
-                this.$reset()
-                notifySuccess('You are logged out')
-            } catch (error) {
-                showError(error)
-            }
+            this.$reset(), jwt.remove(), router.push('/admin-login'), Notify('You are logged out', 'success')
         },
         nextPage() {
-            this.currentPage < this.pages ? this.currentPage++ : null
-            this.loadUsers()
+            this.currentPage < this.pages && this.currentPage++, this.loadUsers()
         },
         prevPage() {
-            this.currentPage > 1 ? this.currentPage-- : null
-            this.loadUsers()
+            this.currentPage > 1 && this.currentPage--, this.loadUsers()
         },
-        setPage(page) {
-            this.currentPage = page
-            this.loadUsers()
+        setPage(e) {
+            ;(this.currentPage = e), this.loadUsers()
         },
     },
 })

@@ -24,7 +24,7 @@ export const getJWTFromCookie = () => {
  */
 
 export const setJwtCookie = (jwt) => {
-    document.cookie = `accessToken=${jwt}`
+    document.cookie = `accessToken=${jwt}; expires=${new Date(Date.now() + jwtExpiresIn).toUTCString()}`
 }
 
 /**
@@ -40,8 +40,8 @@ export const removeJwtCookie = () => {
  * @param {string} token token to be used for setting the accessToken cookie
  */
 
-export const jwt = (token) => ({
+export const jwt = {
     get: getJWTFromCookie,
-    set: setJwtCookie(token),
+    set: setJwtCookie,
     remove: removeJwtCookie,
-})
+}

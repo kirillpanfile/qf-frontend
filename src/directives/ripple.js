@@ -4,6 +4,13 @@ Object.defineProperty(exports, '__esModule', {
     value: true,
 })
 exports.default = void 0
+
+/**
+ * @ngdoc directive
+ * @name ripple
+ * @description ripple directive is used to create ripple effect on click event of the element it is applied to
+ */
+
 var Ripple = {
     beforeMount: function (el, binding) {
         var props = {

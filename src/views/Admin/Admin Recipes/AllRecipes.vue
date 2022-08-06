@@ -9,7 +9,7 @@
             <router-link
                 :to="`/admin/recipes/${item._id}`"
                 class="w-auto flex rounded-lg overflow-hidden shadow-md hover:z-10"
-                v-for="item in recipeStore.recipe"
+                v-for="item in recipe"
                 :key="item._id"
             >
                 <!--? Card wrapper -->
@@ -54,23 +54,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useRecipeStore } from '@/store/recipeStore'
-// import AppLoader from '@/components/AppLoader.vue'
 import { AppLoader } from '@/components/'
 import { useLoader } from '@/composables/useLoader.js'
-import { toRefs } from '@vue/reactivity'
+import { storeToRefs } from 'pinia'
 
-const loader = useLoader()
-const recipeStore = useRecipeStore()
-
-const { loading } = toRefs(loader)
-const { setLoader } = loader
+const { loading, setLoader } = useLoader()
+const { recipe } = storeToRefs(useRecipeStore())
 
 const getTemperature = computed(() => (item) => item.hot == false ? 'Cold' : 'Hot')
 
 onMounted(() => {
     setLoader(true)
-    recipeStore.getAllRecipes().then(() => setLoader(false))
+    useRecipeStore()
+        .getAllRecipes()
+        .then(() => setLoader(false))
 })
 </script>

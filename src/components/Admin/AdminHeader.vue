@@ -49,17 +49,16 @@
 import { computed, ref } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
 import { storeToRefs } from 'pinia'
-import AdminNotificationMenu from './AdminNotificationMenu.vue'
+import { AdminNotificationMenu } from '@/components'
 
-const admin = useAdminStore()
-const dropOpen = ref(false)
-const notificationsOpen = ref(false)
-const { user } = storeToRefs(admin)
-const { logOut } = admin
+const dropOpen = ref(false),
+    notificationsOpen = ref(false),
+    { user } = storeToRefs(useAdminStore()),
+    { logOut } = useAdminStore()
+
+const role = computed(() => (user?.value.roles.includes('ROLE_ADMIN') ? 'SuperAdmin' : 'Moderator'))
 
 defineEmits(['toggleSideMenu'])
-//user
-const role = computed(() => (user?.value.roles.includes('ROLE_ADMIN') ? 'SuperAdmin' : 'Moderator'))
 </script>
 
 <style>

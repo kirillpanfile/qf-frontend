@@ -1,88 +1,70 @@
-import { defineStore } from 'pinia'
-import { adminApi, showError, headers } from './utils/admin.util'
+import { adminAllRecipes, adminRecipe, adminCreateRecipe, notifications } from '@/store/utils/recipe.utils'
 import { useAdminStore } from '@/store/adminStore'
-import axios from 'axios'
+import { Notify } from '@/helpers/notify.helper'
+import { defineStore } from 'pinia'
 
 export const useRecipeStore = defineStore('recipeStore', {
     state: () => ({
         recipe: [],
         currentRecipe: {},
         admin: useAdminStore(),
-        notifications: [
-            {
-                username: 'andrii123',
-                message: 'submited a new recipe',
-                date: '2020-01-01',
-                id: 1,
-            },
-            {
-                username: 'hesoyam',
-                message: 'submited a new recipe',
-                date: '2020-01-01',
-                id: 2,
-            },
-            {
-                username: 'baguvix',
-                message: 'submited a new recipe',
-                date: '2020-01-01',
-            },
-            {
-                username: 'TonyStark',
-                message: 'submited a new recipe',
-                date: '2020-01-01',
-            },
-            {
-                username: 'John Wick',
-                message: 'submited a new recipe',
-                date: '2020-01-01',
-            },
-        ],
+        notifications: notifications,
     }),
     getters: {
         newNotifications() {
             return this.notifications.slice(0, 10)
         },
+        /**
+         * @description get the recipe by language that is needed
+         * @returns {object} recipe object
+         */
         currentRecipeLang() {
             const { langs, ...rest } = this.currentRecipe
             return { ...rest, ...langs?.ro }
         },
     },
     actions: {
+        /**
+         * @description gets all recipes
+         * @returns {Promise<void>}
+         */
+
         async getAllRecipes() {
-            //? Functia care returneaza TOATE recetele
             try {
                 const { accessToken } = this.admin
-                const { data } = await axios.get(adminApi.allRecipes, {
-                    headers: headers(accessToken),
-                })
-                this.recipe = data
-            } catch (e) {
-                showError(e)
+                this.recipe = await Window.$http.get(adminAllRecipes, accessToken)
+            } catch (error) {
+                Notify(error)
             }
         },
+
+        /**
+         * @description gets recipe by id
+         * @param {*string} id recipe id
+         * @returns {Promise<void>}
+         */
 
         async getRecipe(id) {
-            //? Functia care returneaza o recete dupa ID
             try {
                 const { accessToken } = this.admin
-                const { data } = await axios.get(adminApi.recipe(id), {
-                    headers: headers(accessToken),
-                })
-                this.currentRecipe = data
-            } catch (e) {
-                showError(e)
+                this.currentRecipe = await Window.$http.get(adminRecipe(id), accessToken)
+            } catch (error) {
+                Notify(error)
             }
         },
 
+        /**
+         * @description creates new recipe
+         * @param {object} payload
+         * @returns {Promise<void>}
+         */
+
         async createRecipe(payload) {
-            //? Functia care creeaza o receta noua
             try {
                 const { accessToken } = this.admin
-                await axios.post(adminApi.createRecipe, payload, {
-                    headers: headers(accessToken),
-                })
-            } catch (e) {
-                showError(e)
+                await Window.$http.post(adminCreateRecipe, payload, accessToken)
+            } catch (error) {
+                Notify(error)
             }
         },
     },
