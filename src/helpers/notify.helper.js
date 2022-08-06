@@ -37,15 +37,30 @@ import { notify } from '@kyvg/vue3-notification'
 */
 
 export const Notify = (message, type, err) => {
+    const status = message.response.status
     try {
         !['success', 'error', 'warning', 'info'].includes(type) ? (type = undefined) : void 0
         if (!type) throw new Error('Notify type is not valid')
-        else
-            notify({
-                //! THIS is the notification that is displayed on the screen
-                type: type || 'success',
-                text: message,
-            })
+        else {
+            //! THIS is the notification that is displayed on the screen
+            switch(status){
+                case 400 : notify({type: type || 'success', text: 'Oops, something went wrong'}); break;
+                case 401 : notify({type: type || 'success', text: 'You are not authorized to access this resource'}); break;
+                case 403 : notify({type: type || 'success', text: 'You are not authorized to access this resource'}); break;
+                case 404 : notify({type: type || 'success', text: 'The resource you are looking for is not found'}); break;
+                case 500 : notify({type: type || 'success', text: 'Looks like we have a internal server error'}); break;
+                case 502 : notify({type: type || 'success', text: 'Looks like the server is down'}); break;
+                case 503 : notify({type: type || 'success', text: 'Looks like the server is sleeping'}); break;
+                case 504 : notify({type: type || 'success', text: 'Looks like the server is overloaded'}); break;
+                default : notify({type: type || 'success', text: message}); break;
+            }
+        }
+    
+            // notify({
+            //     //! THIS is the notification that is displayed on the screen
+            //     type: type || 'success',
+            //     text: message,
+            // })
     } catch (error) {
         //? Error handling is done in the catch block
         console.error('🚀 ~ file: globals.js ~ line 77 ~ notify ~ error', error)
