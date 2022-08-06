@@ -38,30 +38,25 @@ import { notify } from '@kyvg/vue3-notification'
 
 export const Notify = (message, type, err) => {
     const status = message.response.status
+    const errStatus = {
+        400: 'Oops, something went wrong',
+        401: 'You are not authorized to access this resource',
+        403: 'You are not authorized to access this resource',
+        404: 'The resource you are looking for is not found',
+        500: 'Looks like we have a internal server error',
+        502: 'Looks like the server is down',
+        503: 'Looks like the server is sleeping',
+        504: 'Looks like the server is overloaded'
+    }
     try {
         !['success', 'error', 'warning', 'info'].includes(type) ? (type = undefined) : void 0
         if (!type) throw new Error('Notify type is not valid')
         else {
-            //! THIS is the notification that is displayed on the screen
-            switch(status){
-                case 400 : notify({type: type || 'success', text: 'Oops, something went wrong'}); break;
-                case 401 : notify({type: type || 'success', text: 'You are not authorized to access this resource'}); break;
-                case 403 : notify({type: type || 'success', text: 'You are not authorized to access this resource'}); break;
-                case 404 : notify({type: type || 'success', text: 'The resource you are looking for is not found'}); break;
-                case 500 : notify({type: type || 'success', text: 'Looks like we have a internal server error'}); break;
-                case 502 : notify({type: type || 'success', text: 'Looks like the server is down'}); break;
-                case 503 : notify({type: type || 'success', text: 'Looks like the server is sleeping'}); break;
-                case 504 : notify({type: type || 'success', text: 'Looks like the server is overloaded'}); break;
-                default : notify({type: type || 'success', text: message}); break;
+                //! THIS is the notification that is displayed on the screen
+                notify({type: 'error', text: errStatus[status]})
             }
         }
-    
-            // notify({
-            //     //! THIS is the notification that is displayed on the screen
-            //     type: type || 'success',
-            //     text: message,
-            // })
-    } catch (error) {
+    catch (error) {
         //? Error handling is done in the catch block
         console.error('🚀 ~ file: globals.js ~ line 77 ~ notify ~ error', error)
     }
