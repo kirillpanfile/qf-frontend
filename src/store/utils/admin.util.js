@@ -2,13 +2,13 @@ const URL = process.env.VUE_APP_API
 
 // ============================== Dependencies ================================
 
-export const adminSignIn = URL + '/api/auth/signin'
-export const adminPages = URL + '/api/users/pages'
+export const adminSignIn = URL + '/api/admin/signin'
+export const adminPages = URL + '/api/admin/pages'
 export const rememberAdmin = URL + '/api/auth/remember'
-export const adminUsers = (page) => URL + '/api/users?page=' + page
-export const adminDeleteUser = (id) => URL + '/api/users/delete/' + id
-export const adminDeleteMultipleUsers = URL + '/api/users/deleteMultiple'
-export const adminSearchUser = (user) => URL + '/api/users/search?user=' + user
+export const adminUsers = (page) => URL + '/api/admin/users?page=' + page
+export const adminDeleteUser = (id) => URL + '/api/admin/delete/' + id
+export const adminDeleteMultipleUsers = URL + '/api/admin/deleteMultiple'
+export const adminSearchUser = (user) => URL + '/api/admin/search/' + user
 
 // ============================================================================
 

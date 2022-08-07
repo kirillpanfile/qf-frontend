@@ -13,10 +13,23 @@
 //! TODO - add session management
 //! TODO - implement with websocket
 
-const addToSession = (key, value) => sessionStorage.setItem(key, value)
+/**
+*   @description Adding one page of users in SessionStorage
+*   @param {string} key name of key
+*   @param {string} value value of item
+*   @returns {void}
+*/
 
-const getFromSession = (key) => sessionStorage.getItem(key)
+export const addToSession = (key, value) => sessionStorage.setItem(key, value)
 
-const removeFromSession = (key) => sessionStorage.removeItem(key)
+/**
+ *  @description Getting one page of users from SessionStorage
+ *  @param {string} key name of key
+ *  @returns {string}
+ */
 
-const clearSession = () => sessionStorage.clear()
+export const getFromSession = (key) => sessionStorage.getItem(key)
+
+export const removeFromSession = (key) => sessionStorage.removeItem(key)
+
+export const clearSession = () => sessionStorage.clear()
