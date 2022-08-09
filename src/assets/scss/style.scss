@@ -1,7 +1,7 @@
-@use "sass:math";
+@use 'sass:math';
 
 // Подключение миксинов ===========================================================================================================================================================================================================================================================================
-@import "base/mixins";
+@import 'base/mixins';
 @import url(https://fonts.googleapis.com/css?family=Manrope:200,300,regular,500,600,700,800);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic);
 @import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
@@ -9,34 +9,35 @@
 //&display=swap - добавить при подключении через плагин
 
 // Подключить если есть локальные файлы шрифтов
-//@import "fonts/fonts";
+// @import 'fonts/icofont.scss';
 
 // Подключение иконочных шрифтов ==============================================================================================================================================================================================================================================================================
 // Подключить если есть файл иконочного шрифта
 //@import "fonts/icons";
 
 // Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
-$fontFamily: "Manrope";
-$fontSize: rem(14); // где 14(px) - размер шрифта по умолчанию из макета
+$fontFamily: 'Manrope';
+$fontSize: rem(16); // где 14(px) - размер шрифта по умолчанию из макета
 
 // Основные цвета
-$mainColor: #5C5C5C; //? most common used text-color and of titles
-$bgColor: #F5F5F5; //? main background-color of body
-$limeColor: #91C788; //? lime color of buttons, wrappers and icons
-$white: #FFFFFF; //? white color
-$grayColor: #5C5C5C60; //? color of gray text on page ' Lets move to recipes '
-$prodColor: #9FA3A9; //? color of product cell 'Tomato', 'Egg' ...
-$cardColor: #007D6E; //? color of card in categories
-$blackColor: #191D23; //? color of black text in page
-$greenColor: #047857; //? dark green color of text and checkboxes
-$categoryColor: #6E798C; //? color of category and time of a card
-$cardTitleColor: #081F32; //? color of title of a card
-$cardTextColor: #374A59; //? color of text of a card
-$grayBorderColor: #00000031; //? color of gray border
-$redColor: #FF0000; //? regular red color
-$favoriteColor: #D1FAE5; //? color of background of favorite-button
-$favorteTextColor: #064E3B; //? color of favorite-button text
 
+// $mainColor: #5c5c5c; //? most common used text-color and of titles
+$mainColor: #000; //? most common used text-color and of titles
+$bgColor: #f5f5f5; //? main background-color of body
+$limeColor: #91c788; //? lime color of buttons, wrappers and icons
+$white: #ffffff; //? white color
+$grayColor: #5c5c5c60; //? color of gray text on page ' Lets move to recipes '
+$prodColor: #9fa3a9; //? color of product cell 'Tomato', 'Egg' ...
+$cardColor: #007d6e; //? color of card in categories
+$blackColor: #191d23; //? color of black text in page
+$greenColor: #047857; //? dark green color of text and checkboxes
+$categoryColor: #6e798c; //? color of category and time of a card
+$cardTitleColor: #081f32; //? color of title of a card
+$cardTextColor: #374a59; //? color of text of a card
+$grayBorderColor: #00000031; //? color of gray border
+$redColor: #ff0000; //? regular red color
+$favoriteColor: #d1fae5; //? color of background of favorite-button
+$favorteTextColor: #064e3b; //? color of favorite-button text
 
 // НАСТРОЙКИ ===============================================================================================================================================================================================================================================================================================
 // Минимальная ширина страницы
@@ -44,18 +45,16 @@ $minWidth: 320;
 // Ширина полотна (макета)
 $maxWidth: 1920;
 // Ширина ограничивающего контейнера (0 = нет ограничения)
-$maxWidthContainer: 1170;
+$maxWidthContainer: 1348;
 // Общий отступ у контейнера
 // (30 = по 15px слева и справа, 0 = нет отступа)
-$containerPadding: 30;
+$containerPadding: 20;
 
 // Ширина срабатывания первого брейкпоинта
 $containerWidth: $maxWidthContainer + $containerPadding;
 
 // Брейк-поинты
-$pc: em(
-  $containerWidth
-); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$pc: em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
 $tablet: em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
 $mobile: em(767.98); // Телефоны L
 $mobileSmall: em(479.98); // Телефоны S
@@ -66,32 +65,36 @@ $mobileSmall: em(479.98); // Телефоны S
 $responsiveType: 1;
 
 // Обнуление и общие параметры ============================================================================================================================================================================================== =============================================================================================== ===============================================================================================
-@import "base/null";
+@import 'base/null';
 
+html {
+    height: 100%;
+}
 body {
-  // Скролл заблокирован
-  .lock & {
-    overflow: hidden;
-    touch-action: none;
-  }
-  // Сайт загружен
-  .loaded & {
-  }
+    height: 100%;
+    // Скролл заблокирован
+    .lock & {
+        overflow: hidden;
+        touch-action: none;
+    }
+    // Сайт загружен
+    .loaded & {
+    }
 }
 // Оболочка ============================================================================================================================================================================================================================================================================================================================================================================================================================================
 .wrapper {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  // Прижимаем footer
-  > main {
-    flex: 1 1 auto;
-  }
-  // Фикс для слайдеров
-  > * {
-    min-width: 0;
-  }
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    // Прижимаем footer
+    > main {
+        flex: 1 1 auto;
+    }
+    // Фикс для слайдеров
+    > * {
+        min-width: 0;
+    }
 }
 // Ограничивающий контейнер ======================================================================================================================================================================================================================
 
@@ -102,51 +105,50 @@ body {
 Снипет (HTML): cnt
 */
 @if ($responsiveType==1) {
-  // Отзывчивая
-  [class*="__container"] {
-    @if ($maxWidthContainer>0) {
-      max-width: rem($maxWidthContainer);
-      box-sizing: content-box;
-      margin: 0 auto;
+    // Отзывчивая
+    [class*='__container'] {
+        @if ($maxWidthContainer>0) {
+            max-width: rem($maxWidthContainer);
+            box-sizing: content-box;
+            margin: 0 auto;
+        }
+        @if ($containerPadding>0) {
+            padding: 0 rem(math.div($containerPadding, 2));
+        }
     }
-    @if ($containerPadding>0) {
-      padding: 0 rem(math.div($containerPadding, 2));
-    }
-  }
 } @else {
-  // По брейк-поинтам
-  [class*="__container"] {
-    margin: 0 auto;
-    @if ($maxWidthContainer>0) {
-      max-width: rem($maxWidthContainer);
-      box-sizing: content-box;
-    } @else {
-      @if ($containerPadding>0) {
-        padding: 0 rem(math.div($containerPadding, 2));
-      }
+    // По брейк-поинтам
+    [class*='__container'] {
+        margin: 0 auto;
+        @if ($maxWidthContainer>0) {
+            max-width: rem($maxWidthContainer);
+            box-sizing: content-box;
+        } @else {
+            @if ($containerPadding>0) {
+                padding: 0 rem(math.div($containerPadding, 2));
+            }
+        }
+        @media (max-width: $pc) {
+            max-width: rem(970);
+        }
+        @media (max-width: $tablet) {
+            max-width: rem(750);
+        }
+        @media (max-width: $mobile) {
+            max-width: none;
+            @if ($containerPadding>0 and $maxWidthContainer>0) {
+                padding: 0 rem(math.div($containerPadding, 2));
+            }
+        }
     }
-    @media (max-width: $pc) {
-      max-width: rem(970);
-    }
-    @media (max-width: $tablet) {
-      max-width: rem(750);
-    }
-    @media (max-width: $mobile) {
-      max-width: none;
-      @if ($containerPadding>0 and $maxWidthContainer>0) {
-        padding: 0 rem(math.div($containerPadding, 2));
-      }
-    }
-  }
 }
 
 // Подключение базовых стилей, шаблонов (заготовок) и вспомогательных  классов
 // Для подключения/отключения конкретных стилей смотри base.scss
-@import "base";
-
-// Подключение стилей отдельных блоков
-@import "header";
-@import "footer";
+@import 'base';
 
 // Подключение стилей отдельных страниц
+
 @import "home";
+@import "navbar";
+

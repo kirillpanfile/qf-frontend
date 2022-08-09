@@ -1,0 +1,48 @@
+<template>
+    <div
+        class="gap-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-3 px-4 w-full items-center"
+        :class="{ 'bg-lime': user.selected }"
+        v-ripple
+        @click="$emit('select', user._id)"
+    >
+        <div class="relative w-8 h-8 mr-3 rounded-full hidden md:block">
+            <img class="object-cover w-full h-full rounded-full" :src="user.picture" alt="ProfilePic" />
+        </div>
+        <div class="text-sm">{{ user.username }}</div>
+        <div class="text-xs hidden md:block justify-self-center">
+            <p class="bg-teal-300 w-max p-1 rounded-sm">
+                {{ user.roles[0].name }}
+            </p>
+        </div>
+        <div class="text-sm lg:block hidden">{{ user.email }}</div>
+        <div class="text-sm justify-self-end">
+            <div class="flex items-center space-x-2 md:space-x-4 text-sm">
+                <button
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg"
+                >
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button
+                    @click="deleteUser(user._id)"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg"
+                >
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { useAdminStore } from '@/store/adminStore'
+const admin = useAdminStore()
+const { deleteUser } = admin
+defineProps({
+    user: {
+        type: Object,
+        required: true,
+    },
+})
+</script>
+
+<style></style>

@@ -1,0 +1,34 @@
+.navbar{
+    padding: 20px 0;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    color: $mainColor;
+    &__wrapper{
+        max-width: 1348px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__content{
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        h1{
+            cursor: pointer;
+            font-weight: 800;
+        }
+    }
+    &__user{
+        cursor: pointer;
+        width: rem(37);
+        height: rem(37);
+        border-radius: 50%;
+        background-color: #D9D9D9;
+
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+    }
+}
