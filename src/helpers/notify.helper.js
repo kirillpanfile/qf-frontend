@@ -19,6 +19,7 @@ const errStatus = {
  * @returns {void} no return
  */
 
+// Send a notification to the client.
 export const Notify = (message, type) => {
     try {
         !['success', 'error', 'warning', 'info'].includes(type) ? (type = undefined) : void 0

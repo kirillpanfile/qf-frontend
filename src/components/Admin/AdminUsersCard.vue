@@ -6,16 +6,12 @@
         @click="$emit('select', user._id)"
     >
         <div class="relative w-8 h-8 mr-3 rounded-full hidden md:block">
-            <img
-                class="object-cover w-full h-full rounded-full"
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                alt="ProfilePic"
-            />
+            <img class="object-cover w-full h-full rounded-full" :src="user.picture" alt="ProfilePic" />
         </div>
         <div class="text-sm">{{ user.username }}</div>
         <div class="text-xs hidden md:block justify-self-center">
             <p class="bg-teal-300 w-max p-1 rounded-sm">
-                {{ user.roles[0] }}
+                {{ user.roles[0].name }}
             </p>
         </div>
         <div class="text-sm lg:block hidden">{{ user.email }}</div>
