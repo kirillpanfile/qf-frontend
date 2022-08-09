@@ -1,6 +1,7 @@
 import { jwt } from '@/helpers/jwt.helper'
 import { defineStore } from 'pinia'
 import { Notify } from '@/helpers/notify.helper'
+import { addToSession, getFromSession } from '@/helpers/storage.helper'
 import router from '@/router'
 
 import {
@@ -35,12 +36,16 @@ export const useAdminStore = defineStore('adminStore', {
             jwt.get() && (this.user = await Window.$http.post(rememberAdmin, {}, jwt.get())),
                 (this.accessToken = jwt.get()),
                 router.push('/admin/dashboard')
-            Notify('You are now logged in', 'success')
+            // Notify('You are now logged in', 'success')
         },
         async loadUsers() {
             try {
                 const res = await Window.$http.get(adminUsers(this.currentPage), this.accessToken)
-                res.forEach((user) => (user.selected = false)), (this.users = res)
+                res.forEach((user) => (user.selected = false))
+                if( getFromSession(`Page ${this.currentPage}`) != JSON.stringify(res)) //? Checks if current page of users matches sessionStorage
+                    addToSession(`Page ${this.currentPage}`, JSON.stringify(res)) //? Add page of users in sessionStorage
+                this.users = JSON.parse(getFromSession(`Page ${this.currentPage}`)) //! Inserting Session data into state
+
                 Notify('Users successfully loaded', 'success')
             } catch (error) {
                 Notify(error, 'error')
@@ -55,7 +60,10 @@ export const useAdminStore = defineStore('adminStore', {
         async loadNewUsers() {
             try {
                 const res = await Window.$http.get(adminUsers(1), this.accessToken)
-                res.forEach((user) => (user.selected = false)), (this.newUsers = res)
+                res.forEach((user) => (user.selected = false))
+                if( getFromSession(`Page ${this.currentPage}`) != JSON.stringify(res)) //? Checks if current page of users matches sessionStorage
+                    addToSession(`Page ${this.currentPage}`, JSON.stringify(res)) //? Add page of users in sessionStorage
+                this.newUsers = JSON.parse(getFromSession(`Page ${this.currentPage}`)) //! Inserting Session data into state
                 Notify('New users successfully loaded', 'success')
             } catch (error) {
                 Notify(error, 'error')
