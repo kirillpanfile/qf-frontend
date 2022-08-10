@@ -21,6 +21,9 @@ module.exports = {
                 Mont: ['"Montserrat"'],
                 Manrope: ['"Manrope"'],
             },
+            screens: {
+                recipeScreen: '1400px'
+            }
         },
         // screens: {
         //     tablet: '991.98px',
