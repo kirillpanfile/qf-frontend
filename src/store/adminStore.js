@@ -40,12 +40,16 @@ export const useAdminStore = defineStore('adminStore', {
         },
         async loadUsers() {
             try {
-                const res = await Window.$http.get(adminUsers(this.currentPage), this.accessToken)
-                res.forEach((user) => (user.selected = false))
-                if( getFromSession(`Page ${this.currentPage}`) != JSON.stringify(res)) //? Checks if current page of users matches sessionStorage
-                    addToSession(`Page ${this.currentPage}`, JSON.stringify(res)) //? Add page of users in sessionStorage
-                this.users = JSON.parse(getFromSession(`Page ${this.currentPage}`)) //! Inserting Session data into state
+                getFromSession(`Page ${this.currentPage}`) &&
+                    (this.users = JSON.parse(getFromSession(`Page ${this.currentPage}`)))
 
+                const res = await Window.$http.get(adminUsers(this.currentPage), this.accessToken)
+                if (getFromSession(`Page ${this.currentPage}`) != JSON.stringify(res)) {
+                    //? Checks if current page of users matches sessionStorage
+                    res.forEach((user) => (user.selected = false))
+                    this.users = res
+                    addToSession(`Page ${this.currentPage}`, JSON.stringify(res)) //? Add page of users in sessionStorage
+                }
                 Notify('Users successfully loaded', 'success')
             } catch (error) {
                 Notify(error, 'error')
@@ -61,7 +65,8 @@ export const useAdminStore = defineStore('adminStore', {
             try {
                 const res = await Window.$http.get(adminUsers(1), this.accessToken)
                 res.forEach((user) => (user.selected = false))
-                if( getFromSession(`Page ${this.currentPage}`) != JSON.stringify(res)) //? Checks if current page of users matches sessionStorage
+                if (getFromSession(`Page ${this.currentPage}`) != JSON.stringify(res))
+                    //? Checks if current page of users matches sessionStorage
                     addToSession(`Page ${this.currentPage}`, JSON.stringify(res)) //? Add page of users in sessionStorage
                 this.newUsers = JSON.parse(getFromSession(`Page ${this.currentPage}`)) //! Inserting Session data into state
                 Notify('New users successfully loaded', 'success')

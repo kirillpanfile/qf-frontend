@@ -20,19 +20,19 @@ const utils = reactive({
 const addIngredient = (ing) => {
     if (ing.length > 0) {
         recipe.ingredients.push(ing)
-        utils.ingredient.value = ''
+        utils.ingredient = ''
     }
 }
 
 const addStep = (value) => {
     if (value.length > 0) {
         recipe.steps.push(value)
-        utils.step.value = ''
+        utils.step = ''
     }
 }
 
 const deleteIngredient = (index) => recipe.ingredients.splice(index, 1)
-const deleteStep = (index) => steps.splice(index, 1)
+const deleteStep = (index) => recipe.steps.splice(index, 1)
 const submit = (payload) => recipeStore.createRecipe(payload)
 
 export function useRecipe() {

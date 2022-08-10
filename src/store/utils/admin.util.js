@@ -1,4 +1,5 @@
 const URL = process.env.VUE_APP_API
+// const URL = 'http://localhost:3000'
 
 // ============================== Dependencies ================================
 
@@ -17,7 +18,7 @@ export const adminSearchUser = (user) => URL + '/api/admin/search/' + user
  * @param {object} data - data got from the server
  * @returns {boolean} true if data is an object and has at least one property
  */
-export const checkRole = (data) => data?.roles?.some((role) => role === 'ROLE_ADMIN' || role === 'ROLE_MODERATOR')
+export const checkRole = (data) => data?.roles?.some((role) => role === 'ROLE_SUPER_ADMIN' || role === 'ROLE_MODERATOR')
 
 /**
  * @description checkSelected is a helper for checking if the user is selected or not
