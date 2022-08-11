@@ -1,48 +1,29 @@
 <template>
     <h1 class="mx-auto my-6 text-2xl font-semibold text-gray-700">Create Recipe</h1>
 
-    <form class="mx-auto flex flex-col gap-4 recipeScreen:flex-row">
-        <!--? action="POST"  @submit.enter.prevent="submit(recipe)" -->
-        <!-- Form left side -->
-        <div class="w-full xl:max-w-[748px] bg-white rounded-md p-6 shadow-sm flex flex-col">
-            <label for="title" class="text-md font-bold pb-2">Title </label>
-            <input type="text" v-model="title" class="p-2 border rounded-md mb-4" name="title" id="title" />
-            <!-- Image Cover -->
-            <div class="flex gap-8">
+    <form class="mx-auto flex lg:flex-row gap-4 flex-col w-full">
+        <div class="bg-white rounded-md p-6 shadow-sm flex flex-col lg:w-3/4 w-full">
+            <label for="title" class="text-md block font-bold mb-2">Title </label>
+            <input type="text" v-model="title" class="p-2 border rounded-md mb-4 w-full" name="title" id="title" />
+            <div class="md:grid block grid-cols-2 gap-8">
                 <div class="flex flex-col">
-                    <label class="text-md font-bold pb-2">Cover</label>
-                    <label
-                        for="dropzone-file"
-                        class="border bg-slate-100 h-40 cursor-pointer rounded-md mb-4 flex justify-center items-center text-center w-[334px]"
-                    >
-                        <div class="pt-5 pb-6">
-                            <i class="fa-solid fa-photo-film fa-2x mb-3 w-10 h-10 text-gray-400"></i>
-                            <p class="mb-2 text-sm text-gray-500">
-                                <span class="font-semibold">Click to upload</span> or drag and drop
-                            </p>
-                            <p class="text-xs text-gray-500">SVG, PNG, JPG (MAX. 800x400px)</p>
-
-                            <p class="text-md mt-2 text-gray-500">
-                                {{ file && file.name }}
-                            </p>
-                        </div>
-                        <!-- Image input -->
-                        <input
-                            id="dropzone-file"
-                            name="dropzone-file"
-                            type="file"
-                            class="hidden"
-                            @input="(event) => (file = event.target.files[0])"
-                        />
+                    <span class="text-md font-bold pb-2">Cover</span>
+                    <label for="img" class="bg-slate-100 cursor-pointer rounded-md mb-4 text-center p-6 w-full">
+                        <i class="fa-solid fa-photo-film fa-2x mb-3 w-10 h-10 text-gray-400"></i>
+                        <p class="mb-2 text-sm text-gray-500">
+                            <span class="font-semibold">Click to upload</span> or drag and
+                        </p>
+                        <p class="text-xs text-gray-500">SVG, PNG, JPG (MAX. 800x400px)</p>
+                        <p class="text-md mt-2 text-gray-500">{{ file && file.name }}</p>
+                        <input id="img" type="file" class="hidden" @input="(event) => (file = event.target.files[0])" />
                     </label>
                 </div>
-                <div class="w-96 flex flex-col">
+                <div class="flex flex-col">
                     <label for="ingredients" class="text-md font-bold pb-2">Ingredients</label>
                     <input
                         type="text"
                         v-model="ingredient"
                         class="p-2 border resize-none rounded-md mb-4"
-                        name="ingredients"
                         id="ingredients"
                         @keyup.enter="addIngredient(ingredient)"
                     />
@@ -58,32 +39,27 @@
                     </div>
                 </div>
             </div>
-            <!-- Description  -->
-            <div class="flex gap-8">
-                <div class="flex flex-col w-96">
+
+            <div class="md:grid block grid-cols-2 gap-8">
+                <div class="flex flex-col">
                     <label for="description" class="text-md font-bold pb-2">Description</label>
                     <textarea
-                        name="description"
                         id="description"
                         v-model="description"
                         cols="30"
                         rows="5"
-                        class="p-2 border resize-none rounded-md"
+                        class="p-2 border resize-none rounded-md w-full"
                         required
                     ></textarea>
                     <p class="mb-4 text-sm pt-1 text-gray-500">{{ 120 - description.length }} letters left</p>
                 </div>
-                <div class="flex flex-col w-96">
-                    <!--TODO : Sa faci sa lucreze ca la 120 de cuvinte sa se faca border rosu si sa nu poti scrie-->
-                    <!-- Categories -->
+                <div class="flex flex-col">
                     <label for="category" class="text-md font-bold pb-2">Category</label>
-
                     <select name="category" class="p-2 border resize-none rounded-md mb-4" id="category" required>
                         <option value="1" selected>Breakfast</option>
                         <option value="2">Lunch</option>
                         <option value="3">Dinner</option>
                     </select>
-                    <!-- Time -->
                     <label for="time" class="text-md font-bold pb-2">Time (minutes)</label>
                     <input
                         v-model="time"
@@ -94,6 +70,7 @@
                     />
                 </div>
             </div>
+
             <label for="Steps" class="text-md font-bold pb-2">Steps </label>
             <input
                 type="text"
@@ -111,8 +88,8 @@
             </ul>
         </div>
 
-        <div class="bg-white rounded-md p-6 shadow-sm h-max">
-            <div class="w-full flex flex-col">
+        <div class="bg-white rounded-md p-6 shadow-sm h-max lg:w-80 w-full">
+            <div class="flex flex-col">
                 <h2 for="title" class="text-md font-bold mb-4 pb-2 border-b w-full">Information</h2>
                 <div class="flex justify-between gap-14 mt-4">
                     <h2 class="font-semibold">Created on</h2>
@@ -173,8 +150,6 @@ const { ingredient, step } = toRefs(utils)
 const { title, description, time, hot } = toRefs(recipe)
 const { steps, ingredients } = recipe
 
-time.value = 0
-
 let file = ref(null)
 
 const pad = (num) => num.toString().padStart(2, '0')
@@ -188,5 +163,22 @@ watch(
 
 watch(time, (newVal) => newVal.value < 0 && console.log(time.value))
 
-watch(file, (newVal) => newVal && console.log(newVal.name))
+import useImageMinify from '@/composables/useImageMinify.js'
+const { compressImage, config } = useImageMinify()
+
+watch(file, (newVal) => {
+    if (newVal) {
+        compressImage(newVal)
+        console.log(config.outputImgUrl)
+        fetch(config.outputImgUrl).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', 'image.jpeg')
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+        })
+    }
+})
 </script>
