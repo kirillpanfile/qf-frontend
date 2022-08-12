@@ -13,7 +13,7 @@ import AdminHeader from './Admin/AdminHeader'
 import AdminNotificationMenu from './Admin/AdminNotificationMenu'
 import AdminSidebarItem from './Admin/AdminSidebarItem'
 import AdminUsersCard from './Admin/AdminUsersCard'
-
+import adminCreateRecipe from './Admin/AdminCreateRecipe'
 // ====================== Export ========================
 
 export {
@@ -27,4 +27,5 @@ export {
     AdminNotificationMenu,
     AdminSidebarItem,
     AdminUsersCard,
+    adminCreateRecipe,
 }

@@ -17,6 +17,7 @@ export const config = reactive({
     outputSize: 0,
     compressRatio: 0,
     quality: 0.6,
+    result: '',
 })
 
 export const compressImage = (file) => {
@@ -37,6 +38,7 @@ export const compressImage = (file) => {
         },
         success: function (result) {
             console.log('result: ', result)
+            config.result = result
             config.outputImgWidth = result.width
             config.outputImgHeight = result.height
             config.outputSize = result.size
@@ -53,6 +55,7 @@ export const compressImage = (file) => {
 export default function useImageMinify() {
     return {
         config,
+        result: config.result,
         compressImage,
     }
 }
