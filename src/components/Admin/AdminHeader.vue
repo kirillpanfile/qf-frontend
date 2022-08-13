@@ -48,7 +48,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-12">
                     <a
-                        class="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-lime flex gap-2 to-stone-400"
+                        class="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr flex gap-2 text-[#2c9228]"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

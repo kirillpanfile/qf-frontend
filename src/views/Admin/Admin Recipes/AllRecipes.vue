@@ -29,14 +29,8 @@
                             <small>minutes</small>
                         </div>
                         <div
-                            class="px-3 py-1 text-[10px] sm:text-sm md:text-base bg-yellow-300 rounded-md h-max"
-                            :class="
-                                item.approved == 'pending'
-                                    ? 'bg-yellow-300'
-                                    : item.approved == 'approved'
-                                    ? 'bg-green-300'
-                                    : 'bg-red-300'
-                            "
+                            class="px-3 py-1 text-[10px] sm:text-sm md:text-base rounded-md h-max"
+                            :class="{'bg-lime' : item.approved === 'approved', 'bg-yellow-500': item.approved === 'pending', 'bg-red-600': item.approved === 'rejected'}"
                         >
                             {{ item.approved }}
                             <!--? Card status -->

@@ -1,5 +1,5 @@
 <template>
-    <canvas id="myChart" width="400" height="400"> </canvas>
+    <canvas id="myChart" width="800" height="400"> </canvas>
 </template>
 
 <script setup>
@@ -42,6 +42,7 @@ onMounted(() => {
                     },
                 ],
             },
+            // maintainAspectRatio: false
         },
         plugins: [
             {

@@ -198,7 +198,7 @@ onMounted(() => {
 })
 
 const submit = (payload) => {
-    // recipeStore.createRecipe(payload)
+    recipeStore.createRecipe(payload)
 }
 const pad = (num) => num.toString().padStart(2, '0')
 

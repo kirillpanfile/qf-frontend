@@ -1,7 +1,7 @@
 <template>
     <main class="pt-6 px-4">
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 2xl:col-span-2">
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 2xl:col-span-2 h-[400px]" >
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">12</span>
@@ -9,7 +9,7 @@
                     </div>
                     <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">12.5%</div>
                 </div>
-                <AdminChart :width="chartData.width" :height="chartData.height" class="block w-full h-full" />
+                <AdminChart :width="chartData.width" :height="chartData.height" class="block w-full h-[300px]" />
             </div>
             <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
                 <div class="flex items-center justify-between mb-4">
@@ -17,36 +17,22 @@
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">New Recipes</span>
                         <h3 class="text-base font-normal text-gray-500">Incomming from users</h3>
                     </div>
-                    <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
+                    <router-link to="/admin/recipes/all" class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
                         view all
-                    </div>
+                    </router-link>
                 </div>
-                <header class="grid grid-cols-4 bg-gray-50 p-3 rounded-t-lg border-b">
+                <header class="grid grid-cols-4 bg-gray-50 p-3 rounded-t-lg border-b gap-x-4">
                     <span class="col-span-2 text-gray-500">Title</span>
                     <span class="text-gray-500">User</span>
                     <span class="text-gray-500">Status</span>
                 </header>
-                <!--vfor 10 items-->
-                <div>
                     <!--! Component AdminListItem.vue-->
-                    <div class="grid grid-cols-4 p-3 items-center">
-                        <span class="col-span-2 text-gray-500">Lorem Ipsum dolor sit...</span>
-                        <span class="text-black font-bold">kirillpan...</span>
-                        <span class="text-yellow-500">Pending</span>
-                    </div>
-                    <!-------------->
-
-                    <div class="grid grid-cols-4 p-3 items-center bg-gray-50 rounded-md">
-                        <span class="col-span-2 text-gray-500">Lorem Ipsum dolor sit...</span>
-                        <span class="text-gray-500">User</span>
-                        <span class="text-lime">Approved</span>
-                    </div>
-                    <div class="grid grid-cols-4 p-3 items-center">
-                        <span class="col-span-2 text-gray-500">Lorem Ipsum dolor sit...</span>
-                        <span class="text-black font-bold">kirillpan...</span>
-                        <span class="text-red-600">Rejected</span>
-                    </div>
-                </div>
+                    <router-link :to="`/admin/recipes/${item._id}`" class="grid grid-cols-4 gap-x-4 p-3 items-center hover:bg-gray-200  rounded-md" v-for="(item,index) in recipe" :key="item._id" :class="(index+1) % 2 == 0 && 'bg-gray-50'">
+                        <span class="col-span-2 text-gray-500 " v-if="!item.langs.ro.title">No title</span> <!--TODO de sters asta cind o sa lucreze validarea la title-->
+                        <span class="col-span-2 text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis" v-else>{{ item.langs.ro.title }}</span>
+                        <span class="text-black font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{ item?.user?.username }}</span>
+                        <span :class="{'text-lime' : item.approved === 'approved', 'text-yellow-500': item.approved === 'pending', 'text-red-600': item.approved === 'rejected'}">{{ item.approved }}</span>
+                    </router-link>
             </div>
         </div>
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4"></div>
@@ -119,16 +105,22 @@
 </template>
 <script setup>
 import { AdminUsersCard, AdminDashCard, AdminChart } from '@/components'
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
+import { useRecipeStore } from '@/store/recipeStore'
 import { storeToRefs } from 'pinia'
 
 const { loadNewUsers } = useAdminStore()
-const { newUsers } = storeToRefs(useAdminStore())
+const { recipe } = storeToRefs(useRecipeStore())
 
-onMounted(() => loadNewUsers())
 
-const chartData = { width: 1144, height: 532 }
+onMounted(() => {
+    loadNewUsers()
+    useRecipeStore()
+        .getAllRecipes().then(()=>{recipe.value.length = 10})
+})
+
+const chartData = { width: 100, height: 100 }
 </script>
 
 <style>
