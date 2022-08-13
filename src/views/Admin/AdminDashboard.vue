@@ -32,8 +32,8 @@
                     <span class="text-gray-500">User</span>
                     <span class="text-gray-500">Status</span>
                 </header>
-                <!--! Component AdminListItem.vue-->
 
+                <!--! Component AdminListItem.vue-->
                 <router-link
                     :to="`/admin/recipes/${item._id}`"
                     class="grid grid-cols-4 gap-x-4 p-3 items-center hover:bg-gray-200 rounded-md"

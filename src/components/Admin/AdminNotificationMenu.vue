@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div
-            class="bg-white w-80 shadow-md absolute top-14 md:-right-1/2 translate-x-[15%] -right-0 md:translate-x-0 rounded-md overflow-hidden"
+            class="bg-white w-80 shadow-md absolute top-14 md:right-1/4 translate-x-[15%] right-[80px] sm:right-[35px] md:translate-x-0 rounded-md overflow-hidden"
         >
             <h1 class="block py-2 px-4 font-medium text-center text-gray-700 bg-gray-50">Notifications</h1>
 
