@@ -65,6 +65,7 @@ export const useAdminStore = defineStore('adminStore', {
             try {
                 const res = await Window.$http.get(adminUsers(1), this.accessToken)
                 res.forEach((user) => (user.selected = false))
+                res.length = 8
                 if (getFromSession(`Page ${this.currentPage}`) != JSON.stringify(res))
                     //? Checks if current page of users matches sessionStorage
                     addToSession(`Page ${this.currentPage}`, JSON.stringify(res)) //? Add page of users in sessionStorage

@@ -1,15 +1,18 @@
 <template>
     <main class="pt-6 px-4">
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 2xl:col-span-2 h-[400px]" >
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 2xl:col-span-2">
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">12</span>
                         <h3 class="text-base font-normal text-gray-500">New users this week</h3>
                     </div>
-                    <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">12.5%</div>
+                    <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
+                        <i class="fa fa-arrow-up pr-2"></i>
+                        <span>12.5%</span>
+                    </div>
                 </div>
-                <AdminChart :width="chartData.width" :height="chartData.height" class="block w-full h-[300px]" />
+                <AdminChart class="block w-full max-h-64 xl:max-h-[490px]" />
             </div>
             <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
                 <div class="flex items-center justify-between mb-4">
@@ -17,7 +20,10 @@
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">New Recipes</span>
                         <h3 class="text-base font-normal text-gray-500">Incomming from users</h3>
                     </div>
-                    <router-link to="/admin/recipes/all" class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
+                    <router-link
+                        to="/admin/recipes/all"
+                        class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2"
+                    >
                         view all
                     </router-link>
                 </div>
@@ -26,82 +32,127 @@
                     <span class="text-gray-500">User</span>
                     <span class="text-gray-500">Status</span>
                 </header>
-                    <!--! Component AdminListItem.vue-->
-                    <router-link :to="`/admin/recipes/${item._id}`" class="grid grid-cols-4 gap-x-4 p-3 items-center hover:bg-gray-200  rounded-md" v-for="(item,index) in recipe" :key="item._id" :class="(index+1) % 2 == 0 && 'bg-gray-50'">
-                        <span class="col-span-2 text-gray-500 " v-if="!item.langs.ro.title">No title</span> <!--TODO de sters asta cind o sa lucreze validarea la title-->
-                        <span class="col-span-2 text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis" v-else>{{ item.langs.ro.title }}</span>
-                        <span class="text-black font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{ item?.user?.username }}</span>
-                        <span :class="{'text-lime' : item.approved === 'approved', 'text-yellow-500': item.approved === 'pending', 'text-red-600': item.approved === 'rejected'}">{{ item.approved }}</span>
-                    </router-link>
+                <!--! Component AdminListItem.vue-->
+
+                <router-link
+                    :to="`/admin/recipes/${item._id}`"
+                    class="grid grid-cols-4 gap-x-4 p-3 items-center hover:bg-gray-200 rounded-md"
+                    v-for="(item, index) in recipe"
+                    :key="item._id"
+                    :class="(index + 1) % 2 == 0 && 'bg-gray-50'"
+                >
+                    <span class="col-span-2 text-gray-500" v-if="!item.langs.ro.title">No title</span>
+                    <!--TODO de sters asta cind o sa lucreze validarea la title-->
+                    <span class="col-span-2 text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis" v-else>{{
+                        item.langs.ro.title
+                    }}</span>
+                    <span class="text-black font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{
+                        item?.user?.username
+                    }}</span>
+                    <span
+                        :class="{
+                            'text-lime': item.approved === 'approved',
+                            'text-yellow-500': item.approved === 'pending',
+                            'text-red-600': item.approved === 'rejected',
+                        }"
+                        >{{ item.approved }}</span
+                    >
+                </router-link>
             </div>
         </div>
-        <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4"></div>
-    </main>
-    <!-- <h1 class="my-6 text-2xl font-semibold text-gray-700">Dashboard</h1>
-    
-    <a
-        href="https://github.com/kirillpanfile/qf-frontend"
-        target="_blank"
-        v-ripple
-        class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-lime rounded-lg shadow-md text-white"
-    >
-        <div class="flex items-center">
-            <i class="fa-solid fa-code-branch w-5 mr-2"></i>
-            <span>See this project on Github</span>
-        </div>
-        <span>View more -></span>
-    </a>
-
-    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <AdminDashCard text="Total Users" count="2320" color="orange" icon="fa-solid fa-user-check" />
-        <AdminDashCard text="New Users" count="140" color="green" icon="fa-solid fa-user-pen" />
-        <AdminDashCard text="New Recepies" count="100" color="blue" icon="fa-solid fa-pizza-slice" />
-        <AdminDashCard text="New Ingredients" count="100" color="teal" icon="fa-solid fa-carrot" />
-    </div>
-    <h1 class="my-6 text-2xl font-semibold text-gray-700">New Users</h1>
-
-    <div class="w-full overflow-hidden rounded-lg shadow-xs">
-        <div class="w-full whitespace-nowrap">
-            <div>
-                <div
-                    class="text-xs font-semibold flex justify-between tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50 mb-2"
-                >
-                    <div class="pb-4 md:block hidden">Pic</div>
-                    <div class="pb-4">User</div>
-                    <div class="pb-4 md:block hidden">Role</div>
-                    <div class="pb-4 lg:block hidden">Email</div>
-                    <div class="pb-4">Action</div>
+        <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 pt-6">
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-ripple>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">976</span>
+                        <h3 class="text-base font-normal text-gray-500">Total users</h3>
+                    </div>
+                    <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
+                        <i class="fa fa-arrow-up pr-2"></i>
+                        <span>12.5%</span>
+                    </div>
                 </div>
             </div>
-            <div class="bg-white divide-y overflow-y-scroll max-h-96">
-                <admin-users-card
-                    v-for="(item, index) in newUsers"
-                    :key="index"
-                    :user="item"
-                    @select="newUsers"
-                ></admin-users-card>
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-ripple>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">17</span>
+                        <h3 class="text-base font-normal text-gray-500">New users (last month)</h3>
+                    </div>
+                    <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
+                        <i class="fa fa-arrow-up pr-2"></i>
+                        <span>3%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-ripple>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">23</span>
+                        <h3 class="text-base font-normal text-gray-500">New Recipes (last month)</h3>
+                    </div>
+                    <div class="flex items-center justify-end flex-1 text-red-600 text-base font-bold">
+                        <i class="fa fa-arrow-down pr-2"></i>
+                        <span>-1.2%</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <h1 class="my-6 text-2xl font-semibold text-gray-700">Charts</h1>
 
-    <div class="grid gap-6 mb-8 mt-14">
-        <div class="min-w-0 p-4 sm:p-0 bg-white rounded-lg shadow-xs">
-            <div class="chartjs-size-monitor">
-                <div class="chartjs-size-monitor-expand"><div class=""></div></div>
-                <div class="chartjs-size-monitor-shrink"><div class=""></div></div>
+        <div class="w-full grid grid-cols-1 xl:grid-cols-2 gap-4 pt-6">
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">New Users</span>
+                        <h3 class="text-base font-normal text-gray-500">Last 10 new users</h3>
+                    </div>
+                    <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
+                        view all
+                    </div>
+                </div>
+                <div class="overflow-y-scroll max-h-96 divide-y">
+                    <admin-users-card
+                        v-for="(item, index) in newUsers"
+                        :key="index"
+                        :user="item"
+                        type="new"
+                        @select="newUsers"
+                    ></admin-users-card>
+                </div>
             </div>
-            <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">Traffic</h4>
-            <AdminChart :width="chartData.width" :height="chartData.height" class="block w-full h-full" />
-        </div>
-    </div>
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">Tasks</span>
+                        <h3 class="text-base font-normal text-gray-500">Need to be done</h3>
+                    </div>
 
-    <main class="flex">
-        <div class="w-3/4">
-            <input type="text" class="w-full bg-gray-50" />
+                    <div class="flex gap-4">
+                        <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
+                            Create +
+                        </div>
+                        <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
+                            view all
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-y-scroll max-h-96 divide-y">Tasks</div>
+            </div>
         </div>
-        <div class="w-1/3">1</div>
-    </main> -->
+
+        <a
+            href="https://github.com/kirillpanfile/qf-frontend"
+            target="_blank"
+            v-ripple
+            class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-white rounded-lg shadow-md text-black mt-6"
+        >
+            <div class="flex items-center">
+                <i class="fa-solid fa-code-branch w-5 mr-2"></i>
+                <span>Open project on github</span>
+            </div>
+            <span>View more -></span>
+        </a>
+    </main>
 </template>
 <script setup>
 import { AdminUsersCard, AdminDashCard, AdminChart } from '@/components'
@@ -110,27 +161,22 @@ import { useAdminStore } from '@/store/adminStore'
 import { useRecipeStore } from '@/store/recipeStore'
 import { storeToRefs } from 'pinia'
 
-const { loadNewUsers } = useAdminStore()
+const { loadNewUsers, newUsers } = useAdminStore()
 const { recipe } = storeToRefs(useRecipeStore())
-
 
 onMounted(() => {
     loadNewUsers()
     useRecipeStore()
-        .getAllRecipes().then(()=>{recipe.value.length = 10})
+        .getAllRecipes()
+        .then(() => {
+            recipe.value.length = 10
+        })
 })
-
-const chartData = { width: 100, height: 100 }
 </script>
 
 <style>
 .w-400 {
     max-width: 500px;
-    width: 100%;
-}
-.chart > div > canvas {
-    display: block;
-    position: relative !important;
     width: 100%;
 }
 </style>

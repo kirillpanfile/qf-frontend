@@ -1,36 +1,15 @@
 <template>
-    <div
-        class="gap-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-3 px-4 w-full items-center"
-        :class="{ 'bg-lime': user.selected }"
-        v-ripple
-        @click="$emit('select', user._id)"
-    >
-        <div class="relative w-8 h-8 mr-3 rounded-full hidden md:block">
-            <img class="object-cover w-full h-full rounded-full" :src="user.picture" alt="ProfilePic" />
-        </div>
-        <div class="text-sm">{{ user.username }}</div>
-        <div class="text-xs hidden md:block justify-self-center">
-            <p class="bg-teal-300 w-max p-1 rounded-sm">
-                {{ user.roles[0].name }}
-            </p>
-        </div>
-        <div class="text-sm lg:block hidden">{{ user.email }}</div>
-        <div class="text-sm justify-self-end">
-            <div class="flex items-center space-x-2 md:space-x-4 text-sm">
-                <button
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg"
-                >
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-                <button
-                    @click="deleteUser(user._id)"
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg"
-                >
-                    <i class="fa-solid fa-trash-can"></i>
-                </button>
+    <li v-if="type === 'new'" class="py-3 sm:py-4 list-none cursor-pointer hover:bg-gray-100" v-ripple>
+        <div class="flex items-center space-x-4">
+            <div class="flex-shrink-0">
+                <img class="h-8 w-8 rounded-full" :src="user.picture" alt="ProfilePic" />
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate">{{ user.username }}</p>
+                <p class="text-sm text-gray-500 truncate">{{ user.email }}</p>
             </div>
         </div>
-    </div>
+    </li>
 </template>
 
 <script setup>
@@ -40,6 +19,10 @@ const { deleteUser } = admin
 defineProps({
     user: {
         type: Object,
+        required: true,
+    },
+    type: {
+        type: String,
         required: true,
     },
 })

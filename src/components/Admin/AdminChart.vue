@@ -1,5 +1,5 @@
 <template>
-    <canvas id="myChart" width="800" height="400"> </canvas>
+    <canvas class="cursor-crosshair h-max" id="myChart"> </canvas>
 </template>
 
 <script setup>
@@ -28,13 +28,14 @@ onMounted(() => {
             transitions: true,
             tension: 0.4,
             legend: true,
+            maintainAspectRatio: false,
             responsive: true,
             interaction: {
                 intersect: false,
                 mode: 'index',
             },
             scales: {
-                yAxes: [
+                y: [
                     {
                         ticks: {
                             beginAtZero: true,
@@ -42,7 +43,6 @@ onMounted(() => {
                     },
                 ],
             },
-            // maintainAspectRatio: false
         },
         plugins: [
             {
