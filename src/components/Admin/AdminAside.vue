@@ -1,33 +1,21 @@
 <template>
     <aside
-        class="z-20 hidden w-64 overflow-y-auto bg-white md:block flex-shrink-0 duration-200 mobile-menu"
+        class="z-20 hidden pt-5 w-64 overflow-y-auto px-6 bg-white md:block flex-shrink-0 duration-200 mobile-menu"
         :class="{ active: menuOpen }"
     >
-        <div class="py-4 text-gray-500">
-            <a class="ml-6 text-lg font-bold text-gray-800"> QuickFood </a>
-            <div class="mt-6">
-                <AdminSidebarItem
-                    v-for="(item, index) in items"
-                    :key="index"
-                    :path="item.path"
-                    :icon="item.icon"
-                    :text="item.text"
-                    :children="item.children"
-                    @press="menuOpen = false"
-                />
-            </div>
-
-            <div class="px-6 my-6">
-                <button
-                    @click="go"
-                    class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-white duration-150 bg-lime border border-transparent rounded-lg"
-                >
-                    Refresh Page
-                    <span class="ml-2" aria-hidden="true"><i class="fa-solid fa-rotate-right"></i></span>
-                </button>
-            </div>
+        <div class="space-y-2 pb-2">
+            <AdminSidebarItem
+                v-for="(item, index) in items"
+                :key="index"
+                :path="item.path"
+                :icon="item.icon"
+                :text="item.text"
+                :children="item.children"
+                @press="menuOpen = false"
+            />
         </div>
     </aside>
+
     <div class="overlay" v-if="menuOpen" @click="menuOpen = false"></div>
 </template>
 

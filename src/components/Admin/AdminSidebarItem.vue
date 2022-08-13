@@ -1,39 +1,66 @@
 <template>
-    <router-link
-        v-if="!children"
+    <!-- <router-link
         v-ripple
-        class="px-6 overflow-hidden select-none py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+        class="flex items-center gap-4 h-10 px-10"
         :to="path"
         @click="$emit('press'), (open = !open)"
+        v-if="!children"
     >
         <i :class="icon" class="w-5 text-lg"></i>
-        <span class="ml-4 block">{{ text }}</span>
+        <span class="">{{ text }}</span>
     </router-link>
-    <a
-            v-else
-        v-ripple
-        @click.prevent="open = !open"
-        href="#"
-        class="link px-6 overflow-hidden select-none py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
-    >
+    <a v-else v-ripple @click.prevent="open = !open" href="#" class="flex items-center gap-4 h-10 px-10">
         <i :class="icon" class="w-5 text-lg"></i>
-        <span class="ml-4 block">{{ text }}</span>
-        <i v-if="!open" class="fa-solid text-xl fa-angle-down ml-auto"></i>
-        <i v-else class="fa-solid text-xl fa-angle-up  ml-auto"></i>
+        <span class="">{{ text }}</span>
     </a>
-        
-    <div class="w-full bg-gray-200" v-if="children && open">
+
+    <div class="w-full bg-gray-200 rounded-md" v-if="children && open">
         <router-link
             v-for="(item, index) in childs"
             :key="index"
             v-ripple
-            class="px-6 overflow-hidden select-none py-3 relative inline-flex items-center w-full h-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            class="flex items-center gap-4 h-10 px-10"
             :to="item.path"
             @click.prevent="$emit('press')"
         >
             <i :class="item.icon" class="w-5 text-lg"></i>
-            <span class="ml-4 block">{{ item.text }}</span>
+            <span class="">{{ item.text }}</span>
         </router-link>
+    </div> -->
+    <li class="list-none flex items-center flex-row">
+        <router-link
+            v-ripple
+            :to="path"
+            @click="$emit('press'), (open = !open)"
+            v-if="!children"
+            class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full"
+        >
+            <i :class="icon" class="w-6 text-gray-500 group-hover:text-gray-600 transition duration-75"></i>
+            <span class="ml-3 text-md">{{ text }}</span>
+        </router-link>
+        <a
+            v-else
+            v-ripple
+            @click.prevent="open = !open"
+            href="#"
+            class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full"
+        >
+            <i :class="icon" class="w-6 text-gray-500 group-hover:text-gray-600 transition duration-75"></i>
+            <span class="ml-3 text-md">{{ text }}</span>
+        </a>
+    </li>
+    <div class="w-full border-y py-2 space-y-2" v-if="children && open">
+        <li class="list-none flex items-center flex-row" v-for="(item, index) in childs" :key="index">
+            <router-link
+                v-ripple
+                class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full"
+                :to="item.path"
+                @click.prevent="$emit('press')"
+            >
+                <i :class="item.icon" class="w-6 text-gray-500 group-hover:text-gray-600 transition duration-75"></i>
+                <span class="ml-3 text-md">{{ item.text }}</span>
+            </router-link>
+        </li>
     </div>
 </template>
 
@@ -69,7 +96,6 @@ onMounted(() => (props.children ? (childs.value = props.children.filter((route) 
 <style scoped>
 .router-link-exact-active,
 .router-link-active {
-    border-left: 4px solid #91c788;
-    color: #1f2937;
+    background-color: #f3f4f6;
 }
 </style>

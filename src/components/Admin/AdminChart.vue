@@ -1,67 +1,70 @@
 <template>
-    <Bar
-        :chart-options="chartOptions"
-        :chart-data="chartData"
-        :chart-id="chartId"
-        :dataset-id-key="datasetIdKey"
-        :plugins="plugins"
-        :css-classes="cssClasses"
-        :styles="styles"
-        :width="width"
-        :height="height"
-    />
+    <canvas id="myChart" width="400" height="400"> </canvas>
 </template>
 
 <script setup>
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import Chart from 'chart.js/auto'
+import { onMounted } from 'vue'
 
-ChartJS.register(Tooltip, Legend, BarElement, CategoryScale, LinearScale)
-
-const props = defineProps({
-    chartId: {
-        type: String,
-        default: 'bar-chart',
-    },
-    datasetIdKey: {
-        type: String,
-        default: 'label',
-    },
-    width: {
-        type: Number,
-        default: 1144,
-    },
-    height: {
-        type: Number,
-        default: 572,
-    },
-    cssClasses: {
-        default: '',
-        type: String,
-    },
-    styles: {
-        type: Object,
-        default: () => {},
-    },
-    plugins: {
-        type: Object,
-        default: () => {},
-    },
-})
-const chartData = {
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    datasets: [
-        {
-            label: 'New Users',
-            backgroundColor: '#91c788',
-            data: [12, 19, 3, 5, 2, 3, 10],
+onMounted(() => {
+    console.log(Chart)
+    const ctx = document.getElementById('myChart').getContext('2d')
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jun 1', 'Jun 2', 'Jun 3', 'Jun 4', 'Jun 5', 'Jun 6'],
+            datasets: [
+                {
+                    label: 'new users',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderColor: '#91c788',
+                    backgroundColor: 'rgba(146, 200, 137, 0.6)',
+                    borderWidth: 5,
+                },
+            ],
         },
-    ],
-    legend: {
-        display: false,
-    },
-}
-const chartOptions = {
-    responsive: true,
-}
+        options: {
+            fill: true,
+            transitions: true,
+            tension: 0.4,
+            legend: true,
+            responsive: true,
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    },
+                ],
+            },
+        },
+        plugins: [
+            {
+                afterDraw: (chart) => {
+                    if (chart.tooltip?._active?.length) {
+                        let x = chart.tooltip._active[0].element.x
+                        let yAxis = chart.scales.y
+                        let ctx = chart.ctx
+                        ctx.save()
+                        ctx.beginPath()
+                        ctx.setLineDash([10, 12])
+                        ctx.beginPath()
+                        ctx.moveTo(x, yAxis.top)
+                        ctx.lineTo(x, yAxis.bottom)
+                        ctx.lineWidth = 1
+                        ctx.strokeStyle = '#6F6F6F'
+                        ctx.stroke()
+                        ctx.restore()
+                    }
+                },
+            },
+        ],
+    })
+    myChart
+})
 </script>

@@ -1,6 +1,58 @@
 <template>
-    <h1 class="my-6 text-2xl font-semibold text-gray-700">Dashboard</h1>
+    <main class="pt-6 px-4">
+        <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 2xl:col-span-2">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">12</span>
+                        <h3 class="text-base font-normal text-gray-500">New users this week</h3>
+                    </div>
+                    <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">12.5%</div>
+                </div>
+                <AdminChart :width="chartData.width" :height="chartData.height" class="block w-full h-full" />
+            </div>
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">New Recipes</span>
+                        <h3 class="text-base font-normal text-gray-500">Incomming from users</h3>
+                    </div>
+                    <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
+                        view all
+                    </div>
+                </div>
+                <header class="grid grid-cols-4 bg-gray-50 p-3 rounded-t-lg border-b">
+                    <span class="col-span-2 text-gray-500">Title</span>
+                    <span class="text-gray-500">User</span>
+                    <span class="text-gray-500">Status</span>
+                </header>
+                <!--vfor 10 items-->
+                <div>
+                    <!--! Component AdminListItem.vue-->
+                    <div class="grid grid-cols-4 p-3 items-center">
+                        <span class="col-span-2 text-gray-500">Lorem Ipsum dolor sit...</span>
+                        <span class="text-black font-bold">kirillpan...</span>
+                        <span class="text-yellow-500">Pending</span>
+                    </div>
+                    <!-------------->
 
+                    <div class="grid grid-cols-4 p-3 items-center bg-gray-50 rounded-md">
+                        <span class="col-span-2 text-gray-500">Lorem Ipsum dolor sit...</span>
+                        <span class="text-gray-500">User</span>
+                        <span class="text-lime">Approved</span>
+                    </div>
+                    <div class="grid grid-cols-4 p-3 items-center">
+                        <span class="col-span-2 text-gray-500">Lorem Ipsum dolor sit...</span>
+                        <span class="text-black font-bold">kirillpan...</span>
+                        <span class="text-red-600">Rejected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4"></div>
+    </main>
+    <!-- <h1 class="my-6 text-2xl font-semibold text-gray-700">Dashboard</h1>
+    
     <a
         href="https://github.com/kirillpanfile/qf-frontend"
         target="_blank"
@@ -57,6 +109,13 @@
             <AdminChart :width="chartData.width" :height="chartData.height" class="block w-full h-full" />
         </div>
     </div>
+
+    <main class="flex">
+        <div class="w-3/4">
+            <input type="text" class="w-full bg-gray-50" />
+        </div>
+        <div class="w-1/3">1</div>
+    </main> -->
 </template>
 <script setup>
 import { AdminUsersCard, AdminDashCard, AdminChart } from '@/components'

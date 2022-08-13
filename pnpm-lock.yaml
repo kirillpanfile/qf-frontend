@@ -19,8 +19,6 @@ specifiers:
   sass-loader: ^13.0.2
   tailwindcss: ^3.1.6
   vue: ^3.2.13
-  vue-chart-3: ^3.1.8
-  vue-chartjs: ^4.1.1
   vue-router: ^4.0.3
 
 dependencies:
@@ -32,8 +30,6 @@ dependencies:
   pinia: 2.0.16_vue@3.2.37
   sass-loader: 13.0.2_sass@1.53.0
   vue: 3.2.37
-  vue-chart-3: 3.1.8_chart.js@3.8.2+vue@3.2.37
-  vue-chartjs: 4.1.1_chart.js@3.8.2+vue@3.2.37
   vue-router: 4.1.2_vue@3.2.37
 
 devDependencies:
@@ -3741,10 +3737,6 @@ packages:
   /csstype/2.6.20:
     resolution: {integrity: sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==}
 
-  /csstype/3.1.0:
-    resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
-    dev: false
-
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
     peerDependencies:
@@ -4875,10 +4867,6 @@ packages:
     dependencies:
       p-locate: 4.1.0
     dev: true
-
-  /lodash-es/4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: false
 
   /lodash.camelcase/4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
@@ -6867,30 +6855,6 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
     dev: true
-
-  /vue-chart-3/3.1.8_chart.js@3.8.2+vue@3.2.37:
-    resolution: {integrity: sha512-zX5ajjQi/PocEqLETlej3vp92q/tnI/Fvu2RVb++Kap8qOrXu6PXCpodi73BFrWzEGZIAnqoUxC3OIkRWD657g==}
-    peerDependencies:
-      chart.js: '=> ^3.1.0'
-      vue: '>= 3'
-    dependencies:
-      '@vue/runtime-core': 3.2.37
-      '@vue/runtime-dom': 3.2.37
-      chart.js: 3.8.2
-      csstype: 3.1.0
-      lodash-es: 4.17.21
-      vue: 3.2.37
-    dev: false
-
-  /vue-chartjs/4.1.1_chart.js@3.8.2+vue@3.2.37:
-    resolution: {integrity: sha512-rKIQ3jPrjhwxjKdNJppnYxRuBSrx4QeM3nNHsfIxEqjX6QS4Jq6e6vnZBxh2MDpURDC2uvuI2N0eIt1cWXbBVA==}
-    peerDependencies:
-      chart.js: ^3.7.0
-      vue: ^3.0.0-0 || ^2.6.0
-    dependencies:
-      chart.js: 3.8.2
-      vue: 3.2.37
-    dev: false
 
   /vue-demi/0.13.5_vue@3.2.37:
     resolution: {integrity: sha512-tO3K2bML3AwiHmVHeKCq6HLef2st4zBXIV5aEkoJl6HZ+gJWxWv2O8wLH8qrA3SX3lDoTDHNghLX1xZg83MXvw==}
