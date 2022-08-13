@@ -7,12 +7,12 @@
                 v-model="title.value"
                 class="p-2 border rounded-md mb-4 w-full outline-none"
                 :class="{
-                    'border-red-500': title.valid.value == false,
+                    'border-red-500 mb-0': title.valid == false,
                 }"
                 name="title"
                 id="title"
             />
-            <span v-if="title.valid.message"> {{ title.valid.message }}</span>
+            <small class="text-red-500" v-if="title.message"> {{ title.message }}</small>
             <div class="md:grid block grid-cols-2 gap-8">
                 <div class="flex flex-col">
                     <span class="text-md font-bold pb-2">Cover</span>
@@ -70,12 +70,16 @@
                     </select>
                     <label for="time" class="text-md font-bold pb-2">Time (minutes)</label>
                     <input
-                        v-model="time"
+                        v-model="time.value"
                         type="number"
-                        class="p-2 border resize-none rounded-md"
+                        class="p-2 border resize-none rounded-md outline-none"
                         name="time"
                         id="time"
+                        :class="{
+                            'border-red-500': !time.valid
+                        }"
                     />
+                    <small class="text-red-500" v-if="!time.valid">Time is too much!</small>
                 </div>
             </div>
 
@@ -156,20 +160,20 @@ import validator, { createValidator } from '@/helpers/validate.herlper'
 const { compressImage, result } = useImageMinify()
 const recipeStore = useRecipeStore()
 
-const title = createValidator(),
+const title = createValidator(''),
     description = ref(''),
     ingredients = ref([]),
     image = ref(null),
     steps = ref([]),
     lang = ref('ro'),
-    time = ref(null),
+    time = createValidator(0),
     hot = ref(false),
     ingredient = ref(null),
     step = ref(null),
     file = ref(null)
 
 const addIngredient = (ing) => {
-    ing.length > 0 && ingredients.push(ing), (ingredient.value = '')
+    ing.length > 0 && (ingredients.value.push(ing)), (ingredient.value = '')
 }
 
 const addStep = (value) => {
@@ -180,11 +184,11 @@ const date = computed(() =>
     [pad(new Date().getDate()), pad(new Date().getMonth() + 1), new Date().getFullYear()].join('/')
 )
 
-const deleteIngredient = (index) => ingredients.splice(index, 1)
+const deleteIngredient = (index) => ingredients.value.splice(index,1)
 const deleteStep = (index) => steps.value.splice(index, 1)
 
 onMounted(() => {
-    validator([
+     validator([
         {
             reference: title,
             rules: {
@@ -194,9 +198,26 @@ onMounted(() => {
                 type: 'string',
             },
         },
+        {
+            reference: ingredients,
+            rules: {
+                min: 2,
+                max: 50,
+                required: true,
+                type: 'array'
+            }
+        },
+        {
+            reference: time,
+            rules: {
+                min: 0,
+                max: 3600,
+                required: true,
+                type: 'number'
+            }
+        }
     ])
 })
-
 const submit = (payload) => {
     // recipeStore.createRecipe(payload)
 }
@@ -206,6 +227,8 @@ watch(
     description,
     (newVal) => newVal.length > 120 && (description.value = description.value.split('').splice(0, 120).join(''))
 )
+
+watch(time, (newVal) => newVal.value < 0 && (time.value = 0))
 
 // watch(file, async (newVal) => {
 //     if (newVal) {
