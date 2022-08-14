@@ -34,30 +34,36 @@
                 </header>
 
                 <!--! Component AdminListItem.vue-->
-                <router-link
-                    :to="`/admin/recipes/${item._id}`"
-                    class="grid grid-cols-4 gap-x-4 p-3 items-center hover:bg-gray-200 rounded-md"
-                    v-for="(item, index) in recipe"
-                    :key="item._id"
-                    :class="(index + 1) % 2 == 0 && 'bg-gray-50'"
-                >
-                    <span class="col-span-2 text-gray-500" v-if="!item.langs.ro.title">No title</span>
-                    <!--TODO de sters asta cind o sa lucreze validarea la title-->
-                    <span class="col-span-2 text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis" v-else>{{
-                        item.langs.ro.title
-                    }}</span>
-                    <span class="text-black font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{
-                        item?.user?.username
-                    }}</span>
-                    <span
-                        :class="{
-                            'text-lime': item.approved === 'approved',
-                            'text-yellow-500': item.approved === 'pending',
-                            'text-red-600': item.approved === 'rejected',
-                        }"
-                        >{{ item.approved }}</span
-                    >
-                </router-link>
+                <div class="overflow-hidden">
+                    <sequential-entrance>
+                        <router-link
+                            :to="`/admin/recipes/${item._id}`"
+                            class="grid grid-cols-4 gap-x-4 p-3 items-center hover:bg-gray-200 rounded-md"
+                            v-for="(item, index) in recipe"
+                            :key="item._id"
+                            :class="(index + 1) % 2 == 0 && 'bg-gray-50'"
+                        >
+                            <span class="col-span-2 text-gray-500" v-if="!item.langs.ro.title">No title</span>
+                            <!--TODO de sters asta cind o sa lucreze validarea la title-->
+                            <span
+                                class="col-span-2 text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis"
+                                v-else
+                                >{{ item.langs.ro.title }}</span
+                            >
+                            <span class="text-black font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{
+                                item?.user?.username
+                            }}</span>
+                            <span
+                                :class="{
+                                    'text-lime': item.approved === 'approved',
+                                    'text-yellow-500': item.approved === 'pending',
+                                    'text-red-600': item.approved === 'rejected',
+                                }"
+                                >{{ item.approved }}</span
+                            >
+                        </router-link>
+                    </sequential-entrance>
+                </div>
             </div>
         </div>
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 pt-6">
@@ -110,14 +116,16 @@
                         view all
                     </div>
                 </div>
-                <div class="overflow-y-scroll max-h-96 divide-y">
-                    <admin-users-card
-                        v-for="(item, index) in newUsers"
-                        :key="index"
-                        :user="item"
-                        type="new"
-                        @select="newUsers"
-                    ></admin-users-card>
+                <div class="overflow-y-scroll overflow-x-hidden max-h-96">
+                    <sequential-entrance class="divide-y">
+                        <admin-users-card
+                            v-for="(item, index) in newUsers"
+                            :key="index"
+                            :user="item"
+                            type="new"
+                            @select="newUsers"
+                        ></admin-users-card>
+                    </sequential-entrance>
                 </div>
             </div>
             <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
@@ -128,7 +136,10 @@
                     </div>
 
                     <div class="flex gap-4">
-                        <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
+                        <div
+                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2"
+                            @click="openModal"
+                        >
                             Create +
                         </div>
                         <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
@@ -136,7 +147,72 @@
                         </div>
                     </div>
                 </div>
-                <div class="overflow-y-scroll max-h-96 divide-y">Tasks</div>
+                <div class="border-t overflow-hidden cursor-pointer">
+                    <div class="hover:bg-gray-100 grid grid-cols-8 p-2">
+                        <div class="col-span-1 w-full flex items-center justify-center">
+                            <input
+                                id="checkbox-1"
+                                aria-describedby="checkbox-1"
+                                type="checkbox"
+                                class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block"
+                            />
+                            <label for="checkbox-1" class="sr-only">checkbox</label>
+                        </div>
+                        <div class="flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0 col-span-1">
+                            <!-- <img
+                                class="h-10 w-10 rounded-full"
+                                src="https://demo.themesberg.com/windster/images/users/neil-sims.png"
+                                alt="profilePic"
+                            /> -->
+                            <div
+                                class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border"
+                            >
+                                ?
+                            </div>
+                        </div>
+                        <div class="whitespace-nowrap text-base font-medium text-gray-900 col-span-4 flex items-center">
+                            Fix sidebar (on mobile not showing burger menu)
+                        </div>
+                        <div
+                            class="whitespace-nowrap font-medium text-sm text-gray-900 col-span-2 flex items-center justify-center"
+                        >
+                            <span class="bg-lime px-4 py-1 text-white rounded-sm">TODO</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t overflow-hidden cursor-pointer">
+                    <div class="hover:bg-gray-100 grid grid-cols-8 p-2">
+                        <div class="col-span-1 w-full flex items-center justify-center">
+                            <input
+                                id="checkbox-1"
+                                aria-describedby="checkbox-1"
+                                type="checkbox"
+                                class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block"
+                            />
+                            <label for="checkbox-1" class="sr-only">checkbox</label>
+                        </div>
+                        <div class="flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0 col-span-1">
+                            <!-- <img
+                                class="h-10 w-10 rounded-full"
+                                src="https://demo.themesberg.com/windster/images/users/neil-sims.png"
+                                alt="profilePic"
+                            /> -->
+                            <div
+                                class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border"
+                            >
+                                ?
+                            </div>
+                        </div>
+                        <div class="whitespace-nowrap text-base font-medium text-gray-900 col-span-4 flex items-center">
+                            Need components refactoring (not reusable)
+                        </div>
+                        <div
+                            class="whitespace-nowrap font-medium text-sm text-gray-900 col-span-2 flex items-center justify-center"
+                        >
+                            <span class="bg-lime px-4 py-1 text-white rounded-sm">TODO</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -152,11 +228,13 @@
             </div>
             <span>View more -></span>
         </a>
+
+        <app-modal ref="modal"></app-modal>
     </main>
 </template>
 <script setup>
-import { AdminUsersCard, AdminDashCard, AdminChart } from '@/components'
-import { onMounted, computed } from 'vue'
+import { AdminUsersCard, AppModal, AdminChart } from '@/components'
+import { onMounted, ref } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
 import { useRecipeStore } from '@/store/recipeStore'
 import { storeToRefs } from 'pinia'
@@ -172,11 +250,8 @@ onMounted(() => {
             recipe.value.length = 10
         })
 })
-</script>
 
-<style>
-.w-400 {
-    max-width: 500px;
-    width: 100%;
-}
-</style>
+const modal = ref(null)
+
+const openModal = () => modal.value.openModal()
+</script>

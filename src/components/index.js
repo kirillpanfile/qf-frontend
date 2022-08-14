@@ -2,6 +2,7 @@
 
 import AppLoader from './AppLoader.vue'
 import AppNavbar from './AppNavbar'
+import AppModal from './global/AppModal'
 
 // ====================== ADMIN ========================
 
@@ -28,4 +29,5 @@ export {
     AdminSidebarItem,
     AdminUsersCard,
     adminCreateRecipe,
+    AppModal,
 }

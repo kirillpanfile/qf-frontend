@@ -7,7 +7,6 @@ import Chart from 'chart.js/auto'
 import { onMounted } from 'vue'
 
 onMounted(() => {
-    console.log(Chart)
     const ctx = document.getElementById('myChart').getContext('2d')
     const myChart = new Chart(ctx, {
         type: 'line',
@@ -34,15 +33,6 @@ onMounted(() => {
                 intersect: false,
                 mode: 'index',
             },
-            scales: {
-                y: [
-                    {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    },
-                ],
-            },
         },
         plugins: [
             {
@@ -58,7 +48,7 @@ onMounted(() => {
                         ctx.moveTo(x, yAxis.top)
                         ctx.lineTo(x, yAxis.bottom)
                         ctx.lineWidth = 1
-                        ctx.strokeStyle = '#6F6F6F'
+                        ctx.strokeStyle = 'rgba(0,0,0,0.4)'
                         ctx.stroke()
                         ctx.restore()
                     }
