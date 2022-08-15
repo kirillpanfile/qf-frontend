@@ -147,18 +147,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="border-t overflow-hidden cursor-pointer">
-                    <div class="hover:bg-gray-100 grid grid-cols-8 p-2">
-                        <div class="col-span-1 w-full flex items-center justify-center">
-                            <input
-                                id="checkbox-1"
-                                aria-describedby="checkbox-1"
-                                type="checkbox"
-                                class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block"
-                            />
-                            <label for="checkbox-1" class="sr-only">checkbox</label>
-                        </div>
-                        <div class="flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0 col-span-1">
+                <div class="border-t overflow-hidden cursor-pointer select-none">
+                    <div class="hover:bg-gray-100 flex items-center gap-x-4 p-2">
+                        <input
+                            id="checkbox-1"
+                            aria-describedby="checkbox-1"
+                            type="checkbox"
+                            class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block"
+                        />
+                        <label for="checkbox-1" class="sr-only">checkbox</label>
+                        <div class="whitespace-nowrap space-x-6">
                             <!-- <img
                                 class="h-10 w-10 rounded-full"
                                 src="https://demo.themesberg.com/windster/images/users/neil-sims.png"
@@ -170,46 +168,13 @@
                                 ?
                             </div>
                         </div>
-                        <div class="whitespace-nowrap text-base font-medium text-gray-900 col-span-4 flex items-center">
+                        <div class="whitespace-nowrap text-ellipsis overflow-hidden text-base font-medium text-gray-900">
                             Fix sidebar (on mobile not showing burger menu)
                         </div>
                         <div
-                            class="whitespace-nowrap font-medium text-sm text-gray-900 col-span-2 flex items-center justify-center"
+                            class="whitespace-nowrap font-medium text-sm text-gray-900 col-span-2 ml-auto"
                         >
-                            <span class="bg-lime px-4 py-1 text-white rounded-sm">TODO</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-t overflow-hidden cursor-pointer">
-                    <div class="hover:bg-gray-100 grid grid-cols-8 p-2">
-                        <div class="col-span-1 w-full flex items-center justify-center">
-                            <input
-                                id="checkbox-1"
-                                aria-describedby="checkbox-1"
-                                type="checkbox"
-                                class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block"
-                            />
-                            <label for="checkbox-1" class="sr-only">checkbox</label>
-                        </div>
-                        <div class="flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0 col-span-1">
-                            <!-- <img
-                                class="h-10 w-10 rounded-full"
-                                src="https://demo.themesberg.com/windster/images/users/neil-sims.png"
-                                alt="profilePic"
-                            /> -->
-                            <div
-                                class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border"
-                            >
-                                ?
-                            </div>
-                        </div>
-                        <div class="whitespace-nowrap text-base font-medium text-gray-900 col-span-4 flex items-center">
-                            Need components refactoring (not reusable)
-                        </div>
-                        <div
-                            class="whitespace-nowrap font-medium text-sm text-gray-900 col-span-2 flex items-center justify-center"
-                        >
-                            <span class="bg-lime px-4 py-1 text-white rounded-sm">TODO</span>
+                            <span class="bg-lime px-4 py-1 text-white rounded-sm">GET</span>
                         </div>
                     </div>
                 </div>

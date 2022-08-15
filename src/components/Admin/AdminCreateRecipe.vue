@@ -169,7 +169,7 @@ const title = createValidator(),
     file = ref(null)
 
 const addIngredient = (ing) => {
-    ing.length > 0 && ingredients.push(ing), (ingredient.value = '')
+    ing.length > 0 && ingredients.value.push(ing), (ingredient.value = '')
 }
 
 const addStep = (value) => {
