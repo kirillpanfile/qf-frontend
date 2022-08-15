@@ -3,6 +3,10 @@
 import AppLoader from './AppLoader.vue'
 import AppNavbar from './AppNavbar'
 import AppModal from './global/AppModal'
+import ModalButton from './global/ModalButton'
+import ModalInput from './global/ModalInput'
+import ModalTextarea from './global/ModalTextarea'
+import ModalSelect from './global/ModalSelect'
 
 // ====================== ADMIN ========================
 
@@ -30,4 +34,8 @@ export {
     AdminUsersCard,
     adminCreateRecipe,
     AppModal,
+    ModalButton,
+    ModalInput,
+    ModalTextarea,
+    ModalSelect
 }
