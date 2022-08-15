@@ -2,10 +2,10 @@ const URL = process.env.VUE_APP_API
 
 // ============================== Dependencies ================================
 
-export const adminAllRecipes = URL + '/api/recipes/all'
-export const adminRecipe = (id) => URL + '/api/recipes/' + id
-export const adminCreateRecipe = URL + '/api/recipes/admin/create'
-export const adminDeleteRecipe = (id) => URL + '/api/recipes/' + id
+export const adminAllRecipes = URL + '/api/recipe/all'
+export const adminRecipe = (id) => URL + '/api/recipe/' + id
+export const adminCreateRecipe = URL + '/api/recipe/admin/create'
+export const adminDeleteRecipe = (id) => URL + '/api/recipe/' + id
 
 // ============================================================================
 

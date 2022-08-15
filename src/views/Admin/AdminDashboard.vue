@@ -20,8 +20,10 @@
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">New Recipes</span>
                         <h3 class="text-base font-normal text-gray-500">Incomming from users</h3>
                     </div>
-                    <router-link to="/admin/recipes/all"
-                        class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
+                    <router-link
+                        to="/admin/recipes/all"
+                        class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2"
+                    >
                         view all
                     </router-link>
                 </div>
@@ -34,22 +36,31 @@
                 <!--! Component AdminListItem.vue-->
                 <div class="overflow-hidden">
                     <sequential-entrance>
-                        <router-link :to="`/admin/recipes/${item._id}`"
+                        <router-link
+                            :to="`/admin/recipes/${item._id}`"
                             class="grid grid-cols-4 gap-x-4 p-3 items-center hover:bg-gray-200 rounded-md"
-                            v-for="(item, index) in recipe" :key="item._id"
-                            :class="(index + 1) % 2 == 0 && 'bg-gray-50'">
+                            v-for="(item, index) in recipe"
+                            :key="item._id"
+                            :class="(index + 1) % 2 == 0 && 'bg-gray-50'"
+                        >
                             <span class="col-span-2 text-gray-500" v-if="!item.langs.ro.title">No title</span>
                             <!--TODO de sters asta cind o sa lucreze validarea la title-->
-                            <span class="col-span-2 text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis"
-                                v-else>{{ item.langs.ro.title }}</span>
+                            <span
+                                class="col-span-2 text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis"
+                                v-else
+                                >{{ item.langs.ro.title }}</span
+                            >
                             <span class="text-black font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{
-                                    item?.user?.username
+                                item?.user?.username
                             }}</span>
-                            <span :class="{
-                                'text-lime': item.approved === 'approved',
-                                'text-yellow-500': item.approved === 'pending',
-                                'text-red-600': item.approved === 'rejected',
-                            }">{{ item.approved }}</span>
+                            <span
+                                :class="{
+                                    'text-lime': item.approved === 'approved',
+                                    'text-yellow-500': item.approved === 'pending',
+                                    'text-red-600': item.approved === 'rejected',
+                                }"
+                                >{{ item.approved }}</span
+                            >
                         </router-link>
                     </sequential-entrance>
                 </div>
@@ -107,9 +118,14 @@
                 </div>
                 <div class="overflow-y-scroll overflow-x-hidden max-h-96">
                     <sequential-entrance class="divide-y">
-                        <admin-users-card v-for="(item, index) in newUsers" :key="index" :user="item" type="new"
-                            @select="newUsers" @click="toggleUserModal">
-
+                        <admin-users-card
+                            v-for="(item, index) in newUsers"
+                            :key="index"
+                            :user="item"
+                            type="new"
+                            @select="newUsers"
+                            @click="toggleUserModal"
+                        >
                         </admin-users-card>
                     </sequential-entrance>
                 </div>
@@ -122,8 +138,10 @@
                     </div>
 
                     <div class="flex gap-4">
-                        <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none"
-                            @click="toggleTaskModal">
+                        <div
+                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none"
+                            @click="toggleTaskModal"
+                        >
                             Create +
                         </div>
                         <div class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
@@ -132,9 +150,13 @@
                     </div>
                 </div>
                 <div class="border-t overflow-hidden cursor-pointer select-none">
-                    <div class="hover:bg-gray-100 flex items-center gap-x-4 p-2">
-                        <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox"
-                            class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block" />
+                    <div class="hover:bg-gray-100 flex items-center gap-x-4 p-2" v-ripple>
+                        <input
+                            id="checkbox-1"
+                            aria-describedby="checkbox-1"
+                            type="checkbox"
+                            class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block"
+                        />
                         <label for="checkbox-1" class="sr-only">checkbox</label>
                         <div class="whitespace-nowrap space-x-6">
                             <!-- <img
@@ -143,12 +165,14 @@
                                 alt="profilePic"
                             /> -->
                             <div
-                                class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border">
+                                class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border"
+                            >
                                 ?
                             </div>
                         </div>
                         <div
-                            class="whitespace-nowrap text-ellipsis overflow-hidden text-base font-medium text-gray-900">
+                            class="whitespace-nowrap text-ellipsis overflow-hidden text-base font-medium text-gray-900"
+                        >
                             Fix sidebar (on mobile not showing burger menu)
                         </div>
                         <div class="whitespace-nowrap font-medium text-sm text-gray-900 col-span-2 ml-auto">
@@ -159,8 +183,12 @@
             </div>
         </div>
 
-        <a href="https://github.com/kirillpanfile/qf-frontend" target="_blank" v-ripple
-            class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-white rounded-lg shadow-md text-black mt-6">
+        <a
+            href="https://github.com/kirillpanfile/qf-frontend"
+            target="_blank"
+            v-ripple
+            class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-white rounded-lg shadow-md text-black mt-6"
+        >
             <div class="flex items-center">
                 <i class="fa-solid fa-code-branch w-5 mr-2"></i>
                 <span>Open project on github</span>
@@ -170,11 +198,14 @@
 
         <!--? Task Modal -->
         <app-modal title="Create New Task" ref="taskModal">
-
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
                     <modal-input title="Task title" :placeholder="'Task title ...'"></modal-input>
-                    <modal-textarea title="Description" :placeholder="'Description ...'"></modal-textarea>
+                    <modal-textarea
+                        v-model="textArea"
+                        title="Description"
+                        :placeholder="'Description ...'"
+                    ></modal-textarea>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
                     <modal-select title="Select User" :options="['For All', 'User 1', 'User 2', 'User 3']">
@@ -192,20 +223,19 @@
                 <modal-button text="Submit" @btnClick="closeModal"></modal-button>
                 <modal-button text="Edit" @btnClick="closeModal"></modal-button>
             </div>
-
         </app-modal>
 
         <!--? User Modal -->
         <app-modal title="User Modal" ref="userModal">
-
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
-                    <modal-input title="Username" :placeholder="'Username ...'"></modal-input>
+                    {{ debuger }}
+                    <modal-input title="Username" v-model="username" :placeholder="'Username ...'"></modal-input>
                     <modal-input title="Email" :placeholder="'Email ...'"></modal-input>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <modal-select title="User Role" :options="['User', 'Moderator', 'Admin', 'SuperAdmin']">
-                    </modal-select>
+                    <modal-select v-model="select" title="User Role" :options="selectOptions" />
+
                     <!--? Default value = 0 -->
                 </div>
             </div>
@@ -221,7 +251,7 @@
 </template>
 <script setup>
 import { AdminUsersCard, AppModal, AdminChart, ModalInput, ModalTextarea, ModalSelect, ModalButton } from '@/components'
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
 import { useRecipeStore } from '@/store/recipeStore'
 import { storeToRefs } from 'pinia'
@@ -237,9 +267,30 @@ onMounted(() => {
             recipe.value.length = 10
         })
 })
-
+const username = ref(null)
 const taskModal = ref(null)
 const userModal = ref(null)
+const textArea = ref(null)
+const selectOptions = reactive([
+    {
+        name: 'User',
+        value: 'User',
+    },
+    {
+        name: 'Moderator',
+        value: 'Moderator',
+    },
+    {
+        name: 'Admin',
+        value: 'Admin',
+    },
+    {
+        name: 'SuperAdmin',
+        value: 'SuperAdmin',
+    },
+])
+
+const select = ref('User')
 
 const toggleTaskModal = () => taskModal.value.openModal()
 const toggleUserModal = () => userModal.value.openModal()
