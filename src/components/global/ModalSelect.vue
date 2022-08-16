@@ -4,7 +4,6 @@
         id="assign"
         class="shadow-sm bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-4"
         v-model="modelValue"
-        placeholder="Hello"
         @input="valueBinding"
     >
         <option v-for="(item, index) in options" :value="item?.value" :key="index" selected>{{ item?.name }}</option>
@@ -28,7 +27,6 @@ defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const valueBinding = (e) => {
-    debugger
     emit('update:modelValue', e.target.value)
 }
 </script>

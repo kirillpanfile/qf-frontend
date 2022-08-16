@@ -1,17 +1,24 @@
 <template>
-    <div class="w-screen fixed h-screen top-0 left-0 bg-black bg-opacity-20 z-50 flex items-center justify-center"
-        v-if="isOpen" @click="closeModal">
-        <div class="max-w-2xl max-h-[600px] w-full relative bg-white p-4 rounded-lg shadow mx-4 overflow-y-scroll"
-            @click.stop>
+    <div
+        class="w-screen fixed h-screen top-0 left-0 bg-black bg-opacity-20 z-50 flex items-center justify-center"
+        v-if="isOpen"
+        @click="closeModal"
+    >
+        <div
+            class="max-w-2xl max-h-[600px] w-full relative bg-white p-4 rounded-lg shadow mx-4 overflow-y-scroll"
+            @click.stop
+        >
             <div class="flex items-start justify-between p-5 border-b rounded-t w-full">
                 <h3 class="text-xl font-semibold">{{ title }}</h3>
-                <button type="button"
+                <button
+                    type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                    data-modal-toggle="user-modal" @click="closeModal">
+                    data-modal-toggle="user-modal"
+                    @click="closeModal"
+                >
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
-            <!--? Modal Header -->
             <div class="p-6 space-y-6">
                 <form action="#">
                     <slot></slot>
@@ -32,7 +39,7 @@ const closeModal = () => (isOpen.value = false)
 const openModal = () => (isOpen.value = true)
 
 defineProps({
-    title: String
+    title: String,
 })
 
 defineExpose({
@@ -40,5 +47,4 @@ defineExpose({
 })
 </script>
 
-<style>
-</style>
+<style></style>

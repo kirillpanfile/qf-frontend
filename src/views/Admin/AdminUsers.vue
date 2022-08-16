@@ -32,6 +32,7 @@
                     <admin-users-card
                         v-for="(item, index) in users"
                         :key="index"
+                        type="new"
                         v-memo="users"
                         :user="item"
                         @select="selectUser"
@@ -94,9 +95,9 @@ import { onMounted, computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAdminStore } from '@/store/adminStore'
 
-const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMultiple } = useAdminStore(),
-    { users, pages, currentPage, selectedUsers } = storeToRefs(useAdminStore()),
-    search = ref('')
+const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMultiple } = useAdminStore()
+const { users, pages, currentPage, selectedUsers } = storeToRefs(useAdminStore())
+const search = ref('')
 
 onMounted(() => loadUsers())
 /**

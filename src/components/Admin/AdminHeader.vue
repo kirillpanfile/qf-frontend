@@ -1,48 +1,4 @@
 <template>
-    <!-- <header class="z-10 py-4 bg-white relative">
-        <div
-            class="container max-w-7xl flex items-center md:justify-end justify-between h-full px-6 mx-auto text-purple-600"
-        >
-            <button class="p-1 mr-5 -ml-1 rounded-md block md:hidden" @click="$emit('toggleSideMenu')" type="button">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <ul class="flex flex-shrink-0 space-x-6">
-                <li class="relative flex gap-8">
-                    <button class="relative align-middle rounded-md cursor-default" type="button">
-                        <i class="fa-solid fa-bell cursor-pointer" @click="notificationsOpen = !notificationsOpen"></i>
-                    </button>
-                    <AdminNotificationMenu v-if="notificationsOpen" @close="notificationsOpen = false" />
-                    <button class="relative align-middle rounded-md" @click="logOut" type="button">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    </button>
-                </li>
-                <li class="relative">
-                    <button
-                        class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
-                        type="button"
-                    >
-                        <img
-                            class="object-cover w-8 h-8 rounded-full"
-                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                            alt="profilePic"
-                            @click="dropOpen = !dropOpen"
-                        />
-                    </button>
-                    <ul class="absolute bg-white w-max px-5 right-0 top-12" v-if="dropOpen">
-                        <li class="admin-header__item">
-                            <i class="fa-solid fa-user"></i>
-                            <span>{{ user.username }}</span>
-                        </li>
-                        <li class="admin-header__item" v-ripple>
-                            <i class="fa-solid fa-crown"></i>
-                            <span>{{ role }}</span>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </header> -->
     <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
@@ -98,35 +54,6 @@
             </div>
         </div>
     </nav>
-    <!-- <header class="h-12 flex flex-row items-center justify-between gap-12 p-12 bg-white">
-        <input type="text" class="max-w-3xl w-full h-12 rounded-md bg-gray-50 border px-2" />
-        <div class="flex flex-row gap-10 items-center">
-            <div class="flex items-center gap-2">
-                <img
-                    class="object-cover w-10 h-10 rounded-full"
-                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                    alt="profilePic"
-                    @click="dropOpen = !dropOpen"
-                />
-                <div>
-                    <h2 class="text-sm font-bold leading-none">{{ user.username }}</h2>
-                    <span class="text-sm text-gray-400">{{ role }}</span>
-                </div>
-            </div>
-            <div class="relative flex gap-4">
-                <button class="relative bg-gray-50 p-1 rounded-full w-10 h-10" type="button">
-                    <i
-                        class="fa-light fa-bell text-2xl cursor-pointer"
-                        @click="notificationsOpen = !notificationsOpen"
-                    ></i>
-                </button>
-                <AdminNotificationMenu v-if="notificationsOpen" @close="notificationsOpen = false" />
-                <button class="relative bg-gray-50 p-1 rounded-full w-10 h-10" @click="logOut" type="button">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                </button>
-            </div>
-        </div>
-    </header> -->
 </template>
 
 <script setup>
@@ -140,7 +67,7 @@ const dropOpen = ref(false),
     { user } = storeToRefs(useAdminStore()),
     { logOut } = useAdminStore()
 
-const role = computed(() => (user?.value.roles.includes('ROLE_SUPER_ADMIN') ? 'Admin' : 'Moderator'))
+const role = computed(() => (user.value?.roles?.includes('ROLE_SUPER_ADMIN') ? 'Admin' : 'Moderator'))
 
 defineEmits(['toggleSideMenu'])
 </script>

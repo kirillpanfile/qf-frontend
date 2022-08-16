@@ -229,7 +229,6 @@
         <app-modal title="User Modal" ref="userModal">
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
-                    {{ debuger }}
                     <modal-input title="Username" v-model="username" :placeholder="'Username ...'"></modal-input>
                     <modal-input title="Email" :placeholder="'Email ...'"></modal-input>
                 </div>
@@ -247,6 +246,7 @@
                 <modal-button text="Edit" @btnClick="closeModal"></modal-button>
             </div>
         </app-modal>
+        <div v-if="newUsers">hello</div>
     </main>
 </template>
 <script setup>
@@ -256,16 +256,16 @@ import { useAdminStore } from '@/store/adminStore'
 import { useRecipeStore } from '@/store/recipeStore'
 import { storeToRefs } from 'pinia'
 
-const { loadNewUsers, newUsers } = useAdminStore()
+const { loadNewUsers } = useAdminStore()
+const { newUsers } = storeToRefs(useAdminStore())
+const { getAllRecipes } = useRecipeStore()
 const { recipe } = storeToRefs(useRecipeStore())
 
 onMounted(() => {
     loadNewUsers()
-    useRecipeStore()
-        .getAllRecipes()
-        .then(() => {
-            recipe.value.length = 10
-        })
+    getAllRecipes().then((res) => {
+        recipe.value.length = 10
+    })
 })
 const username = ref(null)
 const taskModal = ref(null)

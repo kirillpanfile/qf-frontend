@@ -3,13 +3,40 @@ const URL = process.env.VUE_APP_API
 
 // ============================== Dependencies ================================
 
-export const adminSignIn = URL + '/api/admin/signin'
-export const adminPages = URL + '/api/admin/pages'
-export const rememberAdmin = URL + '/api/auth/remember'
-export const adminUsers = (page) => URL + '/api/users/all?populate=roles&filters=new&page=' + page
-export const adminDeleteUser = (id) => URL + '/api/admin/delete/' + id
-export const adminDeleteMultipleUsers = URL + '/api/admin/deleteMultiple'
-export const adminSearchUser = (user) => URL + '/api/admin/search/' + user
+// export const adminSignIn = URL + '/api/auth/signin/admin'
+// export const adminPages = URL + '/api/admin/pages'
+// export const rememberAdmin = URL + '/api/auth/remember'
+// export const adminUsers = (page) => URL + '/api/users/all?populate=roles&filters=new&page=' + page
+// export const
+// export const adminDeleteUser = (id) => URL + '/api/admin/delete/' + id
+// export const adminDeleteMultipleUsers = URL + '/api/admin/deleteMultiple'
+// export const adminSearchUser = (user) => URL + '/api/admin/search/' + user
+
+const signIn = URL + '/api/auth/signin/admin'
+const getPages = URL + '/api/users/pages'
+const remember = URL + '/api/auth/remember'
+const getAllUsers = (page) => URL + '/api/users/all?page=' + page
+const getNewUsers = URL + '/api/users/all?&filters=new&limit=10'
+const deleteUser = (id) => URL + '/api/users/delete/' + id
+const deleteMultipleUsers = URL + '/api/users/deleteMultiple'
+const searchUser = (user) => URL + '/api/users/search/' + user
+const getUser = (id) => URL + '/api/users/' + id
+const updateUser = (id) => URL + '/api/users/update' + id //? username, email, picture, roles in body
+const getRoles = URL + '/api/users/roles'
+
+export const admin = {
+    signIn,
+    getPages,
+    remember,
+    getAllUsers,
+    getNewUsers,
+    deleteUser,
+    deleteMultipleUsers,
+    searchUser,
+    getUser,
+    updateUser,
+    getRoles,
+}
 
 // ============================================================================
 
