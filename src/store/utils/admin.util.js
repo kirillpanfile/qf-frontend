@@ -16,13 +16,13 @@ const signIn = URL + '/api/auth/signin/admin'
 const getPages = URL + '/api/users/pages'
 const remember = URL + '/api/auth/remember'
 const getAllUsers = (page) => URL + '/api/users/all?page=' + page
-const getNewUsers = URL + '/api/users/all?&filters=new&limit=10'
+const getNewUsers = URL + '/api/users/all?&filters=new&limit=10&populate=roles'
 const deleteUser = (id) => URL + '/api/users/delete/' + id
 const deleteMultipleUsers = URL + '/api/users/deleteMultiple'
 const searchUser = (user) => URL + '/api/users/search/' + user
 const getUser = (id) => URL + '/api/users/' + id
 const updateUser = (id) => URL + '/api/users/update' + id //? username, email, picture, roles in body
-const getRoles = URL + '/api/users/roles'
+const getRoles = URL + '/api/users/roles/all'
 
 export const admin = {
     signIn,

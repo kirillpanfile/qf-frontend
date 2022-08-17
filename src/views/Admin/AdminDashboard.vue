@@ -124,7 +124,7 @@
                             :user="item"
                             type="new"
                             @select="newUsers"
-                            @click="toggleUserModal"
+                            @click="openUserModal(item)"
                         >
                         </admin-users-card>
                     </sequential-entrance>
@@ -140,7 +140,7 @@
                     <div class="flex gap-4">
                         <div
                             class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none"
-                            @click="toggleTaskModal"
+                            @click="openTaskModal"
                         >
                             Create +
                         </div>
@@ -220,20 +220,20 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <modal-button text="Submit" @btnClick="closeModal"></modal-button>
-                <modal-button text="Edit" @btnClick="closeModal"></modal-button>
+                <modal-button text="Submit" @btnClick="closeTaskModal"></modal-button>
+                <modal-button text="Edit" @btnClick="closeTaskModal"></modal-button>
             </div>
         </app-modal>
 
         <!--? User Modal -->
-        <app-modal title="User Modal" ref="userModal">
+        <app-modal title="User Modal" ref="userModal" @close="closeUserModal">
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
-                    <modal-input title="Username" v-model="username" :placeholder="'Username ...'"></modal-input>
-                    <modal-input title="Email" :placeholder="'Email ...'"></modal-input>
+                    <modal-input :disabled="!userEditFlag" title="Username" v-model="userName" :placeholder="'Username ...'"></modal-input>
+                    <modal-input :disabled="!userEditFlag" title="Email" v-model="userEmail" :placeholder="'Email ...'"></modal-input>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <modal-select v-model="select" title="User Role" :options="selectOptions" />
+                    <modal-select :disabled="!userEditFlag" v-model="userRole" title="User Role" :options="selectOptions" />
 
                     <!--? Default value = 0 -->
                 </div>
@@ -242,8 +242,8 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <modal-button text="Okay" @btnClick="closeModal"></modal-button>
-                <modal-button text="Edit" @btnClick="closeModal"></modal-button>
+                <modal-button text="Submit" @btnClick="closeUserModal(), editUser(userData)"></modal-button>
+                <modal-button text="Edit" @btnClick="editUserModal"></modal-button>
             </div>
         </app-modal>
         <div v-if="newUsers">hello</div>
@@ -256,42 +256,55 @@ import { useAdminStore } from '@/store/adminStore'
 import { useRecipeStore } from '@/store/recipeStore'
 import { storeToRefs } from 'pinia'
 
-const { loadNewUsers } = useAdminStore()
-const { newUsers } = storeToRefs(useAdminStore())
+const { loadNewUsers, editUser, getRoles } = useAdminStore()
+const { newUsers, roles } = storeToRefs(useAdminStore())
 const { getAllRecipes } = useRecipeStore()
 const { recipe } = storeToRefs(useRecipeStore())
 
 onMounted(() => {
+    getRoles()
     loadNewUsers()
     getAllRecipes().then((res) => {
         recipe.value.length = 10
     })
 })
-const username = ref(null)
+// User Values
+const userName = ref(null)
+const userEmail = ref(null)
+const userRole = ref(null)
+const userId = ref(null)
+const userEditFlag = ref(false)
+const userData = reactive({
+    name: userName,
+    email: userEmail,
+    roles: userRole,
+    id: userId
+})
+// Task Values
 const taskModal = ref(null)
 const userModal = ref(null)
 const textArea = ref(null)
-const selectOptions = reactive([
-    {
-        name: 'User',
-        value: 'User',
-    },
-    {
-        name: 'Moderator',
-        value: 'Moderator',
-    },
-    {
-        name: 'Admin',
-        value: 'Admin',
-    },
-    {
-        name: 'SuperAdmin',
-        value: 'SuperAdmin',
-    },
-])
 
-const select = ref('User')
-
-const toggleTaskModal = () => taskModal.value.openModal()
-const toggleUserModal = () => userModal.value.openModal()
+// User Functions
+const openUserModal = ( data ) => {
+    userModal.value.openModal()
+    userName.value = data.username
+    userEmail.value = data.email
+    userId.value = data._id
+    console.log(selectOptions.value)
+    // selectOptions.forEach((element) => {
+    //     element.id == data.roles[0].name && (userRole.value = element.name)
+    // })
+}
+const closeUserModal = () => {
+    userEditFlag.value = false
+    userModal.value.closeModal()
+}
+const editUserModal = () => {
+    userEditFlag.value = true
+}
+    
+// Task Functions 
+const openTaskModal = () => taskModal.value.openModal()
+const closeTaskModal = () => taskModal.value.closeModal()
 </script>

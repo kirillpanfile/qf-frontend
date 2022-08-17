@@ -7,7 +7,7 @@ import router from '@/router'
 import { admin } from '@/store/utils/admin.util'
 
 export const useAdminStore = defineStore('adminStore', {
-    state: () => ({ accessToken: null, user: null, users: [], newUsers: [], pages: null, currentPage: 1 }),
+    state: () => ({ accessToken: null, user: null, users: [], newUsers: [], pages: null, currentPage: 1, roles: [] }),
     getters: {
         selectedUsers: (state) => state.users.filter((user) => user.selected === true),
     },
@@ -96,6 +96,23 @@ export const useAdminStore = defineStore('adminStore', {
                 this.users = this.users.filter((user) => !selectedUsers.includes(user._id))
                 Notify('Users deleted', 'success')
             } catch (error) {
+                Notify(error, 'error')
+            }
+        },
+        async editUser(payload) {
+            try{
+                const { name, email, roles } = payload
+                await Window.$http.put(admin.updateUser(payload.id), {  } ,this.accessToken)
+            } catch (error){
+                Notify(error, 'error')
+            }
+        },
+        async getRoles(){
+            try{
+                const roles = await Window.$http.get(admin.getRoles, this.accessToken)
+                // this.roles = roles
+                console.log(roles)
+            } catch (error){
                 Notify(error, 'error')
             }
         },
