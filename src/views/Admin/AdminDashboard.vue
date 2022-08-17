@@ -233,7 +233,7 @@
                     <modal-input :disabled="!userEditFlag" title="Email" v-model="userEmail" :placeholder="'Email ...'"></modal-input>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <modal-select :disabled="!userEditFlag" v-model="userRole" title="User Role" :options="selectOptions" />
+                    <modal-select :disabled="!userEditFlag" v-model="userRole" title="User Role" :options="roles" />
 
                     <!--? Default value = 0 -->
                 </div>
@@ -291,10 +291,12 @@ const openUserModal = ( data ) => {
     userName.value = data.username
     userEmail.value = data.email
     userId.value = data._id
-    console.log(selectOptions.value)
     // selectOptions.forEach((element) => {
     //     element.id == data.roles[0].name && (userRole.value = element.name)
     // })
+    roles.value.forEach((element) => {
+        element.name == data.roles[0].name && (userRole.value = element.name)
+    })
 }
 const closeUserModal = () => {
     userEditFlag.value = false

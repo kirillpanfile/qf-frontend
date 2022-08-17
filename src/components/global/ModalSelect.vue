@@ -8,11 +8,12 @@
         :disabled="disabled"
         @input="valueBinding"
     >
-        <option v-for="(item, index) in options" :value="item?.value" :key="index" selected>{{ item?.name }}</option>
+        <option v-for="(item, index) in options" :value="item" :key="index" selected>{{ item?.name }}</option>
     </select>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 defineProps({
     title: {
         type: String,
@@ -29,6 +30,12 @@ defineProps({
         default: true
     }
 })
+
+// const selectData = computed(() => {
+//     return {
+//         name: 
+//     }
+// })
 
 const emit = defineEmits(['update:modelValue'])
 

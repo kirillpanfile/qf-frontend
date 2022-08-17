@@ -110,8 +110,7 @@ export const useAdminStore = defineStore('adminStore', {
         async getRoles(){
             try{
                 const roles = await Window.$http.get(admin.getRoles, this.accessToken)
-                // this.roles = roles
-                console.log(roles)
+                this.roles = roles
             } catch (error){
                 Notify(error, 'error')
             }
