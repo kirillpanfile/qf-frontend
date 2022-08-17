@@ -71,6 +71,7 @@ export const initGlobalApp = (app) => {
     data.forEach((item) => app.provide(item.name, item.value))
     if (process.env.NODE_ENV === 'development')
         console.log('🚀 ~ file: globals.js Providing globals', app._context.provides)
+    autoImportComponents()
 }
 
 //# sourceMpappingURL=globals.js.map

@@ -220,39 +220,38 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <modal-button text="Submit" @btnClick="closeTaskModal"></modal-button>
-                <modal-button text="Edit" @btnClick="closeTaskModal"></modal-button>
+                <modal-button text="Submit" @btnClick=""></modal-button>
+                <modal-button text="Edit" @btnClick=""></modal-button>
             </div>
         </app-modal>
 
         <!--? User Modal -->
-        <app-modal title="User Modal" ref="userModal" @close="closeUserModal">
+        <app-modal title="User Modal" ref="userModal">
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
                     <modal-input
                         :disabled="!userEditFlag"
                         title="Username"
-                        v-model="userName"
+                        v-model="user.username"
                         :placeholder="'Username ...'"
                     ></modal-input>
                     <modal-input
                         :disabled="!userEditFlag"
                         title="Email"
-                        v-model="userEmail"
+                        v-model="user.email"
                         :placeholder="'Email ...'"
                     ></modal-input>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <modal-select :disabled="!userEditFlag" v-model="userRole" title="User Role" :options="roles" />
+                    <modal-select :disabled="!userEditFlag" v-model="user.roles" title="User Role" :options="roles" />
                 </div>
             </div>
 
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <modal-button text="Submit" @btnClick="closeUserModal(), editUser(userData)"></modal-button>
+                <modal-button text="Submit" @btnClick="closeUserModal(), editUser(user)"></modal-button>
                 <modal-button text="Edit" @btnClick="editUserModal"></modal-button>
-                {{ userRole }}
             </div>
         </app-modal>
         <div v-if="newUsers">hello</div>
@@ -273,47 +272,32 @@ const { recipe } = storeToRefs(useRecipeStore())
 onMounted(() => {
     getRoles()
     loadNewUsers()
-    getAllRecipes().then(() => {
-        recipe.value.length = 10
-    })
+    getAllRecipes()
 })
 // User Values
-const userName = ref(null)
-const userEmail = ref(null)
-const userRole = ref(null)
-const userId = ref(null)
+
 const userEditFlag = ref(false)
-const userData = reactive({
-    username: userName,
-    email: userEmail,
-    roles: userRole,
-    id: userId,
-})
-// Task Values
 const taskModal = ref(null)
 const userModal = ref(null)
 const textArea = ref(null)
 
+let user = reactive({
+    username: null,
+    email: null,
+    roles: null,
+    id: null,
+})
+
 // User Functions
-const openUserModal = (data) => {
+const openUserModal = ({ username, email, roles, _id }) => {
     userModal.value.openModal()
-    userName.value = data.username
-    userEmail.value = data.email
-    userId.value = data._id
-    userRole.value = data.roles[0]._id
-    // selectOptions.forEach((element) => {
-    //     element.id == data.roles[0].name && (userRole.value = element.name)
-    // })
+    Object.assign(user, { username, email, roles: roles[0]._id, id: _id })
 }
 const closeUserModal = () => {
-    userEditFlag.value = false
-    userModal.value.closeModal()
+    ;(userEditFlag.value = false), userModal.value.closeModal()
 }
-const editUserModal = () => {
-    userEditFlag.value = true
-}
+const editUserModal = () => (userEditFlag.value = true)
 
 // Task Functions
 const openTaskModal = () => taskModal.value.openModal()
-const closeTaskModal = () => taskModal.value.closeModal()
 </script>

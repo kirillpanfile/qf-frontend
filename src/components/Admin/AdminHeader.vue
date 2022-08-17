@@ -34,7 +34,7 @@
                             @click="dropOpen = !dropOpen"
                         />
                         <div>
-                            <h2 class="text-sm font-bold leading-none">{{ user.username }}</h2>
+                            <h2 class="text-sm font-bold leading-none" v-if="user.username">{{ user.username }}</h2>
                             <span class="text-sm text-gray-400">{{ role }}</span>
                         </div>
                     </div>

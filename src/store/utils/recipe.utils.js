@@ -1,8 +1,9 @@
 const URL = process.env.VUE_APP_API
+// const URL = 'http://localhost:3000'
 
 // ============================== Dependencies ================================
 
-export const adminAllRecipes = URL + '/api/recipe/all'
+export const adminAllRecipes = URL + '/api/recipe/all?limit=10'
 export const adminRecipe = (id) => URL + '/api/recipe/' + id
 export const adminCreateRecipe = URL + '/api/recipe/admin/create'
 export const adminDeleteRecipe = (id) => URL + '/api/recipe/' + id

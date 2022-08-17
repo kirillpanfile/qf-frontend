@@ -29,19 +29,6 @@ if (process.env.NODE_ENV === 'development') {
 
 /**
  * @description - import global components from src/components/global folder
- */
-
-uiComponents
-    ? uiComponents.forEach((component) => {
-          app.component(
-              component.default.name,
-              defineAsyncComponent(() => import(`./components/global/${component.default.name}`))
-          )
-      })
-    : console.log('No components found')
-
-/**
- * @description - import global components from src/components/global folder
  * @param {object} app - Vue app
  * @param {object} pinia - Pinia store
  * @param {object} router - Vue router

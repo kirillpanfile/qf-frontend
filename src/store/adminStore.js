@@ -107,23 +107,15 @@ export const useAdminStore = defineStore('adminStore', {
                 Notify(error, 'error')
             }
         },
-        async editUser(payload) {
+        async editUser({ username, email, roles, id }) {
             try {
-                const { username, email, roles } = payload
-                await Window.$http.put(
-                    admin.updateUser(payload.id),
-                    {
-                        username,
-                        email,
-                        roles,
-                    },
+                const updatedUser = await Window.$http.put(
+                    admin.updateUser(id),
+                    { username, email, roles },
                     this.accessToken
                 )
-                this.newUsers.forEach((element) => {
-                    element._id == payload.id && (this.roles.forEach((e) => {
-                        e._id == roles && (element.roles = e)
-                    }))
-                })
+                const userIndex = this.newUsers.findIndex((user) => user._id === id)
+                this.newUsers[userIndex] = updatedUser
             } catch (error) {
                 Notify(error, 'error')
             }
