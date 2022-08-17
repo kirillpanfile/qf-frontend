@@ -21,7 +21,7 @@ const deleteUser = (id) => URL + '/api/users/delete/' + id
 const deleteMultipleUsers = URL + '/api/users/deleteMultiple'
 const searchUser = (user) => URL + '/api/users/search/' + user
 const getUser = (id) => URL + '/api/users/' + id
-const updateUser = (id) => URL + '/api/users/update' + id //? username, email, picture, roles in body
+const updateUser = (id) => URL + '/api/users/update/' + id //? username, email, picture, roles in body
 const getRoles = URL + '/api/users/roles/all'
 
 export const admin = {

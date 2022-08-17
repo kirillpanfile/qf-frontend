@@ -8,26 +8,28 @@
         :disabled="disabled"
         @input="valueBinding"
     >
-        <option v-for="(item, index) in options" :value="item?.value" :key="index" selected>{{ item?.name }}</option>
+        <option v-for="(item, index) in options" :value="item._id" :key="index" selected>
+            {{ item.name }}
+        </option>
     </select>
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
     title: {
         type: String,
         default: 'Select Title',
     },
     options: {
         type: Array,
-        default: ['All Options', 'Option 1', 'Option 2', 'Option 3'],
+        required: true,
     },
 
     modelValue: String,
     disabled: {
         type: Boolean,
-        default: true
-    }
+        default: true,
+    },
 })
 
 const emit = defineEmits(['update:modelValue'])

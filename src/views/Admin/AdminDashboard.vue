@@ -229,11 +229,21 @@
         <app-modal title="User Modal" ref="userModal" @close="closeUserModal">
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
-                    <modal-input :disabled="!userEditFlag" title="Username" v-model="userName" :placeholder="'Username ...'"></modal-input>
-                    <modal-input :disabled="!userEditFlag" title="Email" v-model="userEmail" :placeholder="'Email ...'"></modal-input>
+                    <modal-input
+                        :disabled="!userEditFlag"
+                        title="Username"
+                        v-model="userName"
+                        :placeholder="'Username ...'"
+                    ></modal-input>
+                    <modal-input
+                        :disabled="!userEditFlag"
+                        title="Email"
+                        v-model="userEmail"
+                        :placeholder="'Email ...'"
+                    ></modal-input>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <modal-select :disabled="!userEditFlag" v-model="userRole" title="User Role" :options="selectOptions" />
+                    <modal-select :disabled="!userEditFlag" v-model="userRole" title="User Role" :options="roles" />
 
                     <!--? Default value = 0 -->
                 </div>
@@ -244,6 +254,7 @@
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
                 <modal-button text="Submit" @btnClick="closeUserModal(), editUser(userData)"></modal-button>
                 <modal-button text="Edit" @btnClick="editUserModal"></modal-button>
+                {{ userRole }}
             </div>
         </app-modal>
         <div v-if="newUsers">hello</div>
@@ -275,10 +286,10 @@ const userRole = ref(null)
 const userId = ref(null)
 const userEditFlag = ref(false)
 const userData = reactive({
-    name: userName,
+    username: userName,
     email: userEmail,
     roles: userRole,
-    id: userId
+    id: userId,
 })
 // Task Values
 const taskModal = ref(null)
@@ -286,12 +297,13 @@ const userModal = ref(null)
 const textArea = ref(null)
 
 // User Functions
-const openUserModal = ( data ) => {
+const openUserModal = (data) => {
     userModal.value.openModal()
     userName.value = data.username
     userEmail.value = data.email
     userId.value = data._id
-    console.log(selectOptions.value)
+    userRole.value = data.roles[0]._id
+    console.log(userRole.value)
     // selectOptions.forEach((element) => {
     //     element.id == data.roles[0].name && (userRole.value = element.name)
     // })
@@ -303,8 +315,8 @@ const closeUserModal = () => {
 const editUserModal = () => {
     userEditFlag.value = true
 }
-    
-// Task Functions 
+
+// Task Functions
 const openTaskModal = () => taskModal.value.openModal()
 const closeTaskModal = () => taskModal.value.closeModal()
 </script>
