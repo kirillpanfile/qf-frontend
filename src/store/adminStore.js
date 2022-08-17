@@ -99,6 +99,14 @@ export const useAdminStore = defineStore('adminStore', {
                 Notify(error, 'error')
             }
         },
+        async getRoles() {
+            try {
+                const roles = await Window.$http.get(admin.getRoles, this.accessToken)
+                this.roles = roles
+            } catch (error) {
+                Notify(error, 'error')
+            }
+        },
         async editUser(payload) {
             try {
                 const { username, email, roles } = payload
@@ -111,14 +119,11 @@ export const useAdminStore = defineStore('adminStore', {
                     },
                     this.accessToken
                 )
-            } catch (error) {
-                Notify(error, 'error')
-            }
-        },
-        async getRoles() {
-            try {
-                const roles = await Window.$http.get(admin.getRoles, this.accessToken)
-                this.roles = roles
+                this.newUsers.forEach((element) => {
+                    element._id == payload.id && (this.roles.forEach((e) => {
+                        e._id == roles && (element.roles = e)
+                    }))
+                })
             } catch (error) {
                 Notify(error, 'error')
             }

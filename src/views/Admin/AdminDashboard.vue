@@ -244,8 +244,6 @@
                 </div>
                 <div class="col-span-6 sm:col-span-3">
                     <modal-select :disabled="!userEditFlag" v-model="userRole" title="User Role" :options="roles" />
-
-                    <!--? Default value = 0 -->
                 </div>
             </div>
 
@@ -275,7 +273,7 @@ const { recipe } = storeToRefs(useRecipeStore())
 onMounted(() => {
     getRoles()
     loadNewUsers()
-    getAllRecipes().then((res) => {
+    getAllRecipes().then(() => {
         recipe.value.length = 10
     })
 })
@@ -303,7 +301,6 @@ const openUserModal = (data) => {
     userEmail.value = data.email
     userId.value = data._id
     userRole.value = data.roles[0]._id
-    console.log(userRole.value)
     // selectOptions.forEach((element) => {
     //     element.id == data.roles[0].name && (userRole.value = element.name)
     // })
