@@ -1,5 +1,5 @@
-const URL = process.env.VUE_APP_API
-// const URL = 'http://localhost:3000'
+// const URL = process.env.VUE_APP_API
+const URL = 'http://localhost:3000'
 
 // ============================== Dependencies ================================
 

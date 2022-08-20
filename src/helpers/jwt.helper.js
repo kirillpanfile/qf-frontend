@@ -15,7 +15,10 @@ export const jwtExpiresIn = 1000 * 60 * 60
  */
 
 export const getJWTFromCookie = () => {
-    return document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
+    return document.cookie.replace(
+        /(?:(?:^|.*;\s*)accessToken\s*\=\s*([^;]*).*$)|^.*$/,
+        "$1"
+    )
 }
 
 /**
@@ -24,7 +27,9 @@ export const getJWTFromCookie = () => {
  */
 
 export const setJwtCookie = (jwt) => {
-    document.cookie = `accessToken=${jwt}; expires=${new Date(Date.now() + jwtExpiresIn).toUTCString()}`
+    document.cookie = `accessToken=${jwt}; expires=${new Date(
+        Date.now() + jwtExpiresIn
+    ).toUTCString()}`
 }
 
 /**
@@ -32,7 +37,7 @@ export const setJwtCookie = (jwt) => {
  */
 
 export const removeJwtCookie = () => {
-    document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 }
 
 /**

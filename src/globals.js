@@ -4,10 +4,15 @@
  *? as well as the Vue prototype for access throughout the app
  *? (register globals with care, only when it makes since to be accessible app wide)
  */
-import { Notify } from '@/helpers/notify.helper'
-import { jwtExpiresIn, getJWTFromCookie, removeJwtCookie, setJwtCookie } from '@/helpers/jwt.helper'
+import { Notify } from "@/helpers/notify.helper"
+import {
+    jwtExpiresIn,
+    getJWTFromCookie,
+    removeJwtCookie,
+    setJwtCookie,
+} from "@/helpers/jwt.helper"
 
-import { init } from '@/helpers/http.helper'
+import { init } from "@/helpers/http.helper"
 
 /**
  * Working with global Components
@@ -16,7 +21,7 @@ import { init } from '@/helpers/http.helper'
  */
 
 export function autoImportComponents() {
-    const components = require.context('@/components/global', true, /\.vue$/)
+    const components = require.context("@/components/global", true, /\.vue$/)
     const exportComponents = []
     components.keys().forEach((key) => {
         const component = components(key)
@@ -38,23 +43,23 @@ export function autoImportComponents() {
 
 const data = [
     {
-        name: '$Notify',
+        name: "$Notify",
         value: Notify,
     },
     {
-        name: '$jwtExpiresIn',
+        name: "$jwtExpiresIn",
         value: jwtExpiresIn,
     },
     {
-        name: '$getJWTFromCookie',
+        name: "$getJWTFromCookie",
         value: getJWTFromCookie,
     },
     {
-        name: '$removeJwtCookie',
+        name: "$removeJwtCookie",
         value: removeJwtCookie,
     },
     {
-        name: '$setJwtCookie',
+        name: "$setJwtCookie",
         value: setJwtCookie,
     },
 ]
@@ -67,10 +72,10 @@ const data = [
 
 export const initGlobalApp = (app) => {
     init()
-    if (!app) throw new Error('App is not valid')
+    if (!app) throw new Error("App is not valid")
     data.forEach((item) => app.provide(item.name, item.value))
-    if (process.env.NODE_ENV === 'development')
-        console.log('🚀 ~ file: globals.js Providing globals', app._context.provides)
+    if (process.env.NODE_ENV === "development")
+        console.log("🚀 ~ file: globals.js Providing globals", app._context.provides)
     autoImportComponents()
 }
 
