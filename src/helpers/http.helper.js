@@ -107,7 +107,12 @@ export const $http = {
      */
 
     put: async (url, body, token) => {
-        const { data } = await axios.put(url, body, options(token))
+        const helper = {
+            url, 
+            body, 
+            options: options(token, 'PUT')
+        }
+        const { data } = await fetchData(helper)
         return data
     },
 
@@ -118,7 +123,11 @@ export const $http = {
      */
 
     delete: async (url, token) => {
-        const { data } = await axios.delete(url, options(token))
+        const helper = {
+            url, 
+            options: options(token, 'DELETE')
+        }
+        const { data } = await fetchData(helper)
         return data
     },
 }
