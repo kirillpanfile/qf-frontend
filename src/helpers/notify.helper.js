@@ -16,6 +16,7 @@ export const Notify = (message, type) => {
         else {
             if (type === 'error') {
                 notify({ type: 'error', text: message.message})
+                console.log(message)
             } else notify({ type, text: message.message })
         }
     } catch (error) {

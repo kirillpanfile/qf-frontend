@@ -1,17 +1,15 @@
 <template>
+    <div class="mb-8 ml-10 flex gap-4">
+        <input class="outline-none" type="text" placeholder="ingredinet">
+        <button class="bg-lime px-2 py-1 rounded-lg text-white">Submit</button>
+    </div>
     <form class="mx-auto flex lg:flex-row gap-4 flex-col w-full">
+
         <div class="bg-white rounded-md p-6 shadow-sm flex flex-col lg:w-3/4 w-full">
             <label for="title" class="text-md block font-bold mb-2">Title </label>
-            <input
-                type="text"
-                v-model="title.value"
-                class="p-2 border rounded-md mb-4 w-full outline-none"
-                :class="{
-                    'border-red-500': title.valid.value == false,
-                }"
-                name="title"
-                id="title"
-            />
+            <input type="text" v-model="title.value" class="p-2 border rounded-md mb-4 w-full outline-none" :class="{
+                'border-red-500': title.valid.value == false,
+            }" name="title" id="title" />
             <span v-if="title.valid.message"> {{ title.valid.message }}</span>
             <div class="md:grid block grid-cols-2 gap-8">
                 <div class="flex flex-col">
@@ -28,20 +26,11 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="ingredients" class="text-md font-bold pb-2">Ingredients</label>
-                    <input
-                        type="text"
-                        v-model="ingredient"
-                        class="p-2 border resize-none rounded-md mb-4"
-                        id="ingredients"
-                        @keyup.enter="addIngredient(ingredient)"
-                    />
+                    <input type="text" v-model="ingredient" class="p-2 border resize-none rounded-md mb-4"
+                        id="ingredients" @keyup.enter="addIngredient(ingredient)" />
                     <div class="flex flex-wrap gap-2">
-                        <div
-                            class="select-none cursor-pointer rounded-lg p-1 text-sm bg-gray-200 text-gray-500"
-                            @click="deleteIngredient(index)"
-                            v-for="(item, index) in ingredients"
-                            :key="index"
-                        >
+                        <div class="select-none cursor-pointer rounded-lg p-1 text-sm bg-gray-200 text-gray-500"
+                            @click="deleteIngredient(index)" v-for="(item, index) in ingredients" :key="index">
                             {{ item }} x
                         </div>
                     </div>
@@ -51,14 +40,8 @@
             <div class="md:grid block grid-cols-2 gap-8">
                 <div class="flex flex-col">
                     <label for="description" class="text-md font-bold pb-2">Description</label>
-                    <textarea
-                        id="description"
-                        v-model="description"
-                        cols="30"
-                        rows="5"
-                        class="p-2 border resize-none rounded-md w-full"
-                        required
-                    ></textarea>
+                    <textarea id="description" v-model="description" cols="30" rows="5"
+                        class="p-2 border resize-none rounded-md w-full" required></textarea>
                     <p class="mb-4 text-sm pt-1 text-gray-500">{{ 120 - description.length }} letters left</p>
                 </div>
                 <div class="flex flex-col">
@@ -69,25 +52,14 @@
                         <option value="3">Dinner</option>
                     </select>
                     <label for="time" class="text-md font-bold pb-2">Time (minutes)</label>
-                    <input
-                        v-model="time"
-                        type="number"
-                        class="p-2 border resize-none rounded-md"
-                        name="time"
-                        id="time"
-                    />
+                    <input v-model="time" type="number" class="p-2 border resize-none rounded-md" name="time"
+                        id="time" />
                 </div>
             </div>
 
             <label for="Steps" class="text-md font-bold pb-2">Steps </label>
-            <input
-                type="text"
-                v-model="step"
-                class="p-2 border resize-none rounded-md"
-                name="Steps"
-                id="Steps"
-                @keyup.enter="addStep(step)"
-            />
+            <input type="text" v-model="step" class="p-2 border resize-none rounded-md" name="Steps" id="Steps"
+                @keyup.enter="addStep(step)" />
             <ul>
                 <li class="flex gap-3 mt-2" v-for="(item, index) in steps" :key="index" @click="deleteStep(index)">
                     <div class="text-main font-bold text-md">{{ index + 1 }}</div>
@@ -121,22 +93,14 @@
                 <h2 for="title" class="text-md font-bold border-b w-full mb-6 pb-2">Aditional</h2>
                 <h2 class="font-semibold">Temp</h2>
                 <div class="flex border justify-evenly text-center cursor-pointer rounded-md text-sm mt-4">
-                    <div
-                        class="py-3 w-full"
-                        :class="{
-                            'bg-lime text-white': hot,
-                        }"
-                        @click="hot = true"
-                    >
+                    <div class="py-3 w-full" :class="{
+                        'bg-lime text-white': hot,
+                    }" @click="hot = true">
                         Hot
                     </div>
-                    <div
-                        class="w-full py-3"
-                        @click="hot = false"
-                        :class="{
-                            'bg-blue-500 text-white': !hot,
-                        }"
-                    >
+                    <div class="w-full py-3" @click="hot = false" :class="{
+                        'bg-blue-500 text-white': !hot,
+                    }">
                         Cold
                     </div>
                 </div>
