@@ -9,7 +9,7 @@
         @input="valueBinding"
     >
         <option v-for="(item, index) in options" :value="item._id" :key="index" selected>
-            {{ item.name }}
+            {{ item.name || item.username }}
         </option>
     </select>
 </template>

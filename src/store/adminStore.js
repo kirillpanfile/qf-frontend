@@ -15,6 +15,7 @@ export const useAdminStore = defineStore("adminStore", {
         pages: null,
         currentPage: 1,
         roles: null,
+        admins : null
     }),
     getters: {
         selectedUsers: (state) => state.users.filter((user) => user.selected === true),
@@ -142,6 +143,15 @@ export const useAdminStore = defineStore("adminStore", {
                 )
                 const userIndex = this.newUsers.findIndex((user) => user._id === id)
                 this.newUsers[userIndex] = updatedUser
+            } catch (error) {
+                Notify(error, "error")
+            }
+        },
+        async getAdmins(){
+            try{
+                const response = await Window.$http.get(admin.getAdmins, this.accessToken)
+                this.admins = response
+                console.log(response)
             } catch (error) {
                 Notify(error, "error")
             }

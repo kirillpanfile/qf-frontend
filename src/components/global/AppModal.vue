@@ -5,7 +5,7 @@
         @click="closeModal"
     >
         <div
-            class="max-w-2xl max-h-[600px] w-full relative bg-white p-4 rounded-lg shadow mx-4 overflow-y-scroll"
+            class="max-w-2xl w-full relative bg-white p-4 rounded-lg shadow mx-4 overflow-y-scroll"
             @click.stop
         >
             <div class="flex items-start justify-between p-5 border-b rounded-t w-full">

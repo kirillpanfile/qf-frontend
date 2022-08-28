@@ -200,28 +200,31 @@
         <app-modal title="Create New Task" ref="taskModal">
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
-                    <modal-input title="Task title" :placeholder="'Task title ...'"></modal-input>
-                    <modal-textarea
+                    <app-input title="Task title" :placeholder="'Task title ...'" :disabled="false"></app-input>
+                    <app-textarea
                         v-model="textArea"
                         title="Description"
                         :placeholder="'Description ...'"
-                    ></modal-textarea>
+                        :disabled="false"
+                    ></app-textarea>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <modal-select title="Select User" :options="['For All', 'User 1', 'User 2', 'User 3']">
-                    </modal-select>
+                    <app-select title="Select User" :options="admins" :disabled="false">
+                    </app-select>
                     <!--? Default value = 0 -->
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <modal-select title="Flag" :options="['Normal', 'High', 'Urgent']"></modal-select>
+                    <app-select title="Flag" :options="taskFlagOptions" :disabled="false"></app-select>
+                </div>
+                <div class="col-span-6">
+                    <app-select title="Status" :options="taskStatusOptions" :disabled="false"></app-select>
                 </div>
             </div>
 
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <modal-button text="Submit" @btnClick=""></modal-button>
-                <modal-button text="Edit" @btnClick=""></modal-button>
+                <app-button text="Submit" @btnClick=""></app-button>
             </div>
         </app-modal>
 
@@ -229,48 +232,49 @@
         <app-modal title="User Modal" ref="userModal">
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
-                    <modal-input
+                    <app-input
                         :disabled="!userEditFlag"
                         title="Username"
                         v-model="user.username"
                         :placeholder="'Username ...'"
-                    ></modal-input>
-                    <modal-input
+                    ></app-input>
+                    <app-input
                         :disabled="!userEditFlag"
                         title="Email"
                         v-model="user.email"
                         :placeholder="'Email ...'"
-                    ></modal-input>
+                    ></app-input>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <modal-select :disabled="!userEditFlag" v-model="user.roles" title="User Role" :options="roles" />
+                    <app-select :disabled="!userEditFlag" v-model="user.roles" title="User Role" :options="roles" />
                 </div>
             </div>
 
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <modal-button text="Submit" @btnClick="closeUserModal(), editUser(user)"></modal-button>
-                <modal-button text="Edit" @btnClick="editUserModal"></modal-button>
+                <app-button text="Submit" @btnClick="closeUserModal(), editUser(user)"></app-button>
+                <app-button text="Edit" @btnClick="editUserModal"></app-button>
             </div>
         </app-modal>
-        <div v-if="newUsers">hello</div>
+        <div v-if="newUsers">An Error occured during loading new users...</div>
     </main>
 </template>
 <script setup>
-import { AdminUsersCard, AppModal, AdminChart, ModalInput, ModalTextarea, ModalSelect, ModalButton } from '@/components'
+import { AdminUsersCard, AppModal, AdminChart, AppInput, AppTextarea, AppSelect, AppButton } from '@/components'
 import { onMounted, reactive, ref } from 'vue'
 import { useAdminStore } from '@/store/adminStore'
 import { useRecipeStore } from '@/store/recipeStore'
 import { storeToRefs } from 'pinia'
 
-const { loadNewUsers, editUser, getRoles } = useAdminStore()
-const { newUsers, roles } = storeToRefs(useAdminStore())
+const { loadNewUsers, editUser, getRoles, getAdmins } = useAdminStore()
+const { newUsers, roles, admins } = storeToRefs(useAdminStore())
 const { getAllRecipes } = useRecipeStore()
 const { recipe } = storeToRefs(useRecipeStore())
 
 onMounted(() => {
     getRoles()
+    getAdmins()
     loadNewUsers()
     getAllRecipes()
 })
@@ -280,6 +284,45 @@ const userEditFlag = ref(false)
 const taskModal = ref(null)
 const userModal = ref(null)
 const textArea = ref(null)
+
+const taskFlagOptions = ref([
+    {
+        name: 'Low',
+        _id: 'Low'
+    },
+    {
+        name: 'Normal',
+        _id: 'Normal'
+    },
+    {
+        name: 'High',
+        _id: 'High'
+    },
+    {
+        name: 'Urgent',
+        _id: 'Urgent'
+    }
+])
+
+const taskStatusOptions = ref([
+    {
+        name: 'Open',
+        _id: 'Open'
+    },
+    {
+        name: 'In Progress',
+        _id: 'In Progress'
+    },
+    {
+        name: 'In Review',
+        _id: 'In Review'
+    },
+    {
+        name: 'Closed',
+        _id: 'Closed'
+    },
+    
+])
 
 let user = reactive({
     username: null,
