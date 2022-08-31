@@ -8,8 +8,7 @@ import { createPinia } from "pinia"
 import "@/assets/scss/style.scss"
 import "@/assets/scss/tailwind.css"
 import "./services/fontpro"
-import { initGlobalApp } from "@/globals"
-
+import { init } from "@/helpers/http.helper"
 import sequentialEntrance from "vue3-sequential-entrance"
 import "vue3-sequential-entrance/vue-sequential-entrance.css"
 
@@ -18,6 +17,7 @@ const pinia = createPinia()
 
 app.directive("ripple", ripple)
 
+init() // initialize http service
 /**
  * @description if mode is development, then use devtools
  */
@@ -36,9 +36,3 @@ if (process.env.NODE_ENV === "development") {
  */
 
 app.use(router).use(Notifications).use(pinia).use(sequentialEntrance).mount("#app")
-
-/**
- * @description - initialize global initGlobalApp function from globals.js to provide global functionality
- * @param {Element} app - Vue app
- */
-initGlobalApp(app)

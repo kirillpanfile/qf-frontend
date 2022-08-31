@@ -13,12 +13,11 @@ import axios from "axios"
  * @returns {AxiosRequestConfig}
  */
 
-const options = (token, method) => ({
+const options = (method) => ({
     method: method,
     credentials: "include",
     headers: {
         "Content-Type": "application/json",
-        "x-access-token": token, // Authorization header is set to 'x-access-token' : token
     },
 })
 
@@ -47,9 +46,8 @@ const fetchData = async ({ url, body, options }) => {
         else res = await fetch(url, options)
 
         // Return response if status is 200
-        console.log(res)
         if (res.status === 200) {
-            return res.json()
+            return await res.json()
         }
         // Return error if status is not 200
         return Promise.reject(res)
@@ -69,14 +67,13 @@ const fetchData = async ({ url, body, options }) => {
 export const $http = {
     /**
      * @param {string} url url to be used for request
-     * @param {string} token token to be used for authorization
      * @returns {Promise<AxiosResponse<any, any>>} Promise with axios response
      */
 
-    get: async (url, token) => {
+    get: async (url) => {
         const helper = {
             url,
-            options: options(token, "GET"),
+            options: options("GET"),
         }
 
         const data = await fetchData(helper)
@@ -85,32 +82,30 @@ export const $http = {
 
     /**
      * @param {string} url url to be used for request
-     * @param {string} token token to be used for authorization
      * @param {object} data data to be sent in request
      * @returns {Promise<AxiosResponse<any, any>>} Promise with axios response
      */
 
-    post: async (url, body, token) => {
+    post: async (url, body) => {
         const helper = {
             url,
             body,
-            options: options(token, "POST"),
+            options: options("POST"),
         }
         const data = await fetchData(helper)
         return data
     },
     /**
      * @param {string} url url to be used for request
-     * @param {string} token token to be used for authorization
      * @param {object} data data to be sent in request
      * @returns {Promise<AxiosResponse<any, any>>} Promise with axios response
      */
 
-    put: async (url, body, token) => {
+    put: async (url, body) => {
         const helper = {
-            url, 
-            body, 
-            options: options(token, 'PUT')
+            url,
+            body,
+            options: options("PUT"),
         }
         const { data } = await fetchData(helper)
         return data
@@ -118,14 +113,13 @@ export const $http = {
 
     /**
      * @param {string} url url to be used for request
-     * @param {string} token token to be used for authorization
      * @returns {Promise<AxiosResponse<any, any>>} Promise with axios response
      */
 
-    delete: async (url, token) => {
+    delete: async (url) => {
         const helper = {
-            url, 
-            options: options(token, 'DELETE')
+            url,
+            options: options("DELETE"),
         }
         const { data } = await fetchData(helper)
         return data

@@ -1,5 +1,7 @@
 <template>
-    <label for="task" class="text-sm font-medium text-gray-900 block mb-2 select-none">{{ title }}</label>
+    <label for="task" class="text-sm font-medium text-gray-900 block mb-2 select-none">{{
+        title
+    }}</label>
     <input
         type="text"
         id="task"
@@ -8,31 +10,29 @@
         :placeholder="placeholder"
         :value="modelValue"
         :disabled="disabled"
-        @input="valueBinding"
-    />
+        @input="valueBinding" />
 </template>
 
 <script setup>
 const props = defineProps({
     title: {
         type: String,
-        default: 'Input title',
+        default: "Input title",
     },
     placeholder: {
         type: String,
-        default: 'Input placeholder',
+        default: "Input placeholder",
     },
     modelValue: String,
     disabled: {
         type: Boolean,
-        default: true
-    }
+        default: true,
+    },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(["update:modelValue"])
 
 const valueBinding = (e) => {
-    console.log(e)
-    emit('update:modelValue', e.target.value)
+    emit("update:modelValue", e.target.value)
 }
 </script>

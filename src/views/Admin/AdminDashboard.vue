@@ -191,33 +191,31 @@
                     </div>
                 </div>
                 <div class="border-t overflow-hidden cursor-pointer select-none">
-                    <div class="hover:bg-gray-100 flex items-center gap-x-4 p-2" v-ripple>
+                    <div
+                        class="hover:bg-gray-100 flex items-center gap-x-4 p-2"
+                        v-ripple
+                        v-for="(item, index) in tasks"
+                        :key="task._id">
                         <input
                             id="checkbox-1"
                             aria-describedby="checkbox-1"
                             type="checkbox"
                             class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block" />
-                        <label for="checkbox-1" class="sr-only">checkbox</label>
                         <div class="whitespace-nowrap space-x-6">
-                            <!-- <img
-                                class="h-10 w-10 rounded-full"
-                                src="https://demo.themesberg.com/windster/images/users/neil-sims.png"
-                                alt="profilePic"
-                            /> -->
                             <div
-                                class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border">
-                                ?
+                                class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border overflow-hidden">
+                                <img :src="item.user.picture" alt="profilePic" />
                             </div>
                         </div>
                         <div
                             class="whitespace-nowrap text-ellipsis overflow-hidden text-base font-medium text-gray-900">
-                            Fix sidebar (on mobile not showing burger menu)
+                            {{ item.title }}
                         </div>
                         <div
                             class="whitespace-nowrap font-medium text-sm text-gray-900 col-span-2 ml-auto">
-                            <span class="bg-lime px-4 py-1 text-white rounded-sm"
-                                >GET</span
-                            >
+                            <span class="bg-lime px-4 py-1 text-white rounded-sm">{{
+                                item.status
+                            }}</span>
                         </div>
                     </div>
                 </div>
@@ -279,7 +277,7 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <app-button text="Submit" @btnClick=""></app-button>
+                <app-button text="Submit" @btnClick="createTask(task)"></app-button>
             </div>
         </app-modal>
 
@@ -332,65 +330,43 @@ import {
 import { onMounted, reactive, ref } from "vue"
 import { useAdminStore } from "@/store/adminStore"
 import { useRecipeStore } from "@/store/recipeStore"
+import { useTaskStore } from "@/store/taskStore"
 import { storeToRefs } from "pinia"
 
 const { loadNewUsers, editUser, getRoles, getAdmins } = useAdminStore()
 const { newUsers, roles, admins } = storeToRefs(useAdminStore())
 const { getAllRecipes } = useRecipeStore()
 const { recipe } = storeToRefs(useRecipeStore())
-
+const { createTask, getTasks } = useTaskStore()
+const { tasks } = storeToRefs(useTaskStore())
 onMounted(() => {
     getRoles()
     getAdmins()
     loadNewUsers()
     getAllRecipes()
+    getTasks()
 })
 // User Values
 
 const userEditFlag = ref(false)
 const taskModal = ref(null)
 const userModal = ref(null)
-const textArea = ref(null)
 
 const taskFlagOptions = ref([
-    {
-        name: "Low",
-        _id: "Low",
-    },
-    {
-        name: "Normal",
-        _id: "Normal",
-    },
-    {
-        name: "High",
-        _id: "High",
-    },
-    {
-        name: "Urgent",
-        _id: "Urgent",
-    },
+    { name: "Low", _id: "Low" },
+    { name: "Normal", _id: "Normal" },
+    { name: "High", id: "High" },
+    { name: "Urgent", _id: "Urgent" },
 ])
 
 const taskStatusOptions = ref([
-    {
-        name: "Open",
-        _id: "Open",
-    },
-    {
-        name: "In Progress",
-        _id: "In Progress",
-    },
-    {
-        name: "In Review",
-        _id: "In Review",
-    },
-    {
-        name: "Closed",
-        _id: "Closed",
-    },
+    { name: "Open", _id: "Open" },
+    { name: "In Progress", _id: "In Progress" },
+    { name: "In Review", _id: "In Review" },
+    { name: "Closed", _id: "Closed" },
 ])
 
-let user = reactive({
+const user = reactive({
     username: null,
     email: null,
     roles: null,
@@ -410,6 +386,7 @@ const openUserModal = ({ username, email, roles, _id }) => {
     userModal.value.openModal()
     Object.assign(user, { username, email, roles: roles[0]._id, id: _id })
 }
+
 const closeUserModal = () => {
     ;(userEditFlag.value = false), userModal.value.closeModal()
 }
