@@ -36,6 +36,16 @@ const routes = [
                     ),
             },
             {
+                path: "/admin/board",
+                name: "admin-board",
+                icon: "fa-solid fa-list-check",
+                text: "Board",
+                component: () =>
+                    import(
+                        /* webpackChunkName: "AdminBoard" */ "@/views/Admin/AdminBoard.vue"
+                    ),
+            },
+            {
                 path: "/admin/users",
                 name: "admin-users",
                 icon: "fa-solid fa-users",

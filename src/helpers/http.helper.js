@@ -4,8 +4,6 @@
 //  *
 //  * ==============================================================================
 
-import axios from "axios"
-
 /**
  * @description Creating a new axios instance for each request
  * @param {string} token
