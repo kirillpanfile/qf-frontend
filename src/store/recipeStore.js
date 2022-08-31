@@ -1,7 +1,8 @@
 import { adminAllRecipes, adminRecipe, adminCreateRecipe, notifications } from '@/store/utils/recipe.utils'
 import { useAdminStore } from '@/store/adminStore'
-import { Notify } from '@/helpers/notify.helper'
 import { defineStore } from 'pinia'
+import { errorHandler } from "./storeHelper"
+
 
 export const useRecipeStore = defineStore('recipeStore', {
     state: () => ({
@@ -30,12 +31,12 @@ export const useRecipeStore = defineStore('recipeStore', {
          */
 
         async getAllRecipes() {
-            try {
-                const { accessToken } = this.admin
-                this.recipe = await Window.$http.get(adminAllRecipes, accessToken)
-            } catch (error) {
-                Notify(error)
-            }
+            await errorHandler(
+                async function () {
+                    const { accessToken } = this.admin
+                    this.recipe = await Window.$http.get(adminAllRecipes, accessToken)
+                }.bind(this)
+            )
         },
 
         /**
@@ -45,12 +46,12 @@ export const useRecipeStore = defineStore('recipeStore', {
          */
 
         async getRecipe(id) {
-            try {
-                const { accessToken } = this.admin
-                this.currentRecipe = await Window.$http.get(adminRecipe(id), accessToken)
-            } catch (error) {
-                Notify(error)
-            }
+            await errorHandler(
+                async function () {
+                    const { accessToken } = this.admin
+                    this.currentRecipe = await Window.$http.get(adminRecipe(id), accessToken)
+                }.bind(this)
+            )
         },
 
         /**
@@ -60,12 +61,12 @@ export const useRecipeStore = defineStore('recipeStore', {
          */
 
         async createRecipe(payload) {
-            try {
-                const { accessToken } = this.admin
-                await Window.$http.post(adminCreateRecipe, payload, accessToken)
-            } catch (error) {
-                Notify(error)
-            }
+            await errorHandler(
+                async function () {
+                    const { accessToken } = this.admin
+                    await Window.$http.post(adminCreateRecipe, payload, accessToken)
+                }.bind(this)
+            )
         },
     },
 })

@@ -15,11 +15,13 @@ export const Notify = (message, type) => {
         if (!type) throw new Error('Notify type is not valid')
         else {
             if (type === 'error') {
-                notify({ type: 'error', text: message.message})
-                console.log(message)
-            } else notify({ type, text: message.message })
+                notify({text: message, type: type})
+                 console.log('message:', message.json())
+            } else { 
+                notify({text: message, type: type}) 
+            }
         }
     } catch (error) {
-        console.error('Error',error)
+        console.error('Error', error)
     }
 }

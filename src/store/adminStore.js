@@ -1,5 +1,4 @@
 import { defineStore } from "pinia"
-import { Notify } from "@/helpers/notify.helper"
 import router from "@/router"
 import { errorHandler } from "./storeHelper"
 
@@ -19,13 +18,12 @@ export const useAdminStore = defineStore("adminStore", {
     actions: {
         async authAdmin(user) {
             await errorHandler(
-                async function () {
+                (async function () {
                     this.user = await Window.$http.post(
                         process.env.VUE_APP_SIGNIN_ADMIN,
                         user
                     )
-                }.bind(this),
-                "You are successfully logged in"
+                }.bind(this)), 'You are successfully logged in'
             )
         },
         async authRemeber() {
@@ -40,28 +38,25 @@ export const useAdminStore = defineStore("adminStore", {
         },
         async loadUsers() {
             await errorHandler(
-                async function () {
+                (async function () {
                     this.users = await Window.$http.get(
                         process.env.VUE_APP_GET_ALL_USERS + "?page=" + this.currentPage
                     )
-                    Notify("Users successfully loaded", "success")
-                }.bind(this)
+                }.bind(this)), 'Users successfully loaded'
             )
             await errorHandler(
-                async function () {
+                (async function () {
                     this.pages = await Window.$http.get(process.env.VUE_APP_GET_PAGES)
-                    Notify("Pages came from server", "success")
-                }.bind(this)
+                }.bind(this)), 'Pages came from server'
             )
         },
         async loadNewUsers() {
             await errorHandler(
-                async function () {
+                (async function () {
                     this.newUsers = await Window.$http.get(
                         process.env.VUE_APP_GET_NEW_USERS
                     )
-                    Notify("New users successfully loaded", "success")
-                }.bind(this)
+                }.bind(this)), 'New users successfully loaded'
             )
         },
         selectUser(id) {
@@ -83,17 +78,16 @@ export const useAdminStore = defineStore("adminStore", {
         },
         async deleteUser(id) {
             await errorHandler(
-                async function () {
+                (async function () {
                     await Window.$http.delete(process.env.VUE_APP_DELETE_USER + id)(
                         (this.users = this.users.filter((user) => user._id !== id))
                     )
-                    Notify("User deleted", "success")
-                }.bind(this)
+                }.bind(this)), 'User deleted'
             )
         },
         async deleteMultiple() {
             await errorHandler(
-                async function () {
+                (async function () {
                     const selectedUsers = this.selectedUsers.map((user) => user._id)
                     if (selectedUsers.length === 0) throw { message: "No user selected" }
 
@@ -103,16 +97,14 @@ export const useAdminStore = defineStore("adminStore", {
                     this.users = this.users.filter(
                         (user) => !selectedUsers.includes(user._id)
                     )
-                    Notify("Users deleted", "success")
-                }.bind(this)
+                }.bind(this)), 'Users deleted'
             )
         },
         async getRoles() {
-            await errorHandler(
+            (await errorHandler(
                 async function () {
                     this.roles = await Window.$http.get(process.env.VUE_APP_GET_ALL_ROLES)
-                    Notify("Roles successfully loaded", "success")
-                }.bind(this)
+                }.bind(this)), 'Roles successfully loaded'
             )
         },
         async editUser({ username, email, roles, id }) {
@@ -133,12 +125,11 @@ export const useAdminStore = defineStore("adminStore", {
         },
         async getAdmins() {
             await errorHandler(
-                async function () {
+                (async function () {
                     this.admins = await Window.$http.get(
                         process.env.VUE_APP_GET_ALL_ADMINS
                     )
-                    Notify("Admins successfully loaded", "success")
-                }.bind(this)
+                }.bind(this)), 'Admins successfully loaded'
             )
         },
 
@@ -158,7 +149,7 @@ export const useAdminStore = defineStore("adminStore", {
             this.currentPage > 1 && this.currentPage--, this.loadUsers()
         },
         setPage(e) {
-            ;(this.currentPage = e), this.loadUsers()
+            ; (this.currentPage = e), this.loadUsers()
         },
     },
 })
