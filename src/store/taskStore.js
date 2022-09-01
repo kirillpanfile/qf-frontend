@@ -26,11 +26,27 @@ export const useTaskStore = defineStore("taskStore", {
             }
         },
 
-        async updateTask(_id, status) {
-            console.log(_id)
+        async updateTask(_id, payload) {
             this.tasks.find((item) => {
                 if (item._id === _id) {
-                    const updatedTask = Window.$http.put(
+                    Window.$http.put(
+                        process.env.VUE_APP_UPDATE_TASK + item._id,payload
+                    )
+                     //! Garbaj
+                    item.description = payload.description
+                    item.title = payload.title
+                    item.user = payload.user
+                    item.flag = payload.flag
+
+                }
+            })
+
+        },
+
+        async setTaskStatus(id, status){
+            this.tasks.find((item) => {
+                if (item._id === id) {
+                    Window.$http.put(
                         process.env.VUE_APP_UPDATE_TASK + item._id,
                         {
                             status: status,
@@ -39,8 +55,6 @@ export const useTaskStore = defineStore("taskStore", {
                     item.status = status
                 }
             })
-
-            console.log(task)
-        },
+        }
     },
 })

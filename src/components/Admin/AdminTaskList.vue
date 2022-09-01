@@ -25,7 +25,7 @@ import { defineProps } from "vue";
 import { useTaskStore } from "@/store/taskStore";
 
 const task = useTaskStore()
-const { updateTask } = task
+const { setTaskStatus } = task
 
 defineProps({
     list: {
@@ -43,7 +43,7 @@ defineProps({
 })
 
 const onDrop = async (event, list) => {
-    await updateTask(event.dataTransfer.getData("itemID"), list)
+    await setTaskStatus(event.dataTransfer.getData("itemID"), list)
 }
 
 </script>

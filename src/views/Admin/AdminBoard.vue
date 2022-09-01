@@ -13,7 +13,9 @@
                                     :title="item.title"
                                     :description="item.description"
                                     :picture="item.user.picture"
-                                    :flag="item.flag" />
+                                    :flag="item.flag"
+                                    :id="item._id"
+                                    @open="openTaskModal" />
                         </AdminTaskList>
                         <AdminTaskList list="In Progress" :data="getList('In Progress')" :buttonFlag="true">
                             <AdminTask
@@ -24,7 +26,9 @@
                                     :title="item.title"
                                     :description="item.description"
                                     :picture="item.user.picture"
-                                    :flag="item.flag" />
+                                    :flag="item.flag"
+                                    :id="item._id"
+                                    @open="openTaskModal" />
                         </AdminTaskList>
                         <AdminTaskList list="For Review" :data="getList('For Review')">
                             <AdminTask
@@ -35,36 +39,115 @@
                                     :title="item.title"
                                     :description="item.description"
                                     :picture="item.user.picture"
-                                    :flag="item.flag" />
+                                    :flag="item.flag"
+                                    :id="item._id"      
+                                    @open="openTaskModal" />
                         </AdminTaskList>
-                        <AdminTaskList list="Done" :data="getList('Done')">
+                        <AdminTaskList list="Open" :data="getList('Open')"> <!--TODO Open rename in Done in MongoDB-->
                             <AdminTask
                                 draggable="true"
                                 @dragstart="startDrag($event, item)"
-                                v-for="item in getList('Done')"
+                                v-for="item in getList('Open')"
                                 :key="item.id"
                                 :title="item.title"
                                 :description="item.description"
                                 :picture="item.user.picture"
-                                :flag="item.flag" />
+                                :flag="item.flag"
+                                :id="item._id"
+                                @open="openTaskModal" />
                         </AdminTaskList>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <app-modal :title="taskData.title" ref="taskModal" :titleInput="true" @titleChange="(title)=> taskData.title = title">
+        <div class="grid grid-cols-6 gap-x-6">
+                <div class="col-span-6">
+                    <app-textarea
+                        v-model="taskData.description"
+                        title="Description"
+                        :placeholder="'Description ...'"
+                        :disabled="false">
+                    </app-textarea>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <app-select
+                        title="Select User"
+                        :options="admins"
+                        v-model="taskData.user._id"
+                        :disabled="false">
+                    </app-select>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <app-select
+                        title="Flag"
+                        v-model="taskData.flag"
+                        :options="taskFlagOptions"
+                        :disabled="false">
+                    </app-select>
+                </div>
+            </div>
+
+            <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
+                <app-button
+                    text="Ok"
+                    @btnClick="closeTaskModal(), updateTask(taskId, taskData)"></app-button>
+                <app-button text="Delete" @btnClick=""></app-button>
+            </div>
+    </app-modal>
+
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { AdminTask, AdminTaskList } from "@/components"
-import { useTaskStore } from "@/store/taskStore"
 import { storeToRefs } from "pinia"
-const task = useTaskStore()
-const { tasks } = storeToRefs(task)
-const { updateTask } = task
+import { computed, ref, reactive, onMounted } from "vue";
+import { AdminTask, AdminTaskList, AppModal, AppTextarea, AppSelect, AppButton } from "@/components"
+import { useTaskStore } from "@/store/taskStore"
+import { useAdminStore } from "@/store/adminStore"
 
-console.log(tasks)
+const task = useTaskStore()
+const { updateTask } = task
+const { getAdmins } = useAdminStore()
+const { admins } = storeToRefs(useAdminStore())
+const { tasks } = storeToRefs(task)
+
+const taskModal = ref(null)
+
+const taskData = reactive({
+    title: null,
+    description: null,
+    flag: "Low",
+    status: '',
+    user: null,
+    _id: ''
+})
+
+const taskFlagOptions = ref([
+    { name: "Low", _id: "Low" },
+    { name: "Normal", _id: "Normal" },
+    { name: "High", _id: "High" },
+    { name: "Urgent", _id: "Urgent" },
+])
+
+let taskId = ref(null)
+
+const openTaskModal = (id) => {
+    taskId.value = id
+    const taskValues = tasks.value.find((item) => item._id == id)
+    //! Garbaj
+    taskData.title = taskValues.title
+    taskData.description = taskValues.description
+    taskData.flag = taskValues.flag
+    taskData.user = taskValues.user
+    taskData.status = taskValues.status
+    taskData._id = taskValues._id
+
+    taskModal.value.openModal()
+}
+
+const closeTaskModal = () => taskModal.value.closeModal()
 
 const startDrag = (event, item) => {
     console.log(event.target)
@@ -73,33 +156,13 @@ const startDrag = (event, item) => {
     event.dataTransfer.setData("itemID", item._id)
 }
 
-const onDrop = async (event, list) => {
-    const itemID = event.dataTransfer.getData("itemID")
-    await updateTask(event.dataTransfer.getData("itemID"), list)
-}
-
 const getList = computed(() => {
     return function(list){
         return tasks.value.filter((item) => item.status === list)
     }
 })
+
+onMounted(() => {
+    getAdmins()
+})
 </script>
-
-<style>
-.drop-zone {
-    width: 50%;
-    margin: 50px auto;
-    background-color: #ecf0f1;
-    padding: 10px;
-    min-height: 10px;
-}
-
-.drag_el {
-    background-color: #fff;
-    padding: 10px;
-    opacity: 1;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: move;
-}
-</style>

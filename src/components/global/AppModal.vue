@@ -9,7 +9,8 @@
             @click.stop
         >
             <div class="flex items-start justify-between p-5 border-b rounded-t w-full">
-                <h3 class="text-xl font-semibold">{{ title }}</h3>
+                <h3 class="text-xl font-semibold" v-if="!titleInput">{{ title }}</h3>
+                <input type="text" v-model="title" class="outline-none text-xl font-semibold" @input="$emit('titleChange',title)" v-else>
                 <button
                     type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
@@ -40,8 +41,12 @@ const openModal = () => (isOpen.value = true)
 
 defineProps({
     title: String,
+    titleInput: {
+        type: Boolean,
+        default: false
+    }
 })
-defineEmits(['close'])
+defineEmits(['close', 'titleChange'])
 defineExpose({
     openModal,
     closeModal,

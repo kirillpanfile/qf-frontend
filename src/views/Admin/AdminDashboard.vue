@@ -357,7 +357,7 @@ const userModal = ref(null)
 const taskFlagOptions = ref([
     { name: "Low", _id: "Low" },
     { name: "Normal", _id: "Normal" },
-    { name: "High", id: "High" },
+    { name: "High", _id: "High" },
     { name: "Urgent", _id: "Urgent" },
 ])
 
