@@ -1,10 +1,26 @@
 import { Notify } from "@/helpers/notify.helper"
 
+const generateNotify = (message) =>
+    new Promise((resolve, reject) => {
+        try {
+            if (!message) {
+                return reject("Message not defined")
+            }
+
+            resolve({
+                message,
+            })
+        } catch (error) {
+            reject(error)
+        }
+    })
+
 export const errorHandler = async (fn, success) => {
     try {
         await fn()
-        Notify(success, 'success')
+        Notify(generateNotify(success), "success")
     } catch (error) {
-        Notify(error, 'error')
+        const { message } = await error.json()
+        Notify(generateNotify(message), "error")
     }
 }

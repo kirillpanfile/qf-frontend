@@ -25,5 +25,22 @@ export const useTaskStore = defineStore("taskStore", {
                 Notify(error)
             }
         },
+
+        async updateTask(_id, status) {
+            console.log(_id)
+            this.tasks.find((item) => {
+                if (item._id === _id) {
+                    const updatedTask = Window.$http.put(
+                        process.env.VUE_APP_UPDATE_TASK + item._id,
+                        {
+                            status: status,
+                        }
+                    )
+                    item.status = status
+                }
+            })
+
+            console.log(task)
+        },
     },
 })

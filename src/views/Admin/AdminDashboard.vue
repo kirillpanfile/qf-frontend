@@ -343,7 +343,7 @@ onMounted(() => {
     getRoles()
     getAdmins()
     loadNewUsers()
-    getAllRecipes()
+    // getAllRecipes()
     getTasks()
 })
 // User Values
