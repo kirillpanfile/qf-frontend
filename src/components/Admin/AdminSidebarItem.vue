@@ -1,32 +1,4 @@
 <template>
-    <!-- <router-link
-        v-ripple
-        class="flex items-center gap-4 h-10 px-10"
-        :to="path"
-        @click="$emit('press'), (open = !open)"
-        v-if="!children"
-    >
-        <i :class="icon" class="w-5 text-lg"></i>
-        <span class="">{{ text }}</span>
-    </router-link>
-    <a v-else v-ripple @click.prevent="open = !open" href="#" class="flex items-center gap-4 h-10 px-10">
-        <i :class="icon" class="w-5 text-lg"></i>
-        <span class="">{{ text }}</span>
-    </a>
-
-    <div class="w-full bg-gray-200 rounded-md" v-if="children && open">
-        <router-link
-            v-for="(item, index) in childs"
-            :key="index"
-            v-ripple
-            class="flex items-center gap-4 h-10 px-10"
-            :to="item.path"
-            @click.prevent="$emit('press')"
-        >
-            <i :class="item.icon" class="w-5 text-lg"></i>
-            <span class="">{{ item.text }}</span>
-        </router-link>
-    </div> -->
     <li class="list-none flex items-center flex-row">
         <router-link
             v-ripple

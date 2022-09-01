@@ -4,85 +4,44 @@
             <div class="min-w-full inline-block align-middle">
                 <div class="shadow-sm overflow-hidden">
                     <div class="px-4 justify-start items-start flex">
-                        <div class="min-w-[30rem] p-4">
-                            <h1 class="text-gray-900 font-semibold text-base py-4">
-                                To Do
-                            </h1>
-                            <div
-                                class="drag-zone min-h-20"
-                                @drop="onDrop($event, 'To Do')"
-                                @dragenter.prevent
-                                @dragover.prevent>
-                                <AdminTask
+                        <AdminTaskList list="To Do" :data="getList('To Do')" :buttonFlag="true">
+                            <AdminTask
                                     draggable="true"
                                     @dragstart="startDrag($event, item)"
-                                    v-for="(item, index) in getList('To Do')"
+                                    v-for="item in getList('To Do')"
                                     :key="item.id"
                                     :title="item.title"
                                     :description="item.description"
                                     :picture="item.user.picture"
                                     :flag="item.flag" />
-                            </div>
-
-                            <button
-                                type="button"
-                                class="text-gray-600 w-full font-bold border-dashed border-2 border-gray-300 rounded-lg py-2">
-                                + Add another Task
-                            </button>
-                        </div>
-                        <div class="min-w-[30rem] p-4">
-                            <h1 class="text-gray-900 font-semibold text-base py-4">
-                                In Progress
-                            </h1>
-
-                            <div
-                                class="drag-zone min-h-[2rem]"
-                                @drop="onDrop($event, 'In Progress')"
-                                @dragenter.prevent
-                                @dragover.prevent>
-                                <AdminTask
+                        </AdminTaskList>
+                        <AdminTaskList list="In Progress" :data="getList('In Progress')" :buttonFlag="true">
+                            <AdminTask
                                     draggable="true"
                                     @dragstart="startDrag($event, item)"
-                                    v-for="(item, index) in getList('In Progress')"
+                                    v-for="item in getList('In Progress')"
                                     :key="item.id"
                                     :title="item.title"
                                     :description="item.description"
                                     :picture="item.user.picture"
                                     :flag="item.flag" />
-                            </div>
-
-                            <button
-                                type="button"
-                                class="text-gray-600 w-full font-bold border-dashed border-2 border-gray-300 rounded-lg py-2">
-                                + Add another Task
-                            </button>
-                        </div>
-                        <div class="min-w-[30rem] p-4">
-                            <h1 class="text-gray-900 font-semibold text-base py-4">
-                                For Review
-                            </h1>
-
-                            <div
-                                class="drag-zone min-h-[2rem]"
-                                @drop="onDrop($event, 'For Review')"
-                                @dragenter.prevent
-                                @dragover.prevent>
-                                <AdminTask
+                        </AdminTaskList>
+                        <AdminTaskList list="For Review" :data="getList('For Review')">
+                            <AdminTask
                                     draggable="true"
                                     @dragstart="startDrag($event, item)"
-                                    v-for="(item, index) in getList('For Review')"
+                                    v-for="item in getList('For Review')"
                                     :key="item.id"
                                     :title="item.title"
                                     :description="item.description"
                                     :picture="item.user.picture"
                                     :flag="item.flag" />
-                            </div>
-                        </div>
-                        <AdminTaskList>
+                        </AdminTaskList>
+                        <AdminTaskList list="Done" :data="getList('Done')">
                             <AdminTask
                                 draggable="true"
                                 @dragstart="startDrag($event, item)"
-                                v-for="(item, index) in getList('Done')"
+                                v-for="item in getList('Done')"
                                 :key="item.id"
                                 :title="item.title"
                                 :description="item.description"
@@ -97,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { computed } from "vue";
 import { AdminTask, AdminTaskList } from "@/components"
 import { useTaskStore } from "@/store/taskStore"
 import { storeToRefs } from "pinia"
@@ -119,7 +78,11 @@ const onDrop = async (event, list) => {
     await updateTask(event.dataTransfer.getData("itemID"), list)
 }
 
-const getList = (list) => tasks.value.filter((item) => item.status === list)
+const getList = computed(() => {
+    return function(list){
+        return tasks.value.filter((item) => item.status === list)
+    }
+})
 </script>
 
 <style>

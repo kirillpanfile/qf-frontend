@@ -185,8 +185,10 @@
                             Create +
                         </div>
                         <div
-                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
-                            view all
+                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none">
+                            <router-link to="/admin/board">
+                                view all
+                            </router-link>
                         </div>
                     </div>
                 </div>
