@@ -9,7 +9,7 @@
                             :key="index"
                             :list="item.name"
                             :data="getList(item.name)"
-                            :buttonFlag="true">
+                            :buttonFlag="index <= 1"> <!--? Review ( am facut ca numai coloana 1 si 2 sa aiba button 'createTask' )-->
                             <AdminTask
                                 draggable="true"
                                 @dragstart="startDrag($event, item)"
