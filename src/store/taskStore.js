@@ -11,7 +11,12 @@ export const useTaskStore = defineStore("taskStore", {
             { name: "High", _id: "High" },
             { name: "Urgent", _id: "Urgent" },
         ],
-        lists: ["To Do", "In Progress", "For Review", "Done"],
+        lists: [
+            { name: "To Do", _id: "To Do" },
+            { name: "In Progress", _id: "In Progress" },
+            { name: "In Review", _id: "In Review" },
+            { name: "Done", _id: "Done" },
+        ],
     }),
 
     actions: {

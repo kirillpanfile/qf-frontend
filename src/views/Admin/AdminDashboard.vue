@@ -186,9 +186,7 @@
                         </div>
                         <div
                             class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none">
-                            <router-link to="/admin/board">
-                                view all
-                            </router-link>
+                            <router-link to="/admin/board"> view all </router-link>
                         </div>
                     </div>
                 </div>
@@ -263,7 +261,7 @@
                 <div class="col-span-6 sm:col-span-3">
                     <app-select
                         title="Flag"
-                        :options="taskFlagOptions"
+                        :options="flags"
                         v-model="task.flag"
                         :disabled="false"></app-select>
                 </div>
@@ -271,7 +269,7 @@
                     <app-select
                         title="Status"
                         v-model="task.status"
-                        :options="taskStatusOptions"
+                        :options="lists"
                         :disabled="false"></app-select>
                 </div>
             </div>
@@ -337,10 +335,10 @@ import { storeToRefs } from "pinia"
 
 const { loadNewUsers, editUser, getRoles, getAdmins } = useAdminStore()
 const { newUsers, roles, admins } = storeToRefs(useAdminStore())
-const { getAllRecipes } = useRecipeStore()
+// const { getAllRecipes } = useRecipeStore()
 const { recipe } = storeToRefs(useRecipeStore())
 const { createTask, getTasks } = useTaskStore()
-const { tasks } = storeToRefs(useTaskStore())
+const { tasks, flags, lists } = storeToRefs(useTaskStore())
 onMounted(() => {
     getRoles()
     getAdmins()
@@ -353,20 +351,6 @@ onMounted(() => {
 const userEditFlag = ref(false)
 const taskModal = ref(null)
 const userModal = ref(null)
-
-const taskFlagOptions = ref([
-    { name: "Low", _id: "Low" },
-    { name: "Normal", _id: "Normal" },
-    { name: "High", _id: "High" },
-    { name: "Urgent", _id: "Urgent" },
-])
-
-const taskStatusOptions = ref([
-    { name: "Open", _id: "Open" },
-    { name: "In Progress", _id: "In Progress" },
-    { name: "In Review", _id: "In Review" },
-    { name: "Closed", _id: "Closed" },
-])
 
 const user = reactive({
     username: null,

@@ -7,13 +7,13 @@
                         <AdminTaskList
                             v-for="(item, index) in lists"
                             :key="index"
-                            :list="item"
-                            :data="getList(item)"
+                            :list="item.name"
+                            :data="getList(item.name)"
                             :buttonFlag="true">
                             <AdminTask
                                 draggable="true"
                                 @dragstart="startDrag($event, item)"
-                                v-for="item in getList(item)"
+                                v-for="item in getList(item.name)"
                                 :key="item.id"
                                 :title="item.title"
                                 :description="item.description"
@@ -64,7 +64,7 @@
             <app-button
                 text="Ok"
                 @btnClick="
-                    closeTaskModal(), updateTask(taskData.id, taskData)
+                    closeTaskModal(), updateTask(taskData._id, taskData)
                 "></app-button>
             <app-button text="Delete" @btnClick=""></app-button>
         </div>
