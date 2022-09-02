@@ -5,6 +5,13 @@ import { task } from "./utils/taskUtils"
 export const useTaskStore = defineStore("taskStore", {
     state: () => ({
         tasks: [],
+        flags: [
+            { name: "Low", _id: "Low" },
+            { name: "Normal", _id: "Normal" },
+            { name: "High", _id: "High" },
+            { name: "Urgent", _id: "Urgent" },
+        ],
+        lists: ["To Do", "In Progress", "For Review", "Done"],
     }),
 
     actions: {
@@ -29,32 +36,25 @@ export const useTaskStore = defineStore("taskStore", {
         async updateTask(_id, payload) {
             this.tasks.find((item) => {
                 if (item._id === _id) {
-                    Window.$http.put(
-                        process.env.VUE_APP_UPDATE_TASK + item._id,payload
-                    )
-                     //! Garbaj
+                    Window.$http.put(process.env.VUE_APP_UPDATE_TASK + item._id, payload)
+                    //! Garbaj
                     item.description = payload.description
                     item.title = payload.title
                     item.user = payload.user
                     item.flag = payload.flag
-
                 }
             })
-
         },
 
-        async setTaskStatus(id, status){
+        async setTaskStatus(id, status) {
             this.tasks.find((item) => {
                 if (item._id === id) {
-                    Window.$http.put(
-                        process.env.VUE_APP_UPDATE_TASK + item._id,
-                        {
-                            status: status,
-                        }
-                    )
+                    Window.$http.put(process.env.VUE_APP_UPDATE_TASK + item._id, {
+                        status: status,
+                    })
                     item.status = status
                 }
             })
-        }
+        },
     },
 })
