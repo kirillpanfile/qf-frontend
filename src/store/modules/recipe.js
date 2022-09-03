@@ -1,10 +1,15 @@
-import { adminAllRecipes, adminRecipe, adminCreateRecipe, notifications } from '@/store/utils/recipe.utils'
-import { useAdminStore } from '@/store/adminStore'
-import { defineStore } from 'pinia'
+import {
+    adminAllRecipes,
+    adminRecipe,
+    adminCreateRecipe,
+    notifications,
+} from "@/store/utils/recipe.utils"
+
+import { useAdminStore } from "@/store"
+import { defineStore } from "pinia"
 import { errorHandler } from "./storeHelper"
 
-
-export const useRecipeStore = defineStore('recipeStore', {
+export const useRecipeStore = defineStore("recipeStore", {
     state: () => ({
         recipe: [],
         currentRecipe: {},
@@ -49,7 +54,10 @@ export const useRecipeStore = defineStore('recipeStore', {
             await errorHandler(
                 async function () {
                     const { accessToken } = this.admin
-                    this.currentRecipe = await Window.$http.get(adminRecipe(id), accessToken)
+                    this.currentRecipe = await Window.$http.get(
+                        adminRecipe(id),
+                        accessToken
+                    )
                 }.bind(this)
             )
         },

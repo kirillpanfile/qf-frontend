@@ -28,7 +28,7 @@
 
 <script setup>
 import { defineProps } from "vue"
-import { useTaskStore } from "@/store/taskStore"
+import { useTaskStore } from "@/store"
 const { setTaskStatus } = useTaskStore()
 
 defineProps({

@@ -3,13 +3,11 @@ import { Notify } from "@/helpers/notify.helper"
 const generateNotify = (message) =>
     new Promise((resolve, reject) => {
         try {
-            if (!message) {
-                return reject("Message not defined")
+            if (message) {
+                resolve({
+                    message,
+                })
             }
-
-            resolve({
-                message,
-            })
         } catch (error) {
             reject(error)
         }

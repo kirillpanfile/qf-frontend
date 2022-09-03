@@ -328,17 +328,14 @@ import {
     AppButton,
 } from "@/components"
 import { onMounted, reactive, ref } from "vue"
-import { useAdminStore } from "@/store/adminStore"
-import { useRecipeStore } from "@/store/recipeStore"
-import { useTaskStore } from "@/store/taskStore"
-import { storeToRefs } from "pinia"
+import { useAdminStore, useRecipeStore, useTaskStore, refs } from "@/store"
 
 const { loadNewUsers, editUser, getRoles, getAdmins } = useAdminStore()
-const { newUsers, roles, admins } = storeToRefs(useAdminStore())
+const { newUsers, roles, admins } = refs(useAdminStore())
 // const { getAllRecipes } = useRecipeStore()
-const { recipe } = storeToRefs(useRecipeStore())
+const { recipe } = refs(useRecipeStore())
 const { createTask, getTasks } = useTaskStore()
-const { tasks, flags, lists } = storeToRefs(useTaskStore())
+const { tasks, flags, lists } = refs(useTaskStore())
 onMounted(() => {
     getRoles()
     getAdmins()

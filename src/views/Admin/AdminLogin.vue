@@ -62,7 +62,7 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue"
 import { useRouter } from "vue-router"
-import { useAdminStore } from "@/store/adminStore"
+import { useAdminStore } from "@/store"
 import { useLoader } from "@/composables/useLoader.js"
 import { AppLoader } from "@/components"
 

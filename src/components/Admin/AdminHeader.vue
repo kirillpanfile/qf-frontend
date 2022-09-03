@@ -72,13 +72,12 @@
 
 <script setup>
 import { computed, ref } from "vue"
-import { useAdminStore } from "@/store/adminStore"
-import { storeToRefs } from "pinia"
+import { useAdminStore, refs } from "@/store"
 import { AdminNotificationMenu } from "@/components"
 
 const dropOpen = ref(false),
     notificationsOpen = ref(false),
-    { user } = storeToRefs(useAdminStore()),
+    { user } = refs(useAdminStore()),
     { logOut } = useAdminStore()
 
 const role = computed(() =>

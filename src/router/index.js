@@ -1,10 +1,9 @@
 import { createRouter, createWebHashHistory } from "vue-router"
-import { useAdminStore } from "@/store/adminStore"
-import { storeToRefs } from "pinia"
+import { useAdminStore, refs } from "@/store"
 
 const checkAuth = async (to, from, next) => {
     const admin = useAdminStore()
-    const { user } = storeToRefs(admin)
+    const { user } = refs(admin)
 
     if (!user.value) next("/admin-login")
     else next()

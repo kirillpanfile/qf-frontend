@@ -9,7 +9,8 @@
                             :key="index"
                             :list="item.name"
                             :data="getList(item.name)"
-                            :buttonFlag="index <= 1"> <!--? Review ( am facut ca numai coloana 1 si 2 sa aiba button 'createTask' )-->
+                            :buttonFlag="index <= 1">
+                            <!--? Review ( am facut ca numai coloana 1 si 2 sa aiba button 'createTask' )-->
                             <AdminTask
                                 draggable="true"
                                 @dragstart="startDrag($event, item)"
@@ -72,7 +73,6 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia"
 import { computed, ref, reactive, onMounted } from "vue"
 import {
     AdminTask,
@@ -82,14 +82,13 @@ import {
     AppSelect,
     AppButton,
 } from "@/components"
-import { useTaskStore } from "@/store/taskStore"
-import { useAdminStore } from "@/store/adminStore"
+import { useTaskStore, useAdminStore, refs } from "@/store"
 
 const { updateTask } = useTaskStore()
-const { tasks, flags, lists } = storeToRefs(useTaskStore())
+const { tasks, flags, lists } = refs(useTaskStore())
 
 const { getAdmins } = useAdminStore()
-const { admins } = storeToRefs(useAdminStore())
+const { admins } = refs(useAdminStore())
 
 const taskModal = ref(null)
 const taskData = reactive({})

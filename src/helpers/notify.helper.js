@@ -11,7 +11,6 @@ import { notify } from "@kyvg/vue3-notification"
 // Send a notification to the client.
 export const Notify = async (msg, type) => {
     const { message } = await msg
-    console.log(msg)
     try {
         !["success", "error", "warning", "info"].includes(type)
             ? (type = undefined)
