@@ -17,7 +17,6 @@ const pinia = createPinia()
 
 app.directive("ripple", ripple)
 
-init() // initialize http service
 /**
  * @description if mode is development, then use devtools
  */

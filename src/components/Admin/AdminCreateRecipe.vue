@@ -19,29 +19,18 @@
             <div class="md:grid block grid-cols-2 gap-8">
                 <div class="flex flex-col">
                     <span class="text-md font-bold pb-2">Cover</span>
-                    <label
-                        for="img"
-                        class="bg-slate-100 cursor-pointer rounded-md mb-4 text-center p-6 w-full">
-                        <i
-                            class="fa-solid fa-photo-film fa-2x mb-3 w-10 h-10 text-gray-400"></i>
+                    <label for="img" class="bg-slate-100 cursor-pointer rounded-md mb-4 text-center p-6 w-full">
+                        <i class="fa-solid fa-photo-film fa-2x mb-3 w-10 h-10 text-gray-400"></i>
                         <p class="mb-2 text-sm text-gray-500">
                             <span class="font-semibold">Click to upload</span> or drag and
                         </p>
-                        <p class="text-xs text-gray-500">
-                            SVG, PNG, JPG (MAX. 800x400px)
-                        </p>
+                        <p class="text-xs text-gray-500">SVG, PNG, JPG (MAX. 800x400px)</p>
                         <p class="text-md mt-2 text-gray-500">{{ file && file.name }}</p>
-                        <input
-                            id="img"
-                            type="file"
-                            class="hidden"
-                            @input="(event) => (file = event.target.files[0])" />
+                        <input id="img" type="file" class="hidden" @input="(event) => (file = event.target.files[0])" />
                     </label>
                 </div>
                 <div class="flex flex-col">
-                    <label for="ingredients" class="text-md font-bold pb-2"
-                        >Ingredients</label
-                    >
+                    <label for="ingredients" class="text-md font-bold pb-2">Ingredients</label>
                     <input
                         type="text"
                         v-model="ingredient"
@@ -62,9 +51,7 @@
 
             <div class="md:grid block grid-cols-2 gap-8">
                 <div class="flex flex-col">
-                    <label for="description" class="text-md font-bold pb-2"
-                        >Description</label
-                    >
+                    <label for="description" class="text-md font-bold pb-2">Description</label>
                     <textarea
                         id="description"
                         v-model="description"
@@ -72,24 +59,16 @@
                         rows="5"
                         class="p-2 border resize-none rounded-md w-full"
                         required></textarea>
-                    <p class="mb-4 text-sm pt-1 text-gray-500">
-                        {{ 120 - description.length }} letters left
-                    </p>
+                    <p class="mb-4 text-sm pt-1 text-gray-500">{{ 120 - description.length }} letters left</p>
                 </div>
                 <div class="flex flex-col">
                     <label for="category" class="text-md font-bold pb-2">Category</label>
-                    <select
-                        name="category"
-                        class="p-2 border resize-none rounded-md mb-4"
-                        id="category"
-                        required>
+                    <select name="category" class="p-2 border resize-none rounded-md mb-4" id="category" required>
                         <option value="1" selected>Breakfast</option>
                         <option value="2">Lunch</option>
                         <option value="3">Dinner</option>
                     </select>
-                    <label for="time" class="text-md font-bold pb-2"
-                        >Time (minutes)</label
-                    >
+                    <label for="time" class="text-md font-bold pb-2">Time (minutes)</label>
                     <input
                         v-model="time"
                         type="number"
@@ -108,11 +87,7 @@
                 id="Steps"
                 @keyup.enter="addStep(step)" />
             <ul>
-                <li
-                    class="flex gap-3 mt-2"
-                    v-for="(item, index) in steps"
-                    :key="index"
-                    @click="deleteStep(index)">
+                <li class="flex gap-3 mt-2" v-for="(item, index) in steps" :key="index" @click="deleteStep(index)">
                     <div class="text-main font-bold text-md">{{ index + 1 }}</div>
                     <div class="text-main text-md">{{ item }}</div>
                 </li>
@@ -121,9 +96,7 @@
 
         <div class="bg-white rounded-md p-6 shadow-sm h-max lg:w-80 w-full">
             <div class="flex flex-col">
-                <h2 for="title" class="text-md font-bold mb-4 pb-2 border-b w-full">
-                    Information
-                </h2>
+                <h2 for="title" class="text-md font-bold mb-4 pb-2 border-b w-full">Information</h2>
                 <div class="flex justify-between gap-14 mt-4">
                     <h2 class="font-semibold">Created on</h2>
                     <span>{{ date }}</span>
@@ -136,25 +109,16 @@
                     <h2 class="font-semibold">Status</h2>
                     <span class="bg-orange-300 text-white p-1 text-sm">Pending</span>
                 </div>
-                <h2 for="title" class="text-md font-bold border-b w-full mb-6 pb-2">
-                    Internationalization
-                </h2>
+                <h2 for="title" class="text-md font-bold border-b w-full mb-6 pb-2">Internationalization</h2>
 
-                <select
-                    name="lang"
-                    class="p-2 border resize-none rounded-md mb-4"
-                    id="lang"
-                    required>
+                <select name="lang" class="p-2 border resize-none rounded-md mb-4" id="lang" required>
                     <option value="1" selected>English</option>
                     <option value="2">Romanian</option>
                     <option value="3">Russian</option>
                 </select>
-                <h2 for="title" class="text-md font-bold border-b w-full mb-6 pb-2">
-                    Aditional
-                </h2>
+                <h2 for="title" class="text-md font-bold border-b w-full mb-6 pb-2">Aditional</h2>
                 <h2 class="font-semibold">Temp</h2>
-                <div
-                    class="flex border justify-evenly text-center cursor-pointer rounded-md text-sm mt-4">
+                <div class="flex border justify-evenly text-center cursor-pointer rounded-md text-sm mt-4">
                     <div
                         class="py-3 w-full"
                         :class="{
@@ -173,10 +137,7 @@
                     </div>
                 </div>
             </div>
-            <button
-                type="button"
-                @click="submit(recipe)"
-                class="mt-4 bg-lime w-full text-white p-4 rounded-md">
+            <button type="button" @click="submit(recipe)" class="mt-4 bg-lime w-full text-white p-4 rounded-md">
                 Submit
             </button>
         </div>
@@ -184,7 +145,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, reactive, onMounted } from "vue"
+import { ref, watch, computed, onMounted } from "vue"
 import useImageMinify from "@/composables/useImageMinify.js"
 import { useRecipeStore } from "@/store"
 import validator, { createValidator } from "@/helpers/validate.herlper"
@@ -212,11 +173,7 @@ const addStep = (value) => {
 }
 
 const date = computed(() =>
-    [
-        pad(new Date().getDate()),
-        pad(new Date().getMonth() + 1),
-        new Date().getFullYear(),
-    ].join("/")
+    [pad(new Date().getDate()), pad(new Date().getMonth() + 1), new Date().getFullYear()].join("/")
 )
 
 const deleteIngredient = (index) => ingredients.splice(index, 1)
@@ -243,9 +200,7 @@ const pad = (num) => num.toString().padStart(2, "0")
 
 watch(
     description,
-    (newVal) =>
-        newVal.length > 120 &&
-        (description.value = description.value.split("").splice(0, 120).join(""))
+    (newVal) => newVal.length > 120 && (description.value = description.value.split("").splice(0, 120).join(""))
 )
 
 // watch(file, async (newVal) => {

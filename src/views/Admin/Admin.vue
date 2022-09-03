@@ -12,7 +12,20 @@
 
 <script setup>
 import { AdminHeader, AdminAside } from "@/components"
+import { onMounted } from "vue"
+import { useAdminStore, useTaskStore } from "@/store"
 import { ref } from "vue"
+
+const { loadNewUsers, getRoles, getAdmins } = useAdminStore()
+const { getTasks } = useTaskStore()
+
+onMounted(() => {
+    getRoles()
+    getAdmins()
+    loadNewUsers()
+    // getAllRecipes()
+    getTasks()
+})
 
 const sidemenu = ref(null)
 const openAside = () => sidemenu.value.toggleAside()

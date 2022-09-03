@@ -3,10 +3,14 @@ import { useAdminStore, refs } from "@/store"
 
 const checkAuth = async (to, from, next) => {
     const admin = useAdminStore()
-    const { user } = refs(admin)
 
-    if (!user.value) next("/admin-login")
-    else next()
+    if (to.fullPath == "/admin") {
+        return next("/admin/dashboard")
+    }
+    const { user, isAuth } = refs(admin)
+    console.log(isAuth)
+    if (user.value) next()
+    else next("/admin-login")
 }
 
 const routes = [
@@ -16,53 +20,44 @@ const routes = [
         component: () => import("@/views/Home.vue"),
     },
     {
+        path: "/admin/:catchAll(.*)",
+        redirect: "/admin/dashboard",
+    },
+    {
         path: "/admin",
         name: "admin",
-        component: () =>
-            import(/* webpackChunkName: "Admin" */ "@/views/Admin/Admin.vue"),
-
-        // create a sub-routing for admin
+        component: () => import(/* webpackChunkName: "Admin" */ "@/views/Admin/Admin.vue"),
+        redirect: "/admin/dashboard",
         beforeEnter: checkAuth,
+
         children: [
             {
                 path: "/admin/dashboard",
                 name: "admin-dashboard",
                 icon: "fa-solid fa-chart-pie",
                 text: "Dashboard",
-                component: () =>
-                    import(
-                        /* webpackChunkName: "AdminDashboard" */ "@/views/Admin/AdminDashboard.vue"
-                    ),
+                component: () => import(/* webpackChunkName: "AdminDashboard" */ "@/views/Admin/AdminDashboard.vue"),
             },
             {
                 path: "/admin/board",
                 name: "admin-board",
                 icon: "fa-solid fa-list-check",
                 text: "Board",
-                component: () =>
-                    import(
-                        /* webpackChunkName: "AdminBoard" */ "@/views/Admin/AdminBoard.vue"
-                    ),
+                component: () => import(/* webpackChunkName: "AdminBoard" */ "@/views/Admin/AdminBoard.vue"),
             },
             {
                 path: "/admin/users",
                 name: "admin-users",
                 icon: "fa-solid fa-users",
                 text: "Users",
-                component: () =>
-                    import(
-                        /* webpackChunkName: "AdminUsers" */ "@/views/Admin/AdminUsers.vue"
-                    ),
+                component: () => import(/* webpackChunkName: "AdminUsers" */ "@/views/Admin/AdminUsers.vue"),
             },
             {
                 path: "/admin/recipes",
                 name: "admin-recipes",
                 icon: "fa-solid fa-paste",
                 text: "Recipes",
-                component: () =>
-                    import(
-                        /* webpackChunkName: "AdminPosts" */ "@/views/Admin/AdminRecipes.vue"
-                    ),
+                component: () => import(/* webpackChunkName: "AdminPosts" */ "@/views/Admin/AdminRecipes.vue"),
 
                 children: [
                     {
@@ -80,9 +75,7 @@ const routes = [
                         name: "admin-recipes-item",
                         exclude: true,
                         component: () =>
-                            import(
-                                /* webpackChunkName: "AdminRecipesItem" */ "@/views/Admin/Admin Recipes/Recipe.vue"
-                            ),
+                            import(/* webpackChunkName: "AdminRecipesItem" */ "@/views/Admin/Admin Recipes/Recipe.vue"),
                     },
                     {
                         icon: "fa-solid fa-list",
@@ -101,10 +94,7 @@ const routes = [
                 name: "admin-settings",
                 text: "Settings",
                 icon: "fa-solid fa-cog",
-                component: () =>
-                    import(
-                        /* webpackChunkName: "AdminSettings" */ "@/views/Admin/AdminSettings.vue"
-                    ),
+                component: () => import(/* webpackChunkName: "AdminSettings" */ "@/views/Admin/AdminSettings.vue"),
             },
             {
                 path: "/admin/notifications",
@@ -116,7 +106,7 @@ const routes = [
             {
                 //catchall
                 path: "/admin/:catchAll(.*)",
-                redirect: "/admin/dashboard",
+                // redirect: "/admin/dashboard",
                 exclude: true,
             },
         ],
@@ -126,13 +116,11 @@ const routes = [
         name: "admin-login",
         children: [
             {
-                //
                 path: "/admin-login/:catchAll(.*)",
-                redirect: "/admin/dashboard",
+                redirect: "/admin-login",
             },
         ],
-        component: () =>
-            import(/* webpackChunkName: "AdminLogin" */ "@/views/Admin/AdminLogin.vue"),
+        component: () => import(/* webpackChunkName: "AdminLogin" */ "@/views/Admin/AdminLogin.vue"),
     },
 ]
 

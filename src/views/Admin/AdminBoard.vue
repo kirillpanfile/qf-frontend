@@ -43,29 +43,16 @@
                 </app-textarea>
             </div>
             <div class="col-span-6 sm:col-span-3">
-                <app-select
-                    title="Select User"
-                    :options="admins"
-                    v-model="taskData.user._id"
-                    :disabled="false">
+                <app-select title="Select User" :options="admins" v-model="taskData.user._id" :disabled="false">
                 </app-select>
             </div>
             <div class="col-span-6 sm:col-span-3">
-                <app-select
-                    title="Flag"
-                    v-model="taskData.flag"
-                    :options="flags"
-                    :disabled="false">
-                </app-select>
+                <app-select title="Flag" v-model="taskData.flag" :options="flags" :disabled="false"> </app-select>
             </div>
         </div>
 
         <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-            <app-button
-                text="Ok"
-                @btnClick="
-                    closeTaskModal(), updateTask(taskData._id, taskData)
-                "></app-button>
+            <app-button text="Ok" @btnClick="closeTaskModal(), updateTask(taskData._id, taskData)"></app-button>
             <app-button text="Delete" @btnClick=""></app-button>
         </div>
     </app-modal>
@@ -73,14 +60,7 @@
 
 <script setup>
 import { computed, ref, reactive, onMounted } from "vue"
-import {
-    AdminTask,
-    AdminTaskList,
-    AppModal,
-    AppTextarea,
-    AppSelect,
-    AppButton,
-} from "@/components"
+import { AdminTask, AdminTaskList, AppModal, AppTextarea, AppSelect, AppButton } from "@/components"
 import { useTaskStore, useAdminStore, refs } from "@/store"
 
 const { updateTask } = useTaskStore()
@@ -106,9 +86,7 @@ const startDrag = (event, item) => {
 
 const closeTaskModal = () => taskModal.value.closeModal()
 
-const getList = computed(
-    () => (list) => tasks.value.filter((item) => item.status === list)
-)
+const getList = computed(() => (list) => tasks.value.filter((item) => item.status === list))
 
 onMounted(() => getAdmins())
 </script>

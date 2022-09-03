@@ -1,7 +1,6 @@
 <template>
     <div class="max-w-[30rem] mb-4">
-        <div
-            class="shadow-sm p-5 bg-white rounded-lg flex flex-col cursor-move select-none">
+        <div class="shadow-sm p-5 bg-white rounded-lg flex flex-col cursor-move select-none">
             <div class="pb-1 justify-between items-center flex">
                 <h2 class="text-gray-900 font-semibold text-base">
                     {{ title }}
@@ -27,33 +26,15 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue"
-
 defineProps({
-    title: {
-        required: true,
-        type: String,
-    },
-    description: {
-        required: true,
-        type: String,
-    },
-    picture: {
-        required: true,
-        type: String,
-    },
-    flag: {
-        required: true,
-        type: String,
-    },
-    id: {
-        required: true,
-        type: String
-    }
+    title: { required: true, type: String },
+    description: { required: true, type: String },
+    picture: { required: true, type: String },
+    flag: { required: true, type: String },
+    id: { required: true, type: String },
 })
-defineEmits(['open'])
+defineEmits(["open"])
 </script>

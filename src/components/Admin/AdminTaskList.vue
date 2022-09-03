@@ -3,10 +3,7 @@
         <h1 class="text-gray-900 font-semibold text-base py-4">{{ list }}</h1>
         <div
             class="min-h-[11.5rem] mb-4"
-            :class="
-                data.length == 0 &&
-                'outline-2 outline-dashed outline-gray-300 rounded-lg mb-4'
-            "
+            :class="data.length == 0 && 'outline-2 outline-dashed outline-gray-300 rounded-lg mb-4'"
             @drop="onDrop($event, list)"
             @dragenter.prevent
             @dragover.prevent>
@@ -27,23 +24,13 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue"
 import { useTaskStore } from "@/store"
 const { setTaskStatus } = useTaskStore()
 
 defineProps({
-    list: {
-        type: String,
-        required: true,
-    },
-    buttonFlag: {
-        type: Boolean,
-        default: false,
-    },
-    data: {
-        type: Object,
-        required: true,
-    },
+    list: { type: String, required: true },
+    buttonFlag: { type: Boolean, default: false },
+    data: { type: Object, required: true },
 })
 
 const onDrop = (event, list) => setTaskStatus(event.dataTransfer.getData("itemID"), list)

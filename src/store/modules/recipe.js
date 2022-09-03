@@ -1,10 +1,5 @@
-import {
-    adminAllRecipes,
-    adminRecipe,
-    adminCreateRecipe,
-    notifications,
-} from "@/store/utils/recipe.utils"
-
+import { adminAllRecipes, adminRecipe, adminCreateRecipe, notifications } from "@/store/utils/recipe.utils"
+import { $http } from "@/helpers/http.helper"
 import { useAdminStore } from "@/store"
 import { defineStore } from "pinia"
 import { errorHandler } from "./storeHelper"
@@ -39,7 +34,7 @@ export const useRecipeStore = defineStore("recipeStore", {
             await errorHandler(
                 async function () {
                     const { accessToken } = this.admin
-                    this.recipe = await Window.$http.get(adminAllRecipes, accessToken)
+                    this.recipe = await $http.get(adminAllRecipes, accessToken)
                 }.bind(this)
             )
         },
@@ -54,10 +49,7 @@ export const useRecipeStore = defineStore("recipeStore", {
             await errorHandler(
                 async function () {
                     const { accessToken } = this.admin
-                    this.currentRecipe = await Window.$http.get(
-                        adminRecipe(id),
-                        accessToken
-                    )
+                    this.currentRecipe = await $http.get(adminRecipe(id), accessToken)
                 }.bind(this)
             )
         },
@@ -72,7 +64,7 @@ export const useRecipeStore = defineStore("recipeStore", {
             await errorHandler(
                 async function () {
                     const { accessToken } = this.admin
-                    await Window.$http.post(adminCreateRecipe, payload, accessToken)
+                    await $http.post(adminCreateRecipe, payload, accessToken)
                 }.bind(this)
             )
         },
