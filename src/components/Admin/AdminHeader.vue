@@ -21,9 +21,7 @@
                         </svg>
                         QuickFood
                     </a>
-                    <div
-                        class="flex md:hidden flex-col gap-[6px] cursor-pointer"
-                        @click="$emit('openSideMenu')">
+                    <div class="flex md:hidden flex-col gap-[6px] cursor-pointer" @click="$emit('openSideMenu')">
                         <div class="w-8 h-1 rounded-sm bg-lime"></div>
                         <div class="w-8 h-1 rounded-sm bg-lime"></div>
                         <div class="w-8 h-1 rounded-sm bg-lime"></div>
@@ -38,29 +36,20 @@
                             alt="profilePic"
                             @click="dropOpen = !dropOpen" />
                         <div>
-                            <h2
-                                class="text-sm font-bold leading-none"
-                                v-if="user.username">
-                                {{ user?.username }}
+                            <h2 class="text-sm font-bold leading-none" v-if="user?.username">
+                                {{ user.username }}
                             </h2>
                             <span class="text-sm text-gray-400">{{ role }}</span>
                         </div>
                     </div>
                     <div class="relative flex gap-4">
-                        <button
-                            class="relative bg-gray-50 p-1 rounded-full w-10 h-10"
-                            type="button">
+                        <button class="relative bg-gray-50 p-1 rounded-full w-10 h-10" type="button">
                             <i
                                 class="fa-light fa-bell text-xl cursor-pointer"
                                 @click="notificationsOpen = !notificationsOpen"></i>
                         </button>
-                        <AdminNotificationMenu
-                            v-if="notificationsOpen"
-                            @close="notificationsOpen = false" />
-                        <button
-                            class="relative bg-gray-50 p-1 rounded-full w-10 h-10"
-                            @click="logOut"
-                            type="button">
+                        <AdminNotificationMenu v-if="notificationsOpen" @close="notificationsOpen = false" />
+                        <button class="relative bg-gray-50 p-1 rounded-full w-10 h-10" @click="logOut" type="button">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         </button>
                     </div>
@@ -80,9 +69,7 @@ const dropOpen = ref(false),
     { user } = refs(useAdminStore()),
     { logOut } = useAdminStore()
 
-const role = computed(() =>
-    user.value?.roles?.includes("ROLE_SUPER_ADMIN") ? "Admin" : "Moderator"
-)
+const role = computed(() => (user.value?.roles?.includes("ROLE_SUPER_ADMIN") ? "Admin" : "Moderator"))
 
 defineEmits(["openSideMenu"])
 </script>

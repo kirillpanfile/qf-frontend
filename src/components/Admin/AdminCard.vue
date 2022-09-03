@@ -75,33 +75,13 @@
 
 <script setup>
 defineProps({
-    image: {
-        type: String,
-    },
-    title: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-    },
-    temperature: {
-        type: Boolean,
-        default: false,
-    },
-    cells: {
-        type: Array,
-    },
-    ingredients: {
-        type: Array,
-    },
-    time: {
-        type: Number,
-        required: true,
-    },
-    steps: {
-        type: Array,
-        required: true,
-    },
+    image: { type: String },
+    title: { type: String, required: true },
+    description: { type: String },
+    temperature: { type: Boolean, default: false },
+    cells: { type: Array },
+    ingredients: { type: Array },
+    time: { type: Number, required: true },
+    steps: { type: Array, required: true },
 })
 </script>

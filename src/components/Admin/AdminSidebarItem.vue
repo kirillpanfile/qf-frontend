@@ -5,8 +5,7 @@
             :to="path"
             @click="$emit('press'), (open = !open)"
             v-if="!children"
-            class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full"
-        >
+            class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full">
             <i :class="icon" class="w-6 text-gray-500 group-hover:text-gray-600 transition duration-75"></i>
             <span class="ml-3 text-md">{{ text }}</span>
         </router-link>
@@ -15,8 +14,7 @@
             v-ripple
             @click.prevent="open = !open"
             href="#"
-            class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full"
-        >
+            class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full">
             <i :class="icon" class="w-6 text-gray-500 group-hover:text-gray-600 transition duration-75"></i>
             <span class="ml-3 text-md">{{ text }}</span>
         </a>
@@ -27,8 +25,7 @@
                 v-ripple
                 class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full"
                 :to="item.path"
-                @click.prevent="$emit('press')"
-            >
+                @click.prevent="$emit('press')">
                 <i :class="item.icon" class="w-6 text-gray-500 group-hover:text-gray-600 transition duration-75"></i>
                 <span class="ml-3 text-md">{{ item.text }}</span>
             </router-link>
@@ -37,32 +34,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue"
 
 const props = defineProps({
-    path: {
-        type: String,
-        required: true,
-    },
-    icon: {
-        type: String,
-        required: true,
-    },
-    text: {
-        type: String,
-        required: true,
-    },
-    children: {
-        type: Array,
-        default: null,
-    },
+    path: { type: String, required: true },
+    icon: { type: String, required: true },
+    text: { type: String, required: true },
+    children: { type: Array, default: null },
 })
-const emit = defineEmits(['press'])
 
 const open = ref(false)
 const childs = ref(null)
 
 onMounted(() => (props.children ? (childs.value = props.children.filter((route) => !route.exclude)) : void 0))
+
+defineEmits(["press"])
 </script>
 
 <style scoped>
