@@ -24,8 +24,6 @@ const options = (method) => ({
  * @returns {void}  void
  */
 
-export const init = () => (Window.$http = $http)
-
 /**
  * @description fetch request helper
  * @param {string} url url to be used for request

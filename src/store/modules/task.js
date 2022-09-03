@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { Notify } from "@/helpers/notify.helper"
+import { $http } from "@/helpers/http.helper"
 import { errorHandler } from "./storeHelper"
 
 export const useTaskStore = defineStore("taskStore", {
@@ -23,10 +23,7 @@ export const useTaskStore = defineStore("taskStore", {
         async createTask(payload) {
             await errorHandler(
                 async function () {
-                    const res = await Window.$http.post(
-                        process.env.VUE_APP_CREATE_TASK,
-                        payload
-                    )
+                    const res = await $http.post(process.env.VUE_APP_CREATE_TASK, payload)
                     this.tasks = [...this.tasks, res]
                 }.bind(this),
                 "Task created successfully"
@@ -36,7 +33,7 @@ export const useTaskStore = defineStore("taskStore", {
         async getTasks() {
             await errorHandler(
                 async function () {
-                    this.tasks = await Window.$http.get(process.env.VUE_APP_GET_TASKS)
+                    this.tasks = await $http.get(process.env.VUE_APP_GET_TASKS)
                 }.bind(this),
                 "Tasks loaded successfully"
             )
@@ -47,10 +44,7 @@ export const useTaskStore = defineStore("taskStore", {
                 async function () {
                     this.tasks.find((item) => {
                         if (item._id === _id) {
-                            Window.$http.put(
-                                process.env.VUE_APP_UPDATE_TASK + item._id,
-                                payload
-                            )
+                            $http.put(process.env.VUE_APP_UPDATE_TASK + item._id, payload)
                             Object.assign(item, payload)
                         }
                     })
@@ -64,7 +58,7 @@ export const useTaskStore = defineStore("taskStore", {
                 async function () {
                     this.tasks.find((item) => {
                         if (item._id === id) {
-                            Window.$http.put(process.env.VUE_APP_UPDATE_TASK + item._id, {
+                            $http.put(process.env.VUE_APP_UPDATE_TASK + item._id, {
                                 status: status,
                             })
                             item.status = status
