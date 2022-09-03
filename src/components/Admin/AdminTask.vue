@@ -20,7 +20,7 @@
                         <img :src="picture" alt="ProfilePic" />
                     </div>
 
-                    <div class="bg-red-600 py-1 px-4 h-min rounded-lg text-sm text-white">
+                    <div class="py-1 px-4 h-min rounded-lg text-sm text-white" :class="flag == 'Low' ? 'bg-gray-400' : flag == 'Normal' ? 'bg-blue-400' : flag == 'High' ? 'bg-yellow-500' : 'bg-red-500'">
                         {{ flag }}
                     </div>
                 </div>

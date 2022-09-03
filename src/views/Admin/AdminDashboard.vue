@@ -148,10 +148,10 @@
                             Last 10 new users
                         </h3>
                     </div>
-                    <div
+                    <router-link to="/admin/users"
                         class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
                         view all
-                    </div>
+                    </router-link>
                 </div>
                 <div class="overflow-y-scroll overflow-x-hidden max-h-96">
                     <sequential-entrance class="divide-y">
@@ -184,13 +184,13 @@
                             @click="openTaskModal">
                             Create +
                         </div>
-                        <div
-                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none">
-                            <router-link to="/admin/board"> view all </router-link>
-                        </div>
+                        <router-link
+                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none" to="/admin/board">
+                            view all
+                        </router-link>
                     </div>
                 </div>
-                <div class="border-t overflow-hidden cursor-pointer select-none">
+                <div class="border-t overflow-y-scroll cursor-pointer select-none max-h-96">
                     <div
                         class="hover:bg-gray-100 flex items-center gap-x-4 p-2"
                         v-ripple
@@ -314,7 +314,6 @@
                 <app-button text="Edit" @btnClick="editUserModal"></app-button>
             </div>
         </app-modal>
-        <div v-if="newUsers">An Error occured during loading new users...</div>
     </main>
 </template>
 <script setup>
