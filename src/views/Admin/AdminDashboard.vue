@@ -265,7 +265,7 @@ const { tasks, flags, lists } = refs(useTaskStore())
 
 onMounted(() => {
     getRoles()
-    if(admins.length == 0)
+    if(admins.value == null)
         getAdmins()
     loadNewUsers()
     getTasks()

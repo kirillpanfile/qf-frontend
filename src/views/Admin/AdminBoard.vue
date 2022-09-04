@@ -95,7 +95,7 @@ const closeTaskModal = () => taskModal.value.closeModal()
 const getList = computed(() => (list) => tasks.value.filter((item) => item.status === list))
 
 onMounted(() => {
-    if(admins.length == 0)
+    if(admins.value == null)
         getAdmins()
 })
 </script>
