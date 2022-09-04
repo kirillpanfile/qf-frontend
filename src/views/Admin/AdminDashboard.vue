@@ -268,7 +268,8 @@ onMounted(() => {
     if(admins.value == null)
         getAdmins()
     loadNewUsers()
-    getTasks()
+    if(tasks.value.length == 0)
+        getTasks()
 
 })
 

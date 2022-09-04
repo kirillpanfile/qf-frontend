@@ -69,7 +69,7 @@ import { computed, ref, reactive, onMounted } from "vue"
 import { AdminTask, AdminTaskList, AppModal, AppTextarea, AppSelect, VButton } from "@/components"
 import { useTaskStore, useAdminStore, refs } from "@/store"
 
-const { updateTask, deleteTask } = useTaskStore()
+const { updateTask, deleteTask, getTasks } = useTaskStore()
 const { tasks, flags, lists } = refs(useTaskStore())
 
 const { getAdmins } = useAdminStore()
@@ -97,5 +97,7 @@ const getList = computed(() => (list) => tasks.value.filter((item) => item.statu
 onMounted(() => {
     if(admins.value == null)
         getAdmins()
+    if(tasks.value.length == 0)
+        getTasks()
 })
 </script>
