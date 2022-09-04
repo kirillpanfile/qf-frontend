@@ -56,10 +56,10 @@
                 type="button"
                 bgColor="default"
                 size="base"
-                @btnClick="closeTaskModal(), updateTask(taskData._id, taskData)">
+                @btnClick="closeTaskModal(), updateTask(taskData._id, taskData), closeTaskModal()">
                 Submit
             </v-button>
-            <v-button type="button" bgColor="red" size="base" @btnClick="">Delete</v-button>
+            <v-button type="button" bgColor="red" size="base" @btnClick="deleteTask(taskData._id), closeTaskModal()">Delete</v-button>
         </div>
     </app-modal>
 </template>
@@ -69,7 +69,7 @@ import { computed, ref, reactive, onMounted } from "vue"
 import { AdminTask, AdminTaskList, AppModal, AppTextarea, AppSelect, VButton } from "@/components"
 import { useTaskStore, useAdminStore, refs } from "@/store"
 
-const { updateTask } = useTaskStore()
+const { updateTask, deleteTask } = useTaskStore()
 const { tasks, flags, lists } = refs(useTaskStore())
 
 const { getAdmins } = useAdminStore()
@@ -94,5 +94,8 @@ const closeTaskModal = () => taskModal.value.closeModal()
 
 const getList = computed(() => (list) => tasks.value.filter((item) => item.status === list))
 
-onMounted(() => getAdmins())
+onMounted(() => {
+    if(admins.length == 0)
+        getAdmins()
+})
 </script>

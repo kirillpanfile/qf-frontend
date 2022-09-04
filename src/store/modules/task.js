@@ -67,5 +67,14 @@ export const useTaskStore = defineStore("taskStore", {
                 }.bind(this)
             )
         },
+
+        async deleteTask(id){
+            await errorHandler(
+                async function () {
+                    $http.delete(process.env.VUE_APP_DELETE_TASK + id)
+                    this.tasks = this.tasks.filter((el) => el._id !== id)
+                }.bind(this), "Task Deleted"
+            )
+        }
     },
 })

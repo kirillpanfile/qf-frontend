@@ -216,7 +216,7 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <v-button type="button" bgColor="default" size="base" @btnClick="createTask(task)">Submit</v-button>
+                <v-button type="button" bgColor="default" size="base" @btnClick="createTask(task), closeTaskModal()">Submit</v-button>
             </div>
         </app-modal>
 
@@ -265,9 +265,11 @@ const { tasks, flags, lists } = refs(useTaskStore())
 
 onMounted(() => {
     getRoles()
-    getAdmins()
+    if(admins.length == 0)
+        getAdmins()
     loadNewUsers()
     getTasks()
+
 })
 
 const userEditFlag = ref(false)
@@ -286,4 +288,5 @@ const closeUserModal = () => {
 }
 const editUserModal = () => (userEditFlag.value = true)
 const openTaskModal = () => taskModal.value.openModal()
+const closeTaskModal = () => taskModal.value.closeModal()
 </script>
