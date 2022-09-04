@@ -52,15 +52,21 @@
         </div>
 
         <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-            <app-button text="Ok" @btnClick="closeTaskModal(), updateTask(taskData._id, taskData)"></app-button>
-            <app-button text="Delete" @btnClick=""></app-button>
+            <v-button
+                type="button"
+                bgColor="default"
+                size="base"
+                @btnClick="closeTaskModal(), updateTask(taskData._id, taskData)">
+                Submit
+            </v-button>
+            <v-button type="button" bgColor="red" size="base" @btnClick="">Delete</v-button>
         </div>
     </app-modal>
 </template>
 
 <script setup>
 import { computed, ref, reactive, onMounted } from "vue"
-import { AdminTask, AdminTaskList, AppModal, AppTextarea, AppSelect, AppButton } from "@/components"
+import { AdminTask, AdminTaskList, AppModal, AppTextarea, AppSelect, VButton } from "@/components"
 import { useTaskStore, useAdminStore, refs } from "@/store"
 
 const { updateTask } = useTaskStore()

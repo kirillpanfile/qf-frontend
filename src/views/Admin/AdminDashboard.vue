@@ -216,7 +216,7 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <app-button text="Submit" @btnClick="createTask(task)"></app-button>
+                <v-button type="button" bgColor="default" size="base" @btnClick="createTask(task)">Submit</v-button>
             </div>
         </app-modal>
 
@@ -243,14 +243,18 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <app-button text="Submit" @btnClick="closeUserModal(), editUser(user)"></app-button>
-                <app-button text="Edit" @btnClick="editUserModal"></app-button>
+                <v-button type="button" bgColor="default" size="base" @btnClick="closeUserModal(), editUser(user)"
+                    >Submit</v-button
+                >
+                <v-button type="button" bgColor="alternative" color="white" size="base" @btnClick="editUserModal"
+                    >Edit</v-button
+                >
             </div>
         </app-modal>
     </main>
 </template>
 <script setup>
-import { AdminUsersCard, AppModal, AdminChart, AppInput, AppTextarea, AppSelect, AppButton } from "@/components"
+import { AdminUsersCard, AppModal, AdminChart, AppInput, AppTextarea, AppSelect, VButton } from "@/components"
 import { reactive, ref, onMounted } from "vue"
 import { useAdminStore, useRecipeStore, useTaskStore, refs } from "@/store"
 const { editUser, getAdmins, loadNewUsers, getRoles } = useAdminStore()

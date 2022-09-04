@@ -6,7 +6,7 @@ import AppModal from "./global/AppModal"
 
 // ======================== UI =========================
 
-import AppButton from "./UI/AppButton"
+import VButton from "./UI/VButton"
 import AppInput from "./UI/AppInput"
 import AppTextarea from "./UI/AppTextarea"
 import AppSelect from "./UI/AppSelect"
@@ -40,11 +40,11 @@ export {
     AdminUsersCard,
     adminCreateRecipe,
     AppModal,
-    AppButton,
     AppInput,
     AppTextarea,
     AppSelect,
     AdminTask,
     AdminTaskList,
     AdminWrapper,
+    VButton,
 }
