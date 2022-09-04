@@ -1,8 +1,5 @@
 <template>
-    <li
-        v-if="type === 'new'"
-        class="py-3 sm:py-4 list-none cursor-pointer hover:bg-gray-100"
-        v-ripple>
+    <li v-if="type === 'new'" class="py-3 sm:py-4 list-none cursor-pointer hover:bg-gray-100" v-wave>
         <div class="flex items-center space-x-4">
             <div class="flex-shrink-0">
                 <img class="h-8 w-8 rounded-full" :src="user.picture" alt="ProfilePic" />

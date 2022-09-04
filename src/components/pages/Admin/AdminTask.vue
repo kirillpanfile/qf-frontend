@@ -16,10 +16,20 @@
                 <div class="flex justify-between items-center">
                     <div
                         class="w-8 h-8 flex items-center justify-center text-xl rounded-full border-dashed border overflow-hidden">
-                        <img :src="picture" alt="ProfilePic" />
+                        <img :src="picture" class="object-cover w-full h-full" alt="ProfilePic" />
                     </div>
 
-                    <div class="py-1 px-4 h-min rounded-lg text-sm text-white" :class="flag == 'Low' ? 'bg-gray-400' : flag == 'Normal' ? 'bg-blue-400' : flag == 'High' ? 'bg-yellow-500' : 'bg-red-500'">
+                    <div
+                        class="py-1 px-4 h-min rounded-lg text-sm text-white"
+                        :class="
+                            flag == 'Low'
+                                ? 'bg-gray-400'
+                                : flag == 'Normal'
+                                ? 'bg-blue-400'
+                                : flag == 'High'
+                                ? 'bg-yellow-500'
+                                : 'bg-red-500'
+                        ">
                         {{ flag }}
                     </div>
                 </div>

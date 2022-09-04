@@ -18,6 +18,7 @@ specifiers:
   sass: ^1.32.7
   sass-loader: ^13.0.2
   tailwindcss: ^3.1.6
+  v-wave: ^1.5.0
   vue: ^3.2.37
   vue-router: ^4.0.3
   vue3-sequential-entrance: ^2.0.2
@@ -30,6 +31,7 @@ dependencies:
   firebase: 9.9.2
   pinia: 2.0.16_vue@3.2.37
   sass-loader: 13.0.2_sass@1.53.0
+  v-wave: 1.5.0_vue@3.2.37
   vue: 3.2.37
   vue-router: 4.1.2_vue@3.2.37
   vue3-sequential-entrance: 2.0.2
@@ -6845,6 +6847,14 @@ packages:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
     dev: true
+
+  /v-wave/1.5.0_vue@3.2.37:
+    resolution: {integrity: sha512-msda5EzJEH94NZQz4acsETnAiB3Q3+ADvIEi59ekDW3bYLCCCHE4RXOD9qqEzx9NOUJlI4pO8R/29SokouyG4A==}
+    peerDependencies:
+      vue: ^2.0.0 || ^3.0.0
+    dependencies:
+      vue: 3.2.37
+    dev: false
 
   /validate-npm-package-license/3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}

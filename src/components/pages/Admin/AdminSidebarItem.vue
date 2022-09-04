@@ -1,7 +1,7 @@
 <template>
     <li class="list-none flex items-center flex-row">
         <router-link
-            v-ripple
+            v-wave
             :to="path"
             @click="$emit('press'), (open = !open)"
             v-if="!children"
@@ -11,7 +11,7 @@
         </router-link>
         <a
             v-else
-            v-ripple
+            v-wave
             @click.prevent="open = !open"
             href="#"
             class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full">
@@ -22,7 +22,7 @@
     <div class="w-full border-y py-2 space-y-2" v-if="children && open">
         <li class="list-none flex items-center flex-row" v-for="(item, index) in childs" :key="index">
             <router-link
-                v-ripple
+                v-wave
                 class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 group w-full"
                 :to="item.path"
                 @click.prevent="$emit('press')">

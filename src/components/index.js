@@ -13,17 +13,18 @@ import AppSelect from "./UI/AppSelect"
 
 // ====================== ADMIN ========================
 
-import AdminAside from "./Admin/AdminAside"
-import AdminCard from "./Admin/AdminCard"
-import AdminChart from "./Admin/AdminChart"
-import AdminDashCard from "./Admin/AdminDashCard"
-import AdminHeader from "./Admin/AdminHeader"
-import AdminNotificationMenu from "./Admin/AdminNotificationMenu"
-import AdminSidebarItem from "./Admin/AdminSidebarItem"
-import AdminUsersCard from "./Admin/AdminUsersCard"
-import adminCreateRecipe from "./Admin/AdminCreateRecipe"
-import AdminTask from "./Admin/AdminTask"
-import AdminTaskList from "./Admin/AdminTaskList"
+import AdminAside from "./pages/Admin/AdminAside"
+import AdminCard from "./pages/Admin/AdminCard"
+import AdminChart from "./pages/Admin/AdminChart"
+import AdminDashCard from "./pages/Admin/AdminDashCard"
+import AdminHeader from "./pages/Admin/AdminHeader"
+import AdminNotificationMenu from "./pages/Admin/AdminNotificationMenu"
+import AdminSidebarItem from "./pages/Admin/AdminSidebarItem"
+import AdminUsersCard from "./pages/Admin/AdminUsersCard"
+import adminCreateRecipe from "./pages/Admin/AdminCreateRecipe"
+import AdminTask from "./pages/Admin/AdminTask"
+import AdminTaskList from "./pages/Admin/AdminTaskList"
+import AdminWrapper from "./pages/Admin/AdminWrapper"
 // ====================== Export ========================
 
 export {
@@ -45,4 +46,5 @@ export {
     AppSelect,
     AdminTask,
     AdminTaskList,
+    AdminWrapper,
 }

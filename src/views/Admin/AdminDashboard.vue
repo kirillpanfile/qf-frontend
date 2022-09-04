@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 pt-6">
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-ripple>
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-wave>
                 <div class="flex items-center justify-between">
                     <div>
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">976</span>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-ripple>
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-wave>
                 <div class="flex items-center justify-between">
                     <div>
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">17</span>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-ripple>
+            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-wave>
                 <div class="flex items-center justify-between">
                     <div>
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">23</span>
@@ -110,7 +110,8 @@
                         <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">New Users</span>
                         <h3 class="text-base font-normal text-gray-500">Last 10 new users</h3>
                     </div>
-                    <router-link to="/admin/users"
+                    <router-link
+                        to="/admin/users"
                         class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
                         view all
                     </router-link>
@@ -142,7 +143,8 @@
                             Create +
                         </div>
                         <router-link
-                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none" to="/admin/board">
+                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none"
+                            to="/admin/board">
                             view all
                         </router-link>
                     </div>
@@ -150,18 +152,13 @@
                 <div class="border-t overflow-y-scroll cursor-pointer select-none max-h-96">
                     <div
                         class="hover:bg-gray-100 flex items-center gap-x-4 p-2"
-                        v-ripple
+                        v-wave
                         v-for="(item, index) in tasks"
                         :key="task._id">
-                        <input
-                            id="checkbox-1"
-                            aria-describedby="checkbox-1"
-                            type="checkbox"
-                            class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded block" />
                         <div class="whitespace-nowrap space-x-6">
                             <div
                                 class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border overflow-hidden">
-                                <img :src="item.user.picture" alt="profilePic" />
+                                <img :src="item.user.picture" class="object-cover w-full h-full" alt="profilePic" />
                             </div>
                         </div>
                         <div
@@ -179,7 +176,7 @@
         <a
             href="https://github.com/kirillpanfile/qf-frontend"
             target="_blank"
-            v-ripple
+            v-wave
             class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-white rounded-lg shadow-md text-black mt-6">
             <div class="flex items-center">
                 <i class="fa-solid fa-code-branch w-5 mr-2"></i>
@@ -254,48 +251,35 @@
 </template>
 <script setup>
 import { AdminUsersCard, AppModal, AdminChart, AppInput, AppTextarea, AppSelect, AppButton } from "@/components"
-import { reactive, ref } from "vue"
+import { reactive, ref, onMounted } from "vue"
 import { useAdminStore, useRecipeStore, useTaskStore, refs } from "@/store"
-
-const { editUser, getAdmins } = useAdminStore()
+const { editUser, getAdmins, loadNewUsers, getRoles } = useAdminStore()
 const { newUsers, roles, admins } = refs(useAdminStore())
-// const { getAllRecipes } = useRecipeStore()
+const { getTasks, createTask } = useTaskStore()
 const { recipe } = refs(useRecipeStore())
-const { createTask } = useTaskStore()
 const { tasks, flags, lists } = refs(useTaskStore())
 
-// User Values
+onMounted(() => {
+    getRoles()
+    getAdmins()
+    loadNewUsers()
+    getTasks()
+})
 
 const userEditFlag = ref(false)
 const taskModal = ref(null)
 const userModal = ref(null)
+const user = reactive({})
+const task = reactive({})
 
-const user = reactive({
-    username: null,
-    email: null,
-    roles: null,
-    id: null,
-})
-
-const task = reactive({
-    title: null,
-    description: null,
-    flag: "Low",
-    status: "Open",
-    user: null,
-})
-
-// User Functions
 const openUserModal = ({ username, email, roles, _id }) => {
     userModal.value.openModal()
     Object.assign(user, { username, email, roles: roles[0]._id, id: _id })
 }
-
 const closeUserModal = () => {
-    ;(userEditFlag.value = false), userModal.value.closeModal()
+    userEditFlag.value = false
+    userModal.value.closeModal()
 }
 const editUserModal = () => (userEditFlag.value = true)
-
-// Task Functions
 const openTaskModal = () => taskModal.value.openModal()
 </script>

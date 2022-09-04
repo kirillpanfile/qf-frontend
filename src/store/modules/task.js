@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
-import { $http } from "@/helpers/http.helper"
-import { errorHandler } from "./storeHelper"
+import { $http } from "@/helpers/http"
+import { errorHandler } from "../util"
 
 export const useTaskStore = defineStore("taskStore", {
     state: () => ({

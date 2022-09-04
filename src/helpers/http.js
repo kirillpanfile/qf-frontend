@@ -20,11 +20,6 @@ const options = (method) => ({
 })
 
 /**
- * @description Registering global $http on window object
- * @returns {void}  void
- */
-
-/**
  * @description fetch request helper
  * @param {string} url url to be used for request
  * @param {string} body  body to be used for request
@@ -121,7 +116,3 @@ export const $http = {
         return data
     },
 }
-
-//#sourceMappingURL=http.helper.js.map
-
-//? Making $http global on window object
