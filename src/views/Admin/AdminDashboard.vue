@@ -221,18 +221,18 @@ const { getTasks, createTask } = useTaskStore()
 const { recipe } = refs(useRecipeStore())
 const { tasks, flags, lists } = refs(useTaskStore())
 
+onMounted(() => {
+    getRoles()
+    if (admins.value == null) getAdmins()
+    loadNewUsers()
+    if (tasks.value.length == 0) getTasks()
+})
+
 const userEditFlag = ref(false)
 const taskModal = ref(null)
 const userModal = ref(null)
 const user = reactive({})
 const task = reactive({})
-
-onMounted(() => {
-    getRoles()
-    if (admins.value == null) getAdmins()
-    loadNewUsers()
-    getTasks()
-})
 
 const openUserModal = ({ username, email, roles, _id }) => {
     userModal.value.openModal()
