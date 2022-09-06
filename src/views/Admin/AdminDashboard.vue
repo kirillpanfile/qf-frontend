@@ -1,176 +1,133 @@
 <template>
     <main class="pt-6 px-4">
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 2xl:col-span-2">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">12</span>
-                        <h3 class="text-base font-normal text-gray-500">New users this week</h3>
-                    </div>
+            <admin-block title="12" description="New users this week" size="2xl:col-span-2">
+                <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
                         <i class="fa fa-arrow-up pr-2"></i>
                         <span>12.5%</span>
                     </div>
-                </div>
-                <AdminChart class="block w-full max-h-64 xl:max-h-[490px]" />
-            </div>
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">New Recipes</span>
-                        <h3 class="text-base font-normal text-gray-500">Incomming from users</h3>
-                    </div>
-                    <router-link
-                        to="/admin/recipes/all"
-                        class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
-                        view all
-                    </router-link>
-                </div>
-                <header class="grid grid-cols-4 bg-gray-50 p-3 rounded-t-lg border-b gap-x-4">
-                    <span class="col-span-2 text-gray-500">Title</span>
-                    <span class="text-gray-500">User</span>
-                    <span class="text-gray-500">Status</span>
-                </header>
+                </template>
 
-                <!--! Component AdminListItem.vue-->
-                <div class="overflow-hidden">
-                    <sequential-entrance>
-                        <router-link
-                            :to="`/admin/recipes/${item._id}`"
-                            class="grid grid-cols-4 gap-x-4 p-3 items-center hover:bg-gray-200 rounded-md"
-                            v-for="(item, index) in recipe"
+                <template #body>
+                    <AdminChart class="block w-full max-h-64 xl:max-h-[490px]" />
+                </template>
+            </admin-block>
+
+            <admin-block title="New Recipes" description="Incomming from users">
+                <template #aditional>
+                    <router-link to="/admin/recipes/all">
+                        <v-button type="button" bgColor="no-color" color="lime" size="sm">ViewAll</v-button>
+                    </router-link>
+                </template>
+                <template #header>
+                    <header class="grid grid-cols-5 bg-gray-50 p-3 rounded-t-lg border-b gap-x-4 mt-4">
+                        <span class="col-span-3 text-gray-500">Title</span>
+                        <span class="text-gray-500">User</span>
+                    </header>
+                </template>
+
+                <template #body>
+                    <sequential-entrance class="divide-y mt-4">
+                        <v-list-item
+                            v-for="(item, index) in newUsers"
+                            :class="{
+                                'bg-gray-50': index % 2 !== 0,
+                            }"
+                            v-wave
                             :key="item._id"
-                            :class="(index + 1) % 2 == 0 && 'bg-gray-50'">
-                            <span class="col-span-2 text-gray-500" v-if="!item.langs.ro.title">No title</span>
-                            <!--TODO de sters asta cind o sa lucreze validarea la title-->
-                            <span
-                                class="col-span-2 text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis"
-                                v-else
-                                >{{ item.langs.ro.title }}</span
-                            >
-                            <span class="text-black font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{
-                                item?.user?.username
-                            }}</span>
-                            <span
-                                :class="{
-                                    'text-lime': item.approved === 'approved',
-                                    'text-yellow-500': item.approved === 'pending',
-                                    'text-red-600': item.approved === 'rejected',
-                                }"
-                                >{{ item.approved }}</span
-                            >
-                        </router-link>
+                            :picture="item.picture"
+                            :name="item.username"
+                            :aditional="item.email"
+                            type="recipe"
+                            @select="newUsers"
+                            @click="openUserModal(item)">
+                        </v-list-item>
                     </sequential-entrance>
-                </div>
-            </div>
+                </template>
+            </admin-block>
         </div>
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 pt-6">
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-wave>
-                <div class="flex items-center justify-between">
-                    <div>
-                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">976</span>
-                        <h3 class="text-base font-normal text-gray-500">Total users</h3>
-                    </div>
+            <admin-block title="976" description="Total users" v-wave>
+                <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
                         <i class="fa fa-arrow-up pr-2"></i>
                         <span>12.5%</span>
                     </div>
-                </div>
-            </div>
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-wave>
-                <div class="flex items-center justify-between">
-                    <div>
-                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">17</span>
-                        <h3 class="text-base font-normal text-gray-500">New users (last month)</h3>
-                    </div>
+                </template>
+            </admin-block>
+            <admin-block title="17" description="New users (last month)" v-wave>
+                <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
                         <i class="fa fa-arrow-up pr-2"></i>
                         <span>3%</span>
                     </div>
-                </div>
-            </div>
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" v-wave>
-                <div class="flex items-center justify-between">
-                    <div>
-                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">23</span>
-                        <h3 class="text-base font-normal text-gray-500">New Recipes (last month)</h3>
-                    </div>
+                </template>
+            </admin-block>
+            <admin-block title="23" description="New Recipes (last month)" v-wave>
+                <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-red-600 text-base font-bold">
                         <i class="fa fa-arrow-down pr-2"></i>
                         <span>-1.2%</span>
                     </div>
-                </div>
-            </div>
+                </template>
+            </admin-block>
         </div>
 
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 gap-4 pt-6">
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">New Users</span>
-                        <h3 class="text-base font-normal text-gray-500">Last 10 new users</h3>
-                    </div>
-                    <router-link
-                        to="/admin/users"
-                        class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2">
-                        view all
+            <admin-block title="New Users" description="Last 10 new users">
+                <template #aditional>
+                    <router-link to="/admin/users">
+                        <v-button type="button" bgColor="no-color" color="lime" size="sm">View All</v-button>
                     </router-link>
-                </div>
-                <div class="overflow-y-scroll overflow-x-hidden max-h-96">
-                    <sequential-entrance class="divide-y">
-                        <admin-users-card
+                </template>
+
+                <template #body>
+                    <sequential-entrance class="divide-y mt-4">
+                        <v-list-item
                             v-for="(item, index) in newUsers"
-                            :key="index"
-                            :user="item"
-                            type="new"
+                            v-wave
+                            :key="item._id"
+                            :picture="item.picture"
+                            :name="item.username"
+                            :aditional="item.email"
+                            type="user"
                             @select="newUsers"
                             @click="openUserModal(item)">
-                        </admin-users-card>
+                        </v-list-item>
                     </sequential-entrance>
-                </div>
-            </div>
-            <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">Tasks</span>
-                        <h3 class="text-base font-normal text-gray-500">Need to be done</h3>
-                    </div>
+                </template>
+            </admin-block>
 
+            <admin-block title="Tasks" description="Need to be done">
+                <template #aditional>
                     <div class="flex gap-4">
-                        <div
-                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none"
-                            @click="openTaskModal">
-                            Create +
-                        </div>
-                        <router-link
-                            class="text-sm cursor-pointer font-medium text-lime hover:bg-gray-100 rounded-lg p-2 select-none"
-                            to="/admin/board">
-                            view all
+                        <v-button type="button" bgColor="no-color" color="lime" size="sm" @click="openTaskModal"
+                            >Create +</v-button
+                        >
+                        <router-link to="/admin/board">
+                            <v-button type="button" bgColor="no-color" color="lime" size="sm">View All</v-button>
                         </router-link>
                     </div>
-                </div>
-                <div class="border-t overflow-y-scroll cursor-pointer select-none max-h-96">
-                    <div
-                        class="hover:bg-gray-100 flex items-center gap-x-4 p-2"
-                        v-wave
-                        v-for="(item, index) in tasks"
-                        :key="task._id">
-                        <div class="whitespace-nowrap space-x-6">
-                            <div
-                                class="w-10 h-10 flex items-center justify-center text-xl rounded-full border-dashed border overflow-hidden">
-                                <img :src="item.user.picture" class="object-cover w-full h-full" alt="profilePic" />
-                            </div>
-                        </div>
-                        <div
-                            class="whitespace-nowrap text-ellipsis overflow-hidden text-base font-medium text-gray-900">
-                            {{ item.title }}
-                        </div>
-                        <div class="whitespace-nowrap font-medium text-sm text-gray-900 col-span-2 ml-auto">
-                            <span class="bg-lime px-4 py-1 text-white rounded-sm">{{ item.status }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </template>
+
+                <template #body>
+                    <sequential-entrance class="divide-y mt-4">
+                        <v-list-item
+                            v-for="(item, index) in tasks"
+                            v-wave
+                            :key="item._id"
+                            :picture="item.user.picture"
+                            :name="item.title"
+                            :aditional="item.user.username"
+                            :flag="item.status"
+                            type="user"
+                            @select="newUsers"
+                            @click="openUserModal(item)">
+                        </v-list-item>
+                    </sequential-entrance>
+                </template>
+            </admin-block>
         </div>
 
         <a
@@ -216,7 +173,9 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <v-button type="button" bgColor="default" size="base" @btnClick="createTask(task), closeTaskModal()">Submit</v-button>
+                <v-button type="button" bgColor="default" size="base" @btnClick="createTask(task), closeTaskModal()"
+                    >Submit</v-button
+                >
             </div>
         </app-modal>
 
@@ -246,37 +205,34 @@
                 <v-button type="button" bgColor="default" size="base" @btnClick="closeUserModal(), editUser(user)"
                     >Submit</v-button
                 >
-                <v-button type="button" bgColor="alternative" color="white" size="base" @btnClick="editUserModal"
-                    >Edit</v-button
-                >
+                <v-button type="button" bgColor="alternative" size="base" @btnClick="editUserModal">Edit</v-button>
             </div>
         </app-modal>
     </main>
 </template>
 <script setup>
-import { AdminUsersCard, AppModal, AdminChart, AppInput, AppTextarea, AppSelect, VButton } from "@/components"
+import { AppModal, AdminChart, AppInput, AppTextarea, AppSelect, VButton, AdminBlock, VListItem } from "@/components"
 import { reactive, ref, onMounted } from "vue"
 import { useAdminStore, useRecipeStore, useTaskStore, refs } from "@/store"
+
 const { editUser, getAdmins, loadNewUsers, getRoles } = useAdminStore()
 const { newUsers, roles, admins } = refs(useAdminStore())
 const { getTasks, createTask } = useTaskStore()
 const { recipe } = refs(useRecipeStore())
 const { tasks, flags, lists } = refs(useTaskStore())
 
-onMounted(() => {
-    getRoles()
-    if(admins.value == null)
-        getAdmins()
-    loadNewUsers()
-    getTasks()
-
-})
-
 const userEditFlag = ref(false)
 const taskModal = ref(null)
 const userModal = ref(null)
 const user = reactive({})
 const task = reactive({})
+
+onMounted(() => {
+    getRoles()
+    if (admins.value == null) getAdmins()
+    loadNewUsers()
+    getTasks()
+})
 
 const openUserModal = ({ username, email, roles, _id }) => {
     userModal.value.openModal()

@@ -12,7 +12,6 @@ export const useAdminStore = defineStore("adminStore", {
         currentPage: 1,
         roles: null,
         admins: null,
-        isAuth: false,
     }),
     getters: {
         selectedUsers: (state) => state.users.filter((user) => user.selected === true),
@@ -22,7 +21,6 @@ export const useAdminStore = defineStore("adminStore", {
             await errorHandler(
                 async function () {
                     this.user = await $http.post(process.env.VUE_APP_SIGNIN_ADMIN, user)
-                    this.isAuth = true
                 }.bind(this),
                 "You are successfully logged in"
             )
