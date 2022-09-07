@@ -14,11 +14,15 @@
             <slot name="aditional"></slot>
         </div>
 
-        <!-- Admin card header -->
-        <slot name="header" class="mt-4"></slot>
-
-        <!-- Admin card body -->
-        <div class="overflow-y-scroll no-scrollbar overflow-x-hidden max-h-96">
+        <div
+            class="overflow-y-scroll no-scrollbar overflow-x-hidden"
+            :class="{
+                ' max-h-[440px] h-full': h === 'full',
+                ' max-h-96': h === 'standart',
+            }">
+            <!-- Admin card header -->
+            <slot name="header" class="mt-4"></slot>
+            <!-- Admin card body -->
             <slot name="body"></slot>
         </div>
     </div>
@@ -37,6 +41,11 @@ const props = defineProps({
         required: true,
     },
     size: String,
+    h: {
+        type: String,
+        default: "standart",
+        validator: (value) => ["standart", "full"].includes(value),
+    },
 })
 </script>
 

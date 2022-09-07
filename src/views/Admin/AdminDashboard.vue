@@ -1,7 +1,7 @@
 <template>
     <main class="pt-6 px-4">
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <admin-block title="12" description="New users this week" size="2xl:col-span-2">
+            <admin-block title="12" description="New users this week" size="2xl:col-span-2" h="full">
                 <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
                         <i class="fa fa-arrow-up pr-2"></i>
@@ -9,12 +9,12 @@
                     </div>
                 </template>
 
-                <template #body>
-                    <AdminChart class="block w-full max-h-64 xl:max-h-[490px]" />
+                <template #body v-if="newUsers">
+                    <VChart :data="data" :type="type" :intersec="true" />
                 </template>
             </admin-block>
 
-            <admin-block title="New Recipes" description="Incomming from users">
+            <admin-block title="New Recipes" description="Incomming from users" h="full">
                 <template #aditional>
                     <router-link to="/admin/recipes/all">
                         <v-button type="button" bgColor="no-color" color="lime" size="sm">ViewAll</v-button>
@@ -39,7 +39,7 @@
                             :picture="item.picture"
                             :name="item.username"
                             :aditional="item.email"
-                            type="recipe"
+                            type="user"
                             @select="newUsers"
                             @click="openUserModal(item)">
                         </v-list-item>
@@ -48,7 +48,7 @@
             </admin-block>
         </div>
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 pt-6">
-            <admin-block title="976" description="Total users" v-wave>
+            <admin-block title="976" description="Total users" v-wave h="standart">
                 <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
                         <i class="fa fa-arrow-up pr-2"></i>
@@ -56,7 +56,7 @@
                     </div>
                 </template>
             </admin-block>
-            <admin-block title="17" description="New users (last month)" v-wave>
+            <admin-block title="17" description="New users (last month)" v-wave h="standart">
                 <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
                         <i class="fa fa-arrow-up pr-2"></i>
@@ -64,7 +64,7 @@
                     </div>
                 </template>
             </admin-block>
-            <admin-block title="23" description="New Recipes (last month)" v-wave>
+            <admin-block title="23" description="New Recipes (last month)" v-wave h="standart">
                 <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-red-600 text-base font-bold">
                         <i class="fa fa-arrow-down pr-2"></i>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 gap-4 pt-6">
-            <admin-block title="New Users" description="Last 10 new users">
+            <admin-block title="New Users" description="Last 10 new users" h="full">
                 <template #aditional>
                     <router-link to="/admin/users">
                         <v-button type="button" bgColor="no-color" color="lime" size="sm">View All</v-button>
@@ -99,7 +99,7 @@
                 </template>
             </admin-block>
 
-            <admin-block title="Tasks" description="Need to be done">
+            <admin-block title="Tasks" description="Need to be done" h="full">
                 <template #aditional>
                     <div class="flex gap-4">
                         <v-button type="button" bgColor="no-color" color="lime" size="sm" @click="openTaskModal"
@@ -211,14 +211,14 @@
     </main>
 </template>
 <script setup>
-import { AppModal, AdminChart, AppInput, AppTextarea, AppSelect, VButton, AdminBlock, VListItem } from "@/components"
+import { AppModal, AppInput, AppTextarea, AppSelect, VButton, AdminBlock, VListItem, VChart } from "@/components"
 import { reactive, ref, onMounted } from "vue"
 import { useAdminStore, useRecipeStore, useTaskStore, refs } from "@/store"
 
 const { editUser, getAdmins, loadNewUsers, getRoles } = useAdminStore()
 const { newUsers, roles, admins } = refs(useAdminStore())
 const { getTasks, createTask } = useTaskStore()
-const { recipe } = refs(useRecipeStore())
+// const { recipe } = refs(useRecipeStore())
 const { tasks, flags, lists } = refs(useTaskStore())
 
 onMounted(() => {
@@ -233,6 +233,20 @@ const taskModal = ref(null)
 const userModal = ref(null)
 const user = reactive({})
 const task = reactive({})
+
+const type = "line"
+const data = {
+    labels: ["Jun 1", "Jun 2", "Jun 3", "Jun 4", "Jun 5", "Jun 6"],
+    datasets: [
+        {
+            label: "new users",
+            data: [12, 19, 3, 5, 2, 3],
+            borderColor: "#91c788",
+            backgroundColor: "rgba(146, 200, 137, 0.6)",
+            borderWidth: 5,
+        },
+    ],
+}
 
 const openUserModal = ({ username, email, roles, _id }) => {
     userModal.value.openModal()

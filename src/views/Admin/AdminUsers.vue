@@ -27,13 +27,19 @@
                     <div class="pb-4">Action</div>
                 </div>
                 <div class="bg-white divide-y">
-                    <admin-users-card
-                        v-for="(item, index) in users"
-                        :key="index"
-                        type="new"
-                        v-memo="users"
-                        :user="item"
-                        @select="selectUser"></admin-users-card>
+                    <sequential-entrance class="divide-y mt-4 overflow-x-hidden" delay="50">
+                        <v-list-item
+                            v-for="(item, index) in users"
+                            v-wave
+                            :key="item._id"
+                            v-memo="users"
+                            :picture="item.picture"
+                            :name="item.username"
+                            :aditional="item.email"
+                            type="user"
+                            @select="selectUser">
+                        </v-list-item>
+                    </sequential-entrance>
                 </div>
             </div>
         </div>
@@ -84,7 +90,7 @@
 </template>
 
 <script setup>
-import { AdminUsersCard } from "@/components"
+import { VListItem } from "@/components"
 import { onMounted, computed, ref, watch } from "vue"
 import { useAdminStore, refs } from "@/store"
 
