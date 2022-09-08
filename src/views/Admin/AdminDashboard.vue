@@ -158,11 +158,11 @@
                     :disabled="false">
                 </app-textarea>
             </div>
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-3 mb-2">
                 <app-select title="Select User" :options="admins" v-model="taskData.user._id" :disabled="false">
                 </app-select>
             </div>
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-3 mb-2">
                 <app-select title="Flag" v-model="taskData.flag" :options="flags" :disabled="false"> </app-select>
             </div>
         </div>
@@ -198,11 +198,11 @@
                     :disabled="false">
                 </app-textarea>
             </div>
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-3 mb-2">
                 <app-select title="Select User" :options="admins" v-model="createData.user" :disabled="false">
                 </app-select>
             </div>
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-3 mb-2">
                 <app-select title="Flag" v-model="createData.flag" :options="flags" :disabled="false"> </app-select>
             </div>
         </div>
@@ -233,7 +233,7 @@
                         v-model="user.email"
                         :placeholder="'Email ...'"></app-input>
                 </div>
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-3 mb-2">
                     <app-select :disabled="!userEditFlag" v-model="user.roles" title="User Role" :options="roles" />
                 </div>
             </div>
