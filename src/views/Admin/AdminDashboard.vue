@@ -21,18 +21,19 @@
                     </router-link>
                 </template>
                 <template #header>
-                    <header class="grid grid-cols-5 bg-gray-50 p-3 rounded-t-lg border-b gap-x-4 mt-4">
-                        <span class="col-span-3 text-gray-500">Title</span>
-                        <span class="text-gray-500">User</span>
+                    <header
+                        class="grid grid-cols-5 bg-gray-50 dark:bg-gray-700 p-3 rounded-t-lg border-b dark:border-gray-700 gap-x-4 mt-4">
+                        <span class="col-span-3 text-gray-500 dark:text-gray-300">Title</span>
+                        <span class="text-gray-500 dark:text-gray-300">User</span>
                     </header>
                 </template>
 
                 <template #body>
-                    <sequential-entrance class="divide-y mt-4">
+                    <sequential-entrance class="divide-y dark:divide-gray-700 mt-4">
                         <v-list-item
                             v-for="(item, index) in newUsers"
                             :class="{
-                                'bg-gray-50': index % 2 !== 0,
+                                'bg-gray-50 dark:bg-gray-700': index % 2 !== 0,
                             }"
                             v-wave
                             :key="item._id"
@@ -83,7 +84,7 @@
                 </template>
 
                 <template #body>
-                    <sequential-entrance class="divide-y mt-4">
+                    <sequential-entrance class="divide-y dark:divide-slate-600 mt-4">
                         <v-list-item
                             v-for="(item, index) in newUsers"
                             v-wave
@@ -112,7 +113,7 @@
                 </template>
 
                 <template #body>
-                    <sequential-entrance class="divide-y mt-4">
+                    <sequential-entrance class="divide-y dark:divide-slate-600 mt-4">
                         <v-list-item
                             v-for="(item, index) in tasks"
                             v-wave
@@ -134,7 +135,7 @@
             href="https://github.com/kirillpanfile/qf-frontend"
             target="_blank"
             v-wave
-            class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-white rounded-lg shadow-md text-black mt-6">
+            class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-white rounded-lg shadow-md text-black mt-6 dark:bg-gray-800 dark:text-gray-300">
             <div class="flex items-center">
                 <i class="fa-solid fa-code-branch w-5 mr-2"></i>
                 <span>Open project on github</span>
@@ -234,19 +235,21 @@ const userModal = ref(null)
 const user = reactive({})
 const task = reactive({})
 
+const isDark = ref(window.matchMedia("(prefers-color-scheme: dark)").matches)
+
 const type = "line"
-const data = {
+const data = ref({
     labels: ["Jun 1", "Jun 2", "Jun 3", "Jun 4", "Jun 5", "Jun 6"],
     datasets: [
         {
             label: "new users",
             data: [12, 19, 3, 5, 2, 3],
             borderColor: "#91c788",
-            backgroundColor: "rgba(146, 200, 137, 0.6)",
+            backgroundColor: isDark.value ? "rgba(146, 200, 137, 0.2)" : "rgba(146, 200, 137, 0.6)",
             borderWidth: 5,
         },
     ],
-}
+})
 
 const openUserModal = ({ username, email, roles, _id }) => {
     userModal.value.openModal()

@@ -1,10 +1,11 @@
 <template>
-    <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
+    <nav
+        class="bg-white border-b border-gray-200 fixed z-30 w-full dark:bg-gray-800 dark:border-gray-900 dark:shadow-dark-xl">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-12">
                     <a
-                        class="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr hidden md:flex gap-2 text-[#2c9228]">
+                        class="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr hidden md:flex gap-2 text-[#2c9228] dark:text-gray-300">
                         <img src="@/assets/Logo.svg" class="w-6" alt="" />
                         QuickFood
                     </a>
@@ -23,20 +24,25 @@
                             alt="profilePic"
                             @click="dropOpen = !dropOpen" />
                         <div>
-                            <h2 class="text-sm font-bold leading-none" v-if="user?.username">
+                            <h2 class="text-sm font-bold leading-none dark:text-gray-300" v-if="user?.username">
                                 {{ user.username }}
                             </h2>
                             <span class="text-sm text-gray-400">{{ role }}</span>
                         </div>
                     </div>
                     <div class="relative flex gap-4">
-                        <button class="relative bg-gray-50 p-1 rounded-full w-10 h-10" type="button">
+                        <button
+                            class="relative bg-gray-50 dark:bg-slate-700 dark:text-gray-300 p-1 rounded-full w-10 h-10"
+                            type="button">
                             <i
                                 class="fa-light fa-bell text-xl cursor-pointer"
                                 @click="notificationsOpen = !notificationsOpen"></i>
                         </button>
                         <AdminNotificationMenu v-if="notificationsOpen" @close="notificationsOpen = false" />
-                        <button class="relative bg-gray-50 p-1 rounded-full w-10 h-10" @click="logOut" type="button">
+                        <button
+                            class="relative bg-gray-50 dark:bg-slate-700 dark:text-gray-300 p-1 rounded-full w-10 h-10"
+                            @click="logOut"
+                            type="button">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         </button>
                     </div>

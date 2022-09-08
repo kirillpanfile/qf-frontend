@@ -1,10 +1,12 @@
 <template>
     <!-- Admin card -->
-    <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" :class="size">
+    <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 dark:bg-gray-800 dark:shadow-dark-xl" :class="size">
         <div class="flex items-center justify-between">
             <div>
                 <!-- Admin card title -->
-                <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ title }}</span>
+                <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900 dark:text-gray-300">{{
+                    title
+                }}</span>
 
                 <!-- Admin card description -->
                 <h3 class="text-base font-normal text-gray-500">{{ description }}</h3>

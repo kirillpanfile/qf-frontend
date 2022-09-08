@@ -1,21 +1,20 @@
 <template>
     <div class="max-w-[30rem] mb-4">
-        <div class="shadow-sm p-5 bg-white rounded-lg flex flex-col cursor-move select-none">
+        <div class="shadow-sm p-5 bg-white dark:bg-gray-800 rounded-lg flex flex-col cursor-move select-none">
             <div class="pb-1 justify-between items-center flex">
-                <h2 class="text-gray-900 font-semibold text-base">
+                <h2 class="text-gray-900 dark:text-gray-300 font-semibold text-base">
                     {{ title }}
                 </h2>
-                <button type="button" class="text-gray-900 font-semibold text-base p-1">
+                <button type="button" class="text-gray-900 dark:text-gray-300 font-semibold text-base p-1">
                     <i class="fa-solid fa-pen-to-square" @click="$emit('open', id)"></i>
                 </button>
             </div>
             <div class="flex flex-col">
-                <p class="text-gray-900 font-normal text-sm pb-4">
+                <p class="text-gray-900 dark:text-gray-300 font-normal text-sm pb-4">
                     {{ description }}
                 </p>
                 <div class="flex justify-between items-center">
-                    <div
-                        class="w-8 h-8 flex items-center justify-center text-xl rounded-full border-dashed border overflow-hidden">
+                    <div class="w-8 h-8 flex items-center justify-center text-xl rounded-full overflow-hidden">
                         <img :src="picture" class="object-cover w-full h-full" alt="ProfilePic" />
                     </div>
 

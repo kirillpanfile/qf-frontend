@@ -1,5 +1,7 @@
 <template>
-    <li v-if="type === 'user'" class="py-3 sm:py-4 list-none cursor-pointer hover:bg-gray-100 entranceFromRight">
+    <li
+        v-if="type === 'user'"
+        class="py-3 sm:py-4 list-none cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-600 entranceFromRight">
         <div class="flex items-center space-x-4 px-2">
             <div class="flex-shrink-0">
                 <img class="w-8 h-8 rounded-full object-cover" :src="picture" lt="ProfilePic" />

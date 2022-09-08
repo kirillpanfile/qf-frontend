@@ -10,6 +10,9 @@ module.exports = {
                 gray: {
                     custom: "#9FA3A9",
                 },
+                slate: {
+                    850: "#111c44",
+                },
                 favorite: "#D1FAE5",
                 favText: "#064E3B",
             },

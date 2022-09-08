@@ -1,6 +1,6 @@
 <template>
     <aside
-        class="z-20 hidden pt-5 w-64 overflow-y-auto px-6 bg-white md:block flex-shrink-0 duration-200"
+        class="z-20 hidden pt-5 w-64 overflow-y-auto px-6 bg-white md:block flex-shrink-0 duration-200 dark:bg-gray-800"
         :class="{ active: menuOpen }">
         <div class="space-y-2 pb-2">
             <a

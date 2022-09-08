@@ -18,7 +18,6 @@ import AppSelect from "./UI/AppSelect"
 import AdminAside from "./pages/Admin/AdminAside"
 import AdminCard from "./pages/Admin/AdminCard"
 
-import AdminDashCard from "./pages/Admin/AdminDashCard"
 import AdminHeader from "./pages/Admin/AdminHeader"
 import AdminNotificationMenu from "./pages/Admin/AdminNotificationMenu"
 import AdminSidebarItem from "./pages/Admin/AdminSidebarItem"
@@ -36,7 +35,6 @@ export {
     AppNavbar,
     AdminAside,
     AdminCard,
-    AdminDashCard,
     AdminHeader,
     AdminNotificationMenu,
     AdminSidebarItem,
