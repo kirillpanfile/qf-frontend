@@ -60,18 +60,16 @@
                 @btnClick="closeTaskModal(), updateTask(taskData._id, taskData)">
                 Submit
             </v-button>
-            <v-button type="button" bgColor="red" size="base" @btnClick="deleteTask(taskData._id), closeTaskModal()">Delete</v-button>
+            <v-button type="button" bgColor="red" size="base" @btnClick="deleteTask(taskData._id), closeTaskModal()"
+                >Delete</v-button
+            >
         </div>
     </app-modal>
 
     <app-modal ref="createModal" title="Create Task" :titleInput="false">
         <div class="grid grid-cols-6 gap-x-6">
             <div class="col-span-6">
-                <app-input
-                    v-model="createData.title"
-                    title="Title"
-                    placeholder="Title..."
-                    :disabled="false">
+                <app-input v-model="createData.title" title="Title" placeholder="Title..." :disabled="false">
                 </app-input>
             </div>
             <div class="col-span-6">
@@ -96,7 +94,7 @@
                 type="button"
                 bgColor="default"
                 size="base"
-                @btnClick="createTask(createData) ,closeCreateTaskModal()">
+                @btnClick="createTask(createData), closeCreateTaskModal()">
                 Submit
             </v-button>
         </div>
@@ -116,20 +114,23 @@ const { admins } = refs(useAdminStore())
 
 const taskModal = ref(null)
 const taskData = reactive({})
-
 const createModal = ref(null)
+
+const getAdmin = computed(() => {
+    return admins?.value[0]?._id
+})
+
 const createData = reactive({
-    flag: 'Low',
-    user: "62f90f56a3a0c9fe75e9f77b",
-    status: lists.value[0].name
+    flag: "Low",
+    user: getAdmin,
+    status: lists.value[0].name,
 })
 
 const openCreateTaskModal = () => createModal.value.openModal()
 const closeCreateTaskModal = () => {
-    Object.assign(createData, {title: '', description: '', flag: 'Low', user: '62f90f56a3a0c9fe75e9f77b'})
+    Object.assign(createData, { title: "", description: "", flag: "Low", user: getAdmin })
     createModal.value.closeModal()
 }
-
 
 const openTaskModal = (id) => {
     const task = tasks.value.find((e) => e._id == id)
@@ -148,9 +149,7 @@ const closeTaskModal = () => taskModal.value.closeModal()
 const getList = computed(() => (list) => tasks.value.filter((item) => item.status === list))
 
 onMounted(() => {
-    if(admins.value == null)
-        getAdmins()
-    if(tasks.value.length == 0)
-        getTasks()
+    if (admins.value == null) getAdmins()
+    if (tasks.value.length == 0) getTasks()
 })
 </script>

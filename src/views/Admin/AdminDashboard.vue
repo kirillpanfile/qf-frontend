@@ -30,19 +30,10 @@
 
                 <template #body>
                     <sequential-entrance class="divide-y dark:divide-gray-700 mt-4">
-                        <v-list-item
-                            v-for="(item, index) in newUsers"
-                            :class="{
-                                'bg-gray-50 dark:bg-gray-700': index % 2 !== 0,
-                            }"
-                            v-wave
-                            :key="item._id"
-                            :picture="item.picture"
-                            :name="item.username"
-                            :aditional="item.email"
-                            type="user"
-                            @select="newUsers"
-                            @click="openUserModal(item)">
+                        <v-list-item v-for="(item, index) in newUsers" :class="{
+                            'bg-gray-50 dark:bg-gray-700': index % 2 !== 0,
+                        }" v-wave :key="item._id" :picture="item.picture" :name="item.username" :aditional="item.email"
+                            type="user" @select="newUsers" @click="openUserModal(item)">
                         </v-list-item>
                     </sequential-entrance>
                 </template>
@@ -85,15 +76,8 @@
 
                 <template #body>
                     <sequential-entrance class="divide-y dark:divide-slate-600 mt-4">
-                        <v-list-item
-                            v-for="(item, index) in newUsers"
-                            v-wave
-                            :key="item._id"
-                            :picture="item.picture"
-                            :name="item.username"
-                            :aditional="item.email"
-                            type="user"
-                            @select="newUsers"
+                        <v-list-item v-for="(item, index) in newUsers" v-wave :key="item._id" :picture="item.picture"
+                            :name="item.username" :aditional="item.email" type="user" @select="newUsers"
                             @click="openUserModal(item)">
                         </v-list-item>
                     </sequential-entrance>
@@ -103,9 +87,8 @@
             <admin-block title="Tasks" description="Need to be done" h="full">
                 <template #aditional>
                     <div class="flex gap-4">
-                        <v-button type="button" bgColor="no-color" color="lime" size="sm" @click="openCreateTaskModal"
-                            >Create +</v-button
-                        >
+                        <v-button type="button" bgColor="no-color" color="lime" size="sm" @click="openCreateTaskModal">
+                            Create +</v-button>
                         <router-link to="/admin/board">
                             <v-button type="button" bgColor="no-color" color="lime" size="sm">View All</v-button>
                         </router-link>
@@ -114,27 +97,16 @@
 
                 <template #body>
                     <sequential-entrance class="divide-y dark:divide-slate-600 mt-4">
-                        <v-list-item
-                            v-for="(item, index) in tasks"
-                            v-wave
-                            :key="item._id"
-                            :picture="item.user.picture"
-                            :name="item.title"
-                            :aditional="item.user.username"
-                            :flag="item.status"
-                            type="user"
-                            @select="newUsers"
-                            @click="openTaskModal(item._id)">
+                        <v-list-item v-for="(item, index) in tasks" v-wave :key="item._id" :picture="item.user.picture"
+                            :name="item.title" :aditional="item.user.username" :flag="item.status" type="user"
+                            @select="newUsers" @click="openTaskModal(item._id)">
                         </v-list-item>
                     </sequential-entrance>
                 </template>
             </admin-block>
         </div>
 
-        <a
-            href="https://github.com/kirillpanfile/qf-frontend"
-            target="_blank"
-            v-wave
+        <a href="https://github.com/kirillpanfile/qf-frontend" target="_blank" v-wave
             class="flex items-center justify-between sm:p-3 p-4 mb-8 text-sm shrink font-semibold bg-white rounded-lg shadow-md text-black mt-6 dark:bg-gray-800 dark:text-gray-300">
             <div class="flex items-center">
                 <i class="fa-solid fa-code-branch w-5 mr-2"></i>
@@ -144,94 +116,71 @@
         </a>
 
         <!--? Task Modal -->
-        <app-modal
-        :title="taskData.title"
-        ref="taskModal"
-        :titleInput="true"
-        @titleChange="(title) => (taskData.title = title)">
-        <div class="grid grid-cols-6 gap-x-6">
-            <div class="col-span-6">
-                <app-textarea
-                    v-model="taskData.description"
-                    title="Description"
-                    :placeholder="'Description ...'"
-                    :disabled="false">
-                </app-textarea>
+        <app-modal :title="taskData.title" ref="taskModal" :titleInput="true"
+            @titleChange="(title) => (taskData.title = title)">
+            <div class="grid grid-cols-6 gap-x-6">
+                <div class="col-span-6">
+                    <app-textarea v-model="taskData.description" title="Description" :placeholder="'Description ...'"
+                        :disabled="false">
+                    </app-textarea>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-2">
+                    <app-select title="Select User" :options="admins" v-model="taskData.user._id" :disabled="false">
+                    </app-select>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-2">
+                    <app-select title="Flag" v-model="taskData.flag" :options="flags" :disabled="false"> </app-select>
+                </div>
             </div>
-            <div class="col-span-6 sm:col-span-3 mb-2">
-                <app-select title="Select User" :options="admins" v-model="taskData.user._id" :disabled="false">
-                </app-select>
+            <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
+                <v-button type="button" bgColor="default" size="base"
+                    @btnClick="closeTaskModal(), updateTask(taskData._id, taskData), closeTaskModal()">
+                    Submit
+                </v-button>
+                <v-button type="button" bgColor="red" size="base"
+                    @btnClick="deleteTask(taskData._id), closeTaskModal()">Delete</v-button>
             </div>
-            <div class="col-span-6 sm:col-span-3 mb-2">
-                <app-select title="Flag" v-model="taskData.flag" :options="flags" :disabled="false"> </app-select>
-            </div>
-        </div>
-
-        <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-            <v-button
-                type="button"
-                bgColor="default"
-                size="base"
-                @btnClick="closeTaskModal(), updateTask(taskData._id, taskData), closeTaskModal()">
-                Submit
-            </v-button>
-            <v-button type="button" bgColor="red" size="base" @btnClick="deleteTask(taskData._id), closeTaskModal()">Delete</v-button>
-        </div>
         </app-modal>
 
         <!--? Create Task Modal -->
         <app-modal ref="createTaskModal" title="Create Task" :titleInput="false">
             <div class="grid grid-cols-6 gap-x-6">
-            <div class="col-span-6">
-                <app-input
-                    v-model="createData.title"
-                    title="Title"
-                    placeholder="Title..."
-                    :disabled="false">
-                </app-input>
+                <div class="col-span-6">
+                    <app-input v-model="createData.title" title="Title" placeholder="Title..." :disabled="false">
+                    </app-input>
+                </div>
+                <div class="col-span-6">
+                    <app-textarea v-model="createData.description" title="Description" placeholder="Description ..."
+                        :disabled="false">
+                    </app-textarea>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-2">
+                    <app-select title="Select User" :options="admins" v-model="createData.user" :disabled="false">
+                    </app-select>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-2">
+                    <app-select title="Flag" v-model="createData.flag" :options="flags" :disabled="false"> </app-select>
+                </div>
             </div>
-            <div class="col-span-6">
-                <app-textarea
-                    v-model="createData.description"
-                    title="Description"
-                    placeholder="Description ..."
-                    :disabled="false">
-                </app-textarea>
+            <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
+                <v-button type="button" bgColor="default" size="base"
+                    @btnClick="createTask(createData), closeCreateTaskModal()">
+                    Submit
+                </v-button>
             </div>
-            <div class="col-span-6 sm:col-span-3 mb-2">
-                <app-select title="Select User" :options="admins" v-model="createData.user" :disabled="false">
-                </app-select>
-            </div>
-            <div class="col-span-6 sm:col-span-3 mb-2">
-                <app-select title="Flag" v-model="createData.flag" :options="flags" :disabled="false"> </app-select>
-            </div>
-        </div>
 
-        <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-            <v-button
-                type="button"
-                bgColor="default"
-                size="base"
-                @btnClick="createTask(createData) ,closeCreateTaskModal()">
-                Submit
-            </v-button>
-        </div>
+
+
         </app-modal>
 
         <!--? User Modal -->
         <app-modal title="User Modal" ref="userModal">
             <div class="grid grid-cols-6 gap-x-6">
                 <div class="col-span-6">
-                    <app-input
-                        :disabled="!userEditFlag"
-                        title="Username"
-                        v-model="user.username"
+                    <app-input :disabled="!userEditFlag" title="Username" v-model="user.username"
                         :placeholder="'Username ...'"></app-input>
-                    <app-input
-                        :disabled="!userEditFlag"
-                        title="Email"
-                        v-model="user.email"
-                        :placeholder="'Email ...'"></app-input>
+                    <app-input :disabled="!userEditFlag" title="Email" v-model="user.email" :placeholder="'Email ...'">
+                    </app-input>
                 </div>
                 <div class="col-span-6 sm:col-span-3 mb-2">
                     <app-select :disabled="!userEditFlag" v-model="user.roles" title="User Role" :options="roles" />
@@ -241,9 +190,8 @@
             <!--? Modal Footer-->
 
             <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <v-button type="button" bgColor="default" size="base" @btnClick="closeUserModal(), editUser(user)"
-                    >Submit</v-button
-                >
+                <v-button type="button" bgColor="default" size="base" @btnClick="closeUserModal(), editUser(user)">
+                    Submit</v-button>
                 <v-button type="button" bgColor="alternative" size="base" @btnClick="editUserModal">Edit</v-button>
             </div>
         </app-modal>
@@ -251,12 +199,12 @@
 </template>
 <script setup>
 import { AppModal, AppInput, AppTextarea, AppSelect, VButton, AdminBlock, VListItem, VChart } from "@/components"
-import { reactive, ref, onMounted } from "vue"
+import { reactive, ref, onMounted, computed } from "vue"
 import { useAdminStore, useRecipeStore, useTaskStore, refs } from "@/store"
 
 const { editUser, getAdmins, loadNewUsers, getRoles } = useAdminStore()
 const { newUsers, roles, admins } = refs(useAdminStore())
-const { getTasks, createTask, updateTask, deleteTask, } = useTaskStore()
+const { getTasks, createTask, updateTask, deleteTask } = useTaskStore()
 // const { recipe } = refs(useRecipeStore())
 const { tasks, flags, lists } = refs(useTaskStore())
 
@@ -273,11 +221,8 @@ const userModal = ref(null)
 const user = reactive({})
 const taskData = reactive({})
 const createTaskModal = ref(null)
-const createData = reactive({
-    flag: 'Low',
-    user: "62f90f56a3a0c9fe75e9f77b",
-    status: lists.value[0].name
-})
+
+const getAdmin = computed(() => admins?.value[0]?._id)
 
 const isDark = ref(window.matchMedia("(prefers-color-scheme: dark)").matches)
 
@@ -295,6 +240,12 @@ const data = ref({
     ],
 })
 
+const createData = reactive({
+    flag: "Low",
+    user: getAdmin,
+    status: lists.value[0].name,
+})
+
 const openUserModal = ({ username, email, roles, _id }) => {
     userModal.value.openModal()
     Object.assign(user, { username, email, roles: roles[0]._id, id: _id })
@@ -306,8 +257,9 @@ const closeUserModal = () => {
 const editUserModal = () => (userEditFlag.value = true)
 
 const openCreateTaskModal = () => createTaskModal.value.openModal()
+
 const closeCreateTaskModal = () => {
-    Object.assign(createData, {title: '', description: '', flag: 'Low', user: '62f90f56a3a0c9fe75e9f77b'})
+    Object.assign(createData, { title: "", description: "", flag: "Low", user: getAdmin })
     createTaskModal.value.closeModal()
 }
 
@@ -317,5 +269,4 @@ const openTaskModal = (id) => {
     taskModal.value.openModal()
 }
 const closeTaskModal = () => taskModal.value.closeModal()
-
 </script>

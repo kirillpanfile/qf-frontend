@@ -24,7 +24,6 @@ export const useTaskStore = defineStore("taskStore", {
             await errorHandler(
                 async function () {
                     const res = await $http.post(process.env.VUE_APP_CREATE_TASK, payload)
-                    console.log(res)
                     this.tasks = [...this.tasks, res]
                 }.bind(this),
                 "Task created successfully"
@@ -69,13 +68,14 @@ export const useTaskStore = defineStore("taskStore", {
             )
         },
 
-        async deleteTask(id){
+        async deleteTask(id) {
             await errorHandler(
                 async function () {
                     $http.delete(process.env.VUE_APP_DELETE_TASK + id)
                     this.tasks = this.tasks.filter((el) => el._id !== id)
-                }.bind(this), "Task Deleted"
+                }.bind(this),
+                "Task Deleted"
             )
-        }
+        },
     },
 })
