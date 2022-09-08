@@ -1,12 +1,10 @@
 <template>
-    <label
-        for="assign"
-        class="text-sm font-medium text-gray-900 block mb-2 select-none"
-        >{{ title }}</label
-    >
+    <label for="assign" class="text-sm font-medium text-gray-900 dark:text-gray-300 block mb-2 select-none">{{
+        title
+    }}</label>
     <select
         id="assign"
-        class="shadow-sm bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-4"
+        class="shadow-sm bg-gray-50 border outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-4"
         :class="disabled && 'opacity-70 text-[#AAAAAA] bg-[#76767610]'"
         v-model="modelValue"
         :disabled="disabled"

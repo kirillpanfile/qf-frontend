@@ -121,7 +121,7 @@ const getBgColor = computed(() => {
             break
         case "no-color":
             bgColor.value =
-                "focus:outline-none bg-text-transparent hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-200"
+                "focus:outline-none bg-text-transparent hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-200"
             break
     }
     return bgColor.value

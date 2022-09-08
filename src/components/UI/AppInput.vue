@@ -1,11 +1,11 @@
 <template>
-    <label for="task" class="text-sm font-medium text-gray-900 block mb-2 select-none">{{
+    <label for="task" class="text-sm font-medium text-gray-900 dark:text-gray-300 block mb-2 select-none">{{
         title
     }}</label>
     <input
         type="text"
         id="task"
-        class="shadow-sm bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-4"
+        class="shadow-sm bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
         :class="disabled && 'opacity-70 text-[#AAAAAA] bg-[#76767610]'"
         :placeholder="placeholder"
         :value="modelValue"

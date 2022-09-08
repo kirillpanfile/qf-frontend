@@ -1,9 +1,7 @@
 <template>
-    <label
-        for="description"
-        class="text-sm font-medium text-gray-900 block mb-2 select-none"
-        >{{ title }}</label
-    >
+    <label for="description" class="text-sm font-medium text-gray-900 dark:text-gray-300 block mb-2 select-none">{{
+        title
+    }}</label>
     <textarea
         id="description"
         cols="10"
@@ -12,7 +10,7 @@
         :disabled="disabled"
         :value="modelValue"
         @input="valueBinding"
-        class="shadow-sm bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-4 resize-none"
+        class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-4 resize-none"
         :class="disabled && 'opacity-70 text-[#AAAAAA] bg-[#76767610]'"></textarea>
 </template>
 

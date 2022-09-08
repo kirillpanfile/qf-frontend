@@ -173,7 +173,7 @@
 
             <!--? Modal Footer-->
 
-            <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
+            <div class="items-center py-6 border-t border-gray-200 dark:border-gray-300 rounded-b flex gap-4">
                 <v-button type="button" bgColor="default" size="base" @btnClick="createTask(task), closeTaskModal()"
                     >Submit</v-button
                 >
