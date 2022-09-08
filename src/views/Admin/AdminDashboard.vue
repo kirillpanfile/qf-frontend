@@ -103,7 +103,7 @@
             <admin-block title="Tasks" description="Need to be done" h="full">
                 <template #aditional>
                     <div class="flex gap-4">
-                        <v-button type="button" bgColor="no-color" color="lime" size="sm" @click="openTaskModal"
+                        <v-button type="button" bgColor="no-color" color="lime" size="sm" @click="openCreateTaskModal"
                             >Create +</v-button
                         >
                         <router-link to="/admin/board">
@@ -124,7 +124,7 @@
                             :flag="item.status"
                             type="user"
                             @select="newUsers"
-                            @click="openUserModal(item)">
+                            @click="openTaskModal(item._id)">
                         </v-list-item>
                     </sequential-entrance>
                 </template>
@@ -144,40 +144,78 @@
         </a>
 
         <!--? Task Modal -->
-        <app-modal title="Create New Task" ref="taskModal">
+        <app-modal
+        :title="taskData.title"
+        ref="taskModal"
+        :titleInput="true"
+        @titleChange="(title) => (taskData.title = title)">
+        <div class="grid grid-cols-6 gap-x-6">
+            <div class="col-span-6">
+                <app-textarea
+                    v-model="taskData.description"
+                    title="Description"
+                    :placeholder="'Description ...'"
+                    :disabled="false">
+                </app-textarea>
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <app-select title="Select User" :options="admins" v-model="taskData.user._id" :disabled="false">
+                </app-select>
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <app-select title="Flag" v-model="taskData.flag" :options="flags" :disabled="false"> </app-select>
+            </div>
+        </div>
+
+        <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
+            <v-button
+                type="button"
+                bgColor="default"
+                size="base"
+                @btnClick="closeTaskModal(), updateTask(taskData._id, taskData), closeTaskModal()">
+                Submit
+            </v-button>
+            <v-button type="button" bgColor="red" size="base" @btnClick="deleteTask(taskData._id), closeTaskModal()">Delete</v-button>
+        </div>
+        </app-modal>
+
+        <!--? Create Task Modal -->
+        <app-modal ref="createTaskModal" title="Create Task" :titleInput="false">
             <div class="grid grid-cols-6 gap-x-6">
-                <div class="col-span-6">
-                    <app-input
-                        title="Task title"
-                        :placeholder="'Task title ...'"
-                        :disabled="false"
-                        v-model="task.title"></app-input>
-                    <app-textarea
-                        v-model="task.description"
-                        title="Description"
-                        :placeholder="'Description ...'"
-                        :disabled="false"></app-textarea>
-                </div>
-                <div class="col-span-6 sm:col-span-3">
-                    <app-select title="Select User" :options="admins" v-model="task.user" :disabled="false">
-                    </app-select>
-                    <!--? Default value = 0 -->
-                </div>
-                <div class="col-span-6 sm:col-span-3">
-                    <app-select title="Flag" :options="flags" v-model="task.flag" :disabled="false"></app-select>
-                </div>
-                <div class="col-span-6">
-                    <app-select title="Status" v-model="task.status" :options="lists" :disabled="false"></app-select>
-                </div>
+            <div class="col-span-6">
+                <app-input
+                    v-model="createData.title"
+                    title="Title"
+                    placeholder="Title..."
+                    :disabled="false">
+                </app-input>
             </div>
-
-            <!--? Modal Footer-->
-
-            <div class="items-center py-6 border-t border-gray-200 dark:border-gray-300 rounded-b flex gap-4">
-                <v-button type="button" bgColor="default" size="base" @btnClick="createTask(task), closeTaskModal()"
-                    >Submit</v-button
-                >
+            <div class="col-span-6">
+                <app-textarea
+                    v-model="createData.description"
+                    title="Description"
+                    placeholder="Description ..."
+                    :disabled="false">
+                </app-textarea>
             </div>
+            <div class="col-span-6 sm:col-span-3">
+                <app-select title="Select User" :options="admins" v-model="createData.user" :disabled="false">
+                </app-select>
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <app-select title="Flag" v-model="createData.flag" :options="flags" :disabled="false"> </app-select>
+            </div>
+        </div>
+
+        <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
+            <v-button
+                type="button"
+                bgColor="default"
+                size="base"
+                @btnClick="createTask(createData) ,closeCreateTaskModal()">
+                Submit
+            </v-button>
+        </div>
         </app-modal>
 
         <!--? User Modal -->
@@ -218,7 +256,7 @@ import { useAdminStore, useRecipeStore, useTaskStore, refs } from "@/store"
 
 const { editUser, getAdmins, loadNewUsers, getRoles } = useAdminStore()
 const { newUsers, roles, admins } = refs(useAdminStore())
-const { getTasks, createTask } = useTaskStore()
+const { getTasks, createTask, updateTask, deleteTask, } = useTaskStore()
 // const { recipe } = refs(useRecipeStore())
 const { tasks, flags, lists } = refs(useTaskStore())
 
@@ -233,7 +271,13 @@ const userEditFlag = ref(false)
 const taskModal = ref(null)
 const userModal = ref(null)
 const user = reactive({})
-const task = reactive({})
+const taskData = reactive({})
+const createTaskModal = ref(null)
+const createData = reactive({
+    flag: 'Low',
+    user: "62f90f56a3a0c9fe75e9f77b",
+    status: lists.value[0].name
+})
 
 const isDark = ref(window.matchMedia("(prefers-color-scheme: dark)").matches)
 
@@ -260,6 +304,18 @@ const closeUserModal = () => {
     userModal.value.closeModal()
 }
 const editUserModal = () => (userEditFlag.value = true)
-const openTaskModal = () => taskModal.value.openModal()
+
+const openCreateTaskModal = () => createTaskModal.value.openModal()
+const closeCreateTaskModal = () => {
+    Object.assign(createData, {title: '', description: '', flag: 'Low', user: '62f90f56a3a0c9fe75e9f77b'})
+    createTaskModal.value.closeModal()
+}
+
+const openTaskModal = (id) => {
+    const task = tasks.value.find((e) => e._id == id)
+    Object.assign(taskData, task)
+    taskModal.value.openModal()
+}
 const closeTaskModal = () => taskModal.value.closeModal()
+
 </script>

@@ -7,10 +7,10 @@
                 <img class="w-8 h-8 rounded-full object-cover" :src="picture" lt="ProfilePic" />
             </div>
             <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">{{ name }}</p>
-                <p class="text-sm text-gray-500 truncate dark:text-gray-400">{{ aditional }}</p>
+                <p class="text-sm font-medium text-gray-900 truncate">{{ name }}</p>
+                <p class="text-sm text-gray-500 truncate">{{ aditional }}</p>
             </div>
-            <div v-if="flag" class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+            <div v-if="flag" class="inline-flex items-center text-base font-semibold text-gray-900">
                 {{ flag }}
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">{{ aditional }}</p>
             </div>
             <div class="flex-1 min-w-0 col-span-2">
-                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">{{ name }}</p>
+                <p class="text-sm font-medium text-gray-900 truncate">{{ name }}</p>
             </div>
         </div>
     </li>

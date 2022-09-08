@@ -24,6 +24,7 @@ export const useTaskStore = defineStore("taskStore", {
             await errorHandler(
                 async function () {
                     const res = await $http.post(process.env.VUE_APP_CREATE_TASK, payload)
+                    console.log(res)
                     this.tasks = [...this.tasks, res]
                 }.bind(this),
                 "Task created successfully"
