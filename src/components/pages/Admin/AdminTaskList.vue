@@ -1,6 +1,6 @@
 <template>
     <div class="min-w-[30rem] p-4">
-        <h1 class="text-gray-900 font-semibold text-base py-4">{{ list }}</h1>
+        <h1 class="text-gray-900 font-semibold text-base py-4 dark:text-gray-300">{{ list }}</h1>
         <div
             class="min-h-[11.5rem] mb-4"
             :class="data.length == 0 && 'outline-2 outline-dashed outline-gray-300 rounded-lg mb-4'"
