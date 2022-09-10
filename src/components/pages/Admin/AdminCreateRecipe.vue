@@ -149,20 +149,16 @@ import { ref, watch, computed, onMounted } from "vue"
 import useImageMinify from "@/composables/useImageMinify.js"
 import { useRecipeStore } from "@/store"
 import validator, { createValidator } from "@/helpers/validate.herlper"
+import { createRefs } from "@/helpers"
 const { compressImage, result } = useImageMinify()
 const recipeStore = useRecipeStore()
 
-const title = createValidator(),
-    description = ref(""),
-    ingredients = ref([]),
-    image = ref(null),
-    steps = ref([]),
-    lang = ref("ro"),
-    time = ref(null),
-    hot = ref(false),
-    ingredient = ref(null),
-    step = ref(null),
-    file = ref(null)
+const [description, lang] = createRefs(["", "ro"])
+const hot = ref(false)
+const [steps, ingredient, ingredients] = createRefs([], 3)
+const [image, time, step, file] = createRefs(null, 4)
+
+const title = createValidator()
 
 const addIngredient = (ing) => {
     ing.length > 0 && ingredients.value.push(ing), (ingredient.value = "")

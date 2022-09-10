@@ -1,9 +1,11 @@
 //  * ==============================================================================
 //  *
-//  * This file is used to create a helper for axios requests
+//  * This file is used to create  helpers
 //  *
 //  * ==============================================================================
 
+import { notify } from "@kyvg/vue3-notification"
+import { ref, reactive } from "vue"
 /**
  * @description Creating a new axios instance for each request
  * @param {string} token
@@ -115,4 +117,101 @@ export const $http = {
         const { data } = await fetchData(helper)
         return data
     },
+}
+
+// ================================== Notify ================================== //
+
+/**
+ *
+ * @param {String} type - Type of notification
+ * @returns {Boolean} - Returns true if type is valid
+ */
+
+const typeValidation = (type) => !["success", "error", "warning", "info"].includes(type)
+
+/**
+ *
+ * @param {String} msg - Message to be displayed
+ * @param {String} type - Type of notification
+ * @returns {Object} - Returns notification object
+ */
+
+export const Notify = async (msg, type) => {
+    const { message } = await msg
+    try {
+        if (!typeValidation) throw new Error("Notify type is not valid")
+        notify({ text: message, type: type })
+    } catch (error) {
+        console.error("Error", error)
+    }
+}
+
+/**
+ *
+ * @param {String} message - Message to be displayed
+ * @returns {Promise} - Returns notification object
+ */
+
+const getMessage = (message) =>
+    new Promise((resolve, reject) =>
+        message ? resolve({ message }) : reject({ message: `Error : ${message} cant be displayed` })
+    )
+
+// ================================== Error Handlers ================================== //
+
+/**
+ *
+ * @param {Function} fn - Function to be executed
+ * @param {String} success - Success message
+ * @param {String} error - Error message
+ * @returns {Function} - Returns function
+ */
+export const errorHandler = async (fn, success) => {
+    try {
+        await fn(), Notify(getMessage(success), "success")
+    } catch (error) {
+        const { message } = await error.json()
+        Notify(getMessage(message), "error")
+    }
+}
+
+//= ================================ Reactive ================================= //
+
+/**
+ *
+ * @param {Any} atribute - Atribute to be reactive
+ * @param {Number} count - total count of created reactive variables
+ * @returns
+ */
+
+const createRef = (atribute, count) => {
+    const refs = []
+    for (let i = 0; i < count; i++) {
+        if (typeof atribute === "object" && atribute !== null && !Array.isArray(atribute)) {
+            console.log("object")
+            refs.push(reactive(atribute))
+        } else refs.push(ref(atribute))
+    }
+    return refs
+}
+
+export function createRefs(atribute, count) {
+    const refs = []
+    const isArray = Array.isArray(atribute)
+    switch (true) {
+        case isArray:
+            if (atribute.length) {
+                atribute.forEach((item) => {
+                    if (typeof item === "object" && item !== null) refs.push(reactive(item))
+                    else refs.push(ref(item))
+                })
+            } else {
+                refs.push(...createRef(atribute, count))
+            }
+
+            break
+        default:
+            refs.push(...createRef(atribute, count))
+    }
+    return refs
 }

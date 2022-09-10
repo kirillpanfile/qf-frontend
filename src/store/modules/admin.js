@@ -1,7 +1,6 @@
+import { errorHandler, $http } from "@/helpers"
 import { defineStore } from "pinia"
-import { $http } from "@/helpers/http"
 import router from "@/router"
-import { errorHandler } from "../util"
 
 export const useAdminStore = defineStore("adminStore", {
     state: () => ({

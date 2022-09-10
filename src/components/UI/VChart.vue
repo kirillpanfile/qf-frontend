@@ -6,7 +6,7 @@
 
 <script setup>
 import Chart from "chart.js/auto"
-import { onMounted, ref } from "vue"
+import { onMounted } from "vue"
 
 const props = defineProps({
     data: {

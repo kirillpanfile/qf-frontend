@@ -1,20 +1,13 @@
 <template>
-    <section
-        class="w-full flex md:flex-row flex-col h-screen items-center"
-        v-if="remember">
+    <section class="w-full flex md:flex-row flex-col h-screen items-center" v-if="remember">
         <div class="bg-lime hidden lg:block md:w-1/4 h-screen">
-            <img
-                src="../../assets/pattern.png"
-                alt=""
-                class="w-full h-full object-cover" />
+            <img src="../../assets/pattern.png" alt="" class="w-full h-full object-cover" />
         </div>
         <div
             v-if="!loading"
             class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
             <div class="w-full h-100">
-                <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">
-                    Log in to your account
-                </h1>
+                <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">Log in to your account</h1>
 
                 <form class="mt-6" action="#" method="POST" @submit.prevent="login">
                     <div>
@@ -66,20 +59,16 @@ import { useAdminStore } from "@/store"
 import { useLoader } from "@/composables/useLoader.js"
 import { AppLoader } from "@/components"
 
-const loader = useLoader(),
-    user = reactive({ username: "", password: "", remember: false }),
-    { authAdmin, authRemeber } = useAdminStore(),
-    { push } = useRouter(),
-    { loading, setLoader } = loader,
-    remember = ref(false)
+const loader = useLoader()
+const user = reactive({ username: "", password: "", remember: false })
+const { authAdmin, authRemeber } = useAdminStore()
+const { push } = useRouter()
+const { loading, setLoader } = loader
+const remember = ref(false)
 
 onMounted(() => {
     ;(remember.value = false), authRemeber().finally(() => (remember.value = true))
 })
-
-/**
- * Login the admin
- */
 
 const login = () => {
     setLoader(true),

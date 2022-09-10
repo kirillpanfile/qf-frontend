@@ -9,7 +9,8 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue"
+import { computed } from "vue"
+import { createRefs } from "@/helpers"
 
 const props = defineProps({
     type: {
@@ -57,9 +58,7 @@ const props = defineProps({
     },
 })
 
-const bgColor = ref("")
-const color = ref("")
-const size = ref("")
+const [bgColor, color, size] = createRefs("", 3)
 
 const getColor = computed(() => {
     switch (props.color) {

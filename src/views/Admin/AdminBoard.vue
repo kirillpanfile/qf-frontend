@@ -102,9 +102,10 @@
 </template>
 
 <script setup>
-import { computed, ref, reactive, onMounted } from "vue"
+import { computed, onMounted } from "vue"
 import { AdminTask, AdminTaskList, AppModal, AppInput, AppTextarea, AppSelect, VButton } from "@/components"
 import { useTaskStore, useAdminStore, refs } from "@/store"
+import { createRefs } from "@/helpers"
 
 const { updateTask, deleteTask, getTasks, createTask } = useTaskStore()
 const { tasks, flags, lists } = refs(useTaskStore())
@@ -112,29 +113,22 @@ const { tasks, flags, lists } = refs(useTaskStore())
 const { getAdmins } = useAdminStore()
 const { admins } = refs(useAdminStore())
 
-const taskModal = ref(null)
-const taskData = reactive({})
-const createModal = ref(null)
+const [taskModal, createModal] = createRefs(null, 2)
+const [createData, taskData] = createRefs({}, 2)
 
-const getAdmin = computed(() => {
-    return admins?.value[0]?._id
-})
+const getAdmin = computed(() => admins?.value[0]?._id)
 
-const createData = reactive({
-    flag: "Low",
-    user: getAdmin,
-    status: lists.value[0].name,
-})
-
-const openCreateTaskModal = () => createModal.value.openModal()
-const closeCreateTaskModal = () => {
-    Object.assign(createData, { title: "", description: "", flag: "Low", user: getAdmin })
-    createModal.value.closeModal()
+const openCreateTaskModal = () => {
+    createModal.value.openModal()
+    Object.assign(createData, { flag: "Low", status: lists.value[0].name, user: getAdmin.value })
 }
+const closeCreateTaskModal = () => createModal.value.closeModal()
 
 const openTaskModal = (id) => {
-    const task = tasks.value.find((e) => e._id == id)
-    Object.assign(taskData, task)
+    Object.assign(
+        taskData,
+        tasks.value.find((e) => e._id == id)
+    )
     taskModal.value.openModal()
 }
 
