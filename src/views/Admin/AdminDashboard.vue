@@ -115,7 +115,7 @@
                 <template #body>
                     <sequential-entrance class="divide-y dark:divide-slate-600 mt-4">
                         <v-list-item
-                            v-for="(item, index) in tasks"
+                            v-for="(item, index) in taskToDo"
                             v-wave
                             :key="item._id"
                             :picture="item.user.picture"
@@ -251,7 +251,7 @@ import { createRefs } from "@/helpers"
 const { editUser, getAdmins, loadNewUsers, getRoles } = useAdminStore()
 const { newUsers, roles, admins } = refs(useAdminStore())
 const { getTasks, createTask, updateTask, deleteTask } = useTaskStore()
-const { tasks, flags, lists } = refs(useTaskStore())
+const { tasks, flags, lists, taskToDo } = refs(useTaskStore())
 
 const isDark = ref(window.matchMedia("(prefers-color-scheme: dark)").matches)
 const [taskModal, userModal, createTaskModal, userEditFlag] = createRefs([null, null, null, false])

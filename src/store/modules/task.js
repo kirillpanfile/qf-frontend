@@ -18,6 +18,16 @@ export const useTaskStore = defineStore("taskStore", {
         ],
     }),
 
+    getters: {
+        taskToDo(state){
+            return state.tasks.filter((task) => (task.status == 'To Do' || task.status == 'In Progress')).sort((a) => a.status == 'To Do' ? -1 : 1)
+        },
+
+        tasksByFlag(state){
+            return state.tasks.sort((a) => a.flag == 'Low' && -1).sort((a) => a.flag =='Normal' && -1).sort((a) => a.flag == 'High' && -1).sort((a) => a.flag == 'Urgent' && -1)
+        }
+    },
+
     actions: {
         async createTask(payload) {
             await errorHandler(
