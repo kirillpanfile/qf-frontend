@@ -86,7 +86,7 @@ function changePref() {
 onMounted(() => (darkMode.value = JSON.parse(getCookie("darkMode"))))
 
 watch(darkMode, (newVal) => {
-    if (newVal) document.documentElement.setAttribute("class", "light")
+    if (!newVal) document.documentElement.setAttribute("class", "light")
     else document.documentElement.setAttribute("class", "dark")
 })
 const role = computed(() => (user.value?.roles?.includes("ROLE_SUPER_ADMIN") ? "Admin" : "Moderator"))
