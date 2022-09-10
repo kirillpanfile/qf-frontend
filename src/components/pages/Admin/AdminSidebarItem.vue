@@ -20,7 +20,7 @@
             class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 dark:hover:bg-slate-600 group w-full">
             <i
                 :class="icon"
-                class="w-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-white transition duration-75"></i>
+                class="w-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-400 transition duration-75"></i>
             <span class="ml-3 text-md dark:text-gray-400">{{ text }}</span>
         </a>
     </li>
@@ -31,7 +31,7 @@
                 class="text-base text-gray-600 font-bold rounded-lg flex items-center p-2 hover:bg-gray-100 dark:hover:bg-slate-600 group w-full"
                 :to="item.path"
                 @click.prevent="$emit('press')">
-                <i :class="item.icon" class="w-6 text-gray-500 group-hover:text-gray-600 transition duration-75"></i>
+                <i :class="item.icon" class="w-6 text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-500 transition duration-75"></i>
                 <span class="ml-3 text-md dark:text-gray-400">{{ item.text }}</span>
             </router-link>
         </li>
