@@ -1,7 +1,7 @@
 <template>
     <main class="pt-6 px-4">
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <admin-block title="12" description="New users this week" size="2xl:col-span-2" h="full">
+            <admin-block title="12" description="New users this week" size="2xl:col-span-2" h="mobile">
                 <template #aditional>
                     <div class="flex items-center justify-end flex-1 text-lime text-base font-bold">
                         <i class="fa fa-arrow-up pr-2"></i>

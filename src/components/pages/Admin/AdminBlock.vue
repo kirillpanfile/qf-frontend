@@ -20,7 +20,8 @@
             class="overflow-y-scroll no-scrollbar overflow-x-hidden"
             :class="{
                 ' max-h-[440px] h-full': h === 'full',
-                ' max-h-96': h === 'standart',
+                ' max-h-64': h === 'standart',
+                ' max-h-[240px] h-full sm:max-h-[240px] md:max-h-[300px] lg:max-h-[440px] 2xl:max-h-[500px]' : h === 'mobile'
             }">
             <!-- Admin card header -->
             <slot name="header" class="mt-4"></slot>
@@ -46,7 +47,7 @@ const props = defineProps({
     h: {
         type: String,
         default: "standart",
-        validator: (value) => ["standart", "full"].includes(value),
+        validator: (value) => ["standart", "full", "mobile"].includes(value),
     },
 })
 </script>
