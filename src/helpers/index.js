@@ -154,7 +154,8 @@ export const Notify = async (msg, type) => {
 
 const getMessage = (message) =>
     new Promise((resolve, reject) =>
-        message ? resolve({ message }) : reject({ message: `Error : ${message} cant be displayed` })
+        message && resolve({ message })
+        // message ? resolve({ message }) : reject({ message: `Error : ${message} cant be displayed` })
     )
 
 // ================================== Error Handlers ================================== //

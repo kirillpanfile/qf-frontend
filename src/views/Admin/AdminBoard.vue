@@ -108,7 +108,7 @@ import { useTaskStore, useAdminStore, refs } from "@/store"
 import { createRefs } from "@/helpers"
 
 const { updateTask, deleteTask, getTasks, createTask } = useTaskStore()
-const { tasks, flags, lists } = refs(useTaskStore())
+const { tasks, flags, lists, tasksByFlag } = refs(useTaskStore())
 
 const { getAdmins } = useAdminStore()
 const { admins } = refs(useAdminStore())
@@ -140,10 +140,10 @@ const startDrag = (event, item) => {
 
 const closeTaskModal = () => taskModal.value.closeModal()
 
-const getList = computed(() => (list) => tasks.value.filter((item) => item.status === list))
+const getList = computed(() => (list) => tasksByFlag.value.filter((item) => item.status === list))
 
 onMounted(() => {
     if (admins.value == null) getAdmins()
-    if (tasks.value.length == 0) getTasks()
+    getTasks()
 })
 </script>

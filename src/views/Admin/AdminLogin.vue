@@ -1,51 +1,57 @@
 <template>
-    <section class="w-full flex md:flex-row flex-col h-screen items-center" v-if="remember">
-        <div class="bg-lime hidden lg:block md:w-1/4 h-screen">
-            <img src="../../assets/pattern.png" alt="" class="w-full h-full object-cover" />
-        </div>
-        <div
-            v-if="!loading"
-            class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
-            <div class="w-full h-100">
-                <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">Log in to your account</h1>
-
-                <form class="mt-6" action="#" method="POST" @submit.prevent="login">
+    <section class="w-full flex lg:flex-row flex-col h-screen items-center" v-if="remember">
+        <div class="lg:w-3/5 h-screen flex items-center justify-center" v-if="!loading">
+            <div class="p-16 w-full h-screen flex flex-col justify-center">
+                <a
+                    class="text-2xl mb-4 font-extrabold text-transparent bg-clip-text bg-gradient-to-tr hidden md:flex gap-2 text-[#2c9228] dark:text-gray-300">
+                    <img src="@/assets/Logo.svg" class="w-8" alt="" />
+                    QuickFood
+                </a>
+                <h1 class="text-3xl font-black mb-6 dark:text-gray-300">Log in.</h1>
+                <p class="text-gray-400">
+                    Welocem back dear admin, hope you have <br />
+                    a good time cooking your food !
+                </p>
+                <form class="mt-8" action="#" method="POST" @submit.prevent="login">
                     <div>
-                        <label class="block text-gray-700">Username</label>
+                        <label class="block text-gray-700 dark:text-gray-300">Enter your username</label>
                         <input
                             type="text"
                             v-model="user.username"
-                            placeholder="Username"
-                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-lime focus:bg-white focus:outline-none" />
+                            placeholder="john.doe@gmail.com"
+                            class="w-full px-4 py-2 rounded-lg mt-2 border focus:border-lime focus:bg-white focus:outline-none" />
                     </div>
 
-                    <div class="mt-4">
-                        <label class="block text-gray-700">Password</label>
+                    <div class="mt-6">
+                        <label class="block text-gray-700 dark:text-gray-300">Enter your password</label>
                         <input
                             type="password"
-                            placeholder="Enter Password"
+                            placeholder="***************"
                             v-model="user.password"
-                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-lime focus:bg-white focus:outline-none" />
+                            class="w-full px-4 py-2 rounded-lg mt-2 border focus:border-lime focus:bg-white focus:outline-none" />
                     </div>
 
-                    <div class="mt-4">
-                        <input
-                            type="checkbox"
-                            name="remeber"
-                            v-model="user.remember"
-                            class="mr-2"
-                            placeholder="remember" />
-                        <label class="text-gray-700" for="remember">Remember</label>
-                    </div>
                     <button
                         type="submit"
-                        class="w-full block bg-lime hover:bg-green-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">
+                        class="w-full block bg-lime hover:bg-green-400 text-white font-semibold rounded-lg px-4 py-2 mt-8">
                         Log In
                     </button>
+
+                    <a class="text-lime block font-semibold mt-6"> Forgot password ?</a>
                 </form>
             </div>
         </div>
-        <app-loader v-else></app-loader>
+        <div v-else class="lg:w-3/5 h-screen flex items-center justify-center">
+            <app-loader></app-loader>
+        </div>
+
+        <div class="w-full h-full hidden lg:flex items-center justify-center p-12 bg-gray-50">
+            <div class="text-center">
+                <h3 class="text-lg text-gray-500">Nice to see you again</h3>
+                <h1 class="text-[48px] tracking-widest font-black text-lime">Welcome Back</h1>
+                <img class="max-h-[460px]" src="../../assets/Friends-have-barbecue-party.svg" alt="" />
+            </div>
+        </div>
     </section>
     <div v-else class="h-[100vh] flex items-center">
         <app-loader></app-loader>
@@ -71,6 +77,26 @@ onMounted(() => {
 })
 
 const login = () => {
+    const priority = ["Urgent", "High", "Normal", "Low"]
+
+    const arr = [
+        {
+            flag: "Normal",
+        },
+        {
+            flag: "Urgent",
+        },
+        {
+            flag: "Low",
+        },
+    ]
+
+    const sorted = arr.sort((a, b) => {
+        return priority.indexOf(a.flag) - priority.indexOf(b.flag)
+    })
+
+    console.log(sorted)
+
     setLoader(true),
         authAdmin(user)
             .then(() => {

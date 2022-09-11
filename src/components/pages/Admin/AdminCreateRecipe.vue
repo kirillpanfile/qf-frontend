@@ -157,7 +157,6 @@ const [description, lang] = createRefs(["", "ro"])
 const hot = ref(false)
 const [steps, ingredient, ingredients] = createRefs([], 3)
 const [image, time, step, file] = createRefs(null, 4)
-
 const title = createValidator()
 
 const addIngredient = (ing) => {
