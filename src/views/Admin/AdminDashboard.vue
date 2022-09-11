@@ -130,7 +130,6 @@
                 </template>
             </admin-block>
         </div>
-
         <a
             href="https://github.com/kirillpanfile/qf-frontend"
             target="_blank"
