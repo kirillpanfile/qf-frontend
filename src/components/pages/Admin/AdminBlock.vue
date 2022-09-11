@@ -21,7 +21,8 @@
             :class="{
                 ' max-h-[440px] h-full': h === 'full',
                 ' max-h-64': h === 'standart',
-                ' max-h-[240px] h-full sm:max-h-[240px] md:max-h-[300px] lg:max-h-[440px] 2xl:max-h-[500px]' : h === 'mobile'
+                ' max-h-[240px] h-full sm:max-h-[240px] md:max-h-[300px] lg:max-h-[440px] 2xl:max-h-[500px]':
+                    h === 'mobile',
             }">
             <!-- Admin card header -->
             <slot name="header" class="mt-4"></slot>

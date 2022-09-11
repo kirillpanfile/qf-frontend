@@ -1,33 +1,60 @@
 <template>
-    <h1 class="my-6 text-2xl font-semibold text-gray-700">Users</h1>
-
-    <header class="w-full md:flex block justify-between pb-8">
-        <div>Users Selected : {{ selectedUsers.length }}</div>
-        <div class="flex gap-6 md:pt-0 pt-6">
-            <button class="bg-green-300 p-2" v-wave>Ban</button>
-
-            <input
-                class="appearance-none bg-transparent border-b border-lime w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                type="search"
-                placeholder="Jane Doe"
-                v-model="search" />
-            <button class="bg-green-300 p-2" v-wave @click="searchUser(search)">Search</button>
-            <button class="bg-green-300 p-2" v-wave @click="deleteMultiple">Delete</button>
+    <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
+        <div class="mb-1 w-full">
+            <div class="mb-4">
+                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All users</h1>
+            </div>
+            <div class="sm:flex">
+                <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                    <form class="lg:pr-3" action="#" method="GET">
+                        <label for="users-search" class="sr-only">Search</label>
+                        <div class="mt-1 relative lg:w-64 xl:w-96">
+                            <input
+                                type="text"
+                                name="email"
+                                id="users-search"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="Search for users" />
+                        </div>
+                    </form>
+                    <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
+                        <v-button type="button" size="xs" bgColor="no-color"
+                            ><i class="fa-solid fa-trash-can text-lg"></i
+                        ></v-button>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
+                    <v-button type="button" size="sm" bgColor="alternative">
+                        <i class="fa-solid fa-plus mr-2"></i>Add User
+                    </v-button>
+                </div>
+            </div>
         </div>
-    </header>
-    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+    </div>
+
+    <div class="w-full overflow-hidden shadow-xs bg-white">
         <div class="w-full overflow-x-auto">
             <div class="w-full whitespace-nowrap">
-                <div
-                    class="text-xs font-semibold flex justify-between tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50 mb-2">
-                    <div class="pb-4 md:block hidden">Pic</div>
-                    <div class="pb-4">User</div>
-                    <div class="pb-4">Role</div>
-                    <div class="pb-4 lg:block hidden">Email</div>
-                    <div class="pb-4">Action</div>
-                </div>
-                <div class="bg-white divide-y">
-                    <sequential-entrance class="divide-y mt-4 overflow-x-hidden" delay="50">
+                <ul class="bg-white divide-y w-full">
+                    <li class="bg-gray-100">
+                        <div class="hover:bg-gray-100">
+                            <div class="py-4 grid grid-cols-12 gap-2">
+                                <div class="px-4 flex col-span-7 lg:col-span-4 xl:col-span-3">
+                                    <h1 class="text-base font-bold">User</h1>
+                                </div>
+                                <div class="px-4 hidden lg:block lg:col-span-4 xl:col-span-3">
+                                    <h1 class="text-base font-bold">User Id</h1>
+                                </div>
+                                <div class="col-span-3 hidden xl:block px-4">
+                                    <h1 class="text-base font-bold">User Roles</h1>
+                                </div>
+                                <div class="col-span-5 md:col-span-3 lg:col-span-4 xl:col-span-3 px-4 flex gap-4">
+                                    <h1 class="text-base font-bold">Actions</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <sequential-entrance class="divide-y" delay="50">
                         <v-list-item
                             v-for="(item, index) in users"
                             v-wave
@@ -35,12 +62,14 @@
                             v-memo="users"
                             :picture="item.picture"
                             :name="item.username"
-                            :aditional="item.email"
-                            type="user"
+                            :email="item.email"
+                            :id="item._id"
+                            :roles="item.roles"
+                            type="usersLarge"
                             @select="selectUser">
                         </v-list-item>
                     </sequential-entrance>
-                </div>
+                </ul>
             </div>
         </div>
     </div>
@@ -90,7 +119,7 @@
 </template>
 
 <script setup>
-import { VListItem } from "@/components"
+import { VListItem, VButton } from "@/components"
 import { onMounted, computed, ref, watch } from "vue"
 import { useAdminStore, refs } from "@/store"
 

@@ -4,11 +4,12 @@ import { $http, errorHandler } from "@/helpers"
 export const useTaskStore = defineStore("taskStore", {
     state: () => ({
         tasks: [],
+        priority: [],
         flags: [
-            { name: "Low", _id: "Low" },
-            { name: "Normal", _id: "Normal" },
-            { name: "High", _id: "High" },
             { name: "Urgent", _id: "Urgent" },
+            { name: "High", _id: "High" },
+            { name: "Normal", _id: "Normal" },
+            { name: "Low", _id: "Low" },
         ],
         lists: [
             { name: "To Do", _id: "To Do" },
@@ -19,13 +20,18 @@ export const useTaskStore = defineStore("taskStore", {
     }),
 
     getters: {
-        taskToDo(state){
-            return state.tasks.filter((task) => (task.status == 'To Do' || task.status == 'In Progress')).sort((a) => a.status == 'To Do' ? -1 : 1)
+        taskToDo(state) {
+            return state.tasks
+                .filter((task) => task.status == "To Do" || task.status == "In Progress")
+                .sort((a) => (a.status == "To Do" ? -1 : 1))
         },
 
-        tasksByFlag(state){
-            return state.tasks.sort((a) => a.flag == 'Low' && -1).sort((a) => a.flag =='Normal' && -1).sort((a) => a.flag == 'High' && -1).sort((a) => a.flag == 'Urgent' && -1)
-        }
+        tasksByFlag(state) {
+            const priority = state.flags.map((flag) => flag.name)
+            return state.tasks.sort((a, b) => {
+                return priority.indexOf(a.flag) - priority.indexOf(b.flag)
+            })
+        },
     },
 
     actions: {
