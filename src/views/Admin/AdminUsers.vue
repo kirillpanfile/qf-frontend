@@ -1,11 +1,11 @@
 <template>
-    <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
+    <div class="p-4 bg-white dark:bg-gray-900  block sm:flex items-center justify-between border-b dark:border-slate-600 border-gray-200">
         <div class="mb-1 w-full">
             <div class="mb-4">
-                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All users</h1>
+                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-300">All users</h1>
             </div>
             <div class="sm:flex">
-                <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 dark:sm:divide-gray-600 mb-3 sm:mb-0">
                     <form class="lg:pr-3" action="#" method="GET">
                         <label for="users-search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
@@ -13,13 +13,13 @@
                                 type="text"
                                 name="email"
                                 id="users-search"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                class="bg-gray-50 dark:bg-slate-700 border dark:text-gray-200 border-gray-300 dark:border-slate-600 text-gray-900 outline-none sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                 placeholder="Search for users" />
                         </div>
                     </form>
                     <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
                         <v-button type="button" size="xs" bgColor="no-color"
-                            ><i class="fa-solid fa-trash-can text-lg"></i
+                            ><i class="fa-solid fa-trash-can text-lg dark:text-gray-400"></i
                         ></v-button>
                     </div>
                 </div>
@@ -32,29 +32,29 @@
         </div>
     </div>
 
-    <div class="w-full overflow-hidden shadow-xs bg-white">
+    <div class="w-full overflow-hidden shadow-xs dark:bg-slate-900 bg-white">
         <div class="w-full overflow-x-auto">
             <div class="w-full whitespace-nowrap">
-                <ul class="bg-white divide-y w-full">
-                    <li class="bg-gray-100">
-                        <div class="hover:bg-gray-100">
+                <ul class="bg-white text-gray-200 dark:bg-gray-900 divide-y w-full">
+                    <li class="bg-gray-100 dark:bg-gray-800">
+                        <div class="hover:bg-gray-100 dark:hover:bg-gray-700"> <!--? Nahuia aisi hover -->
                             <div class="py-4 grid grid-cols-12 gap-2">
                                 <div class="px-4 flex col-span-7 lg:col-span-4 xl:col-span-3">
-                                    <h1 class="text-base font-bold">User</h1>
+                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User</h1>
                                 </div>
                                 <div class="px-4 hidden lg:block lg:col-span-4 xl:col-span-3">
-                                    <h1 class="text-base font-bold">User Id</h1>
+                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Id</h1>
                                 </div>
                                 <div class="col-span-3 hidden xl:block px-4">
-                                    <h1 class="text-base font-bold">User Roles</h1>
+                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Roles</h1>
                                 </div>
                                 <div class="col-span-5 md:col-span-3 lg:col-span-4 xl:col-span-3 px-4 flex gap-4">
-                                    <h1 class="text-base font-bold">Actions</h1>
+                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">Actions</h1>
                                 </div>
                             </div>
                         </div>
                     </li>
-                    <sequential-entrance class="divide-y" delay="50">
+                    <sequential-entrance class="divide-y dark:border-slate-600" delay="50">
                         <v-list-item
                             v-for="(item, index) in users"
                             v-wave
@@ -64,7 +64,7 @@
                             :name="item.username"
                             :email="item.email"
                             :id="item._id"
-                            :roles="item.roles"
+                            :userRoles="item.roles"
                             type="usersLarge"
                             @select="selectUser">
                         </v-list-item>
@@ -74,7 +74,7 @@
         </div>
     </div>
     <div
-        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 dark:text-gray-400 uppercase border-t dark:border-slate-600 bg-gray-50 dark:bg-gray-800 sm:grid-cols-9">
         <span class="flex items-center col-span-3"> Showing page {{ currentPage }} of {{ pages }} </span>
         <span class="col-span-2"></span>
         <!-- Pagination -->
@@ -127,7 +127,9 @@ const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMu
 const { users, pages, currentPage, selectedUsers } = refs(useAdminStore())
 const search = ref("")
 
-onMounted(() => loadUsers())
+onMounted(() => {
+    users.value.length == 0 && loadUsers()
+})
 /**
  * @description Create an array of pages to show in the pagination
  * @param {number} from  - start index

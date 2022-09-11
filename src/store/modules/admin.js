@@ -9,7 +9,7 @@ export const useAdminStore = defineStore("adminStore", {
         newUsers: [],
         pages: null,
         currentPage: 1,
-        roles: null,
+        roles: [],
         admins: null,
     }),
     getters: {
@@ -41,7 +41,7 @@ export const useAdminStore = defineStore("adminStore", {
         async loadUsers() {
             await errorHandler(
                 async function () {
-                    this.users = await $http.get(process.env.VUE_APP_GET_ALL_USERS + "?page=" + this.currentPage)
+                    this.users = await $http.get(process.env.VUE_APP_GET_ALL_USERS + "?populate=roles&page=" + this.currentPage)
                 }.bind(this),
                 "Users successfully loaded"
             )
