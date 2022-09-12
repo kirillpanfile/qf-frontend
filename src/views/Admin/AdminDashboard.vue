@@ -259,9 +259,7 @@ const [user, taskData] = createRefs({}, 2)
 const getAdmin = computed(() => admins?.value[0]?._id)
 
 onMounted(() => {
-    getRoles()
     if (admins.value == null) getAdmins()
-    loadNewUsers()
     if (tasks.value.length == 0) getTasks()
 })
 

@@ -13,8 +13,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import { AdminHeader, AdminAside, AdminWrapper } from "@/components"
+import { useAdminStore } from '@/store'
+
+const { getRoles, loadNewUsers } = useAdminStore() 
+
+onMounted(() => {
+    getRoles()
+    loadNewUsers()
+})
 
 const sidemenu = ref(null)
 const openAside = () => sidemenu.value.toggleAside()

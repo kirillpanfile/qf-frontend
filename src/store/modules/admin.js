@@ -62,9 +62,9 @@ export const useAdminStore = defineStore("adminStore", {
         },
         selectUser(id) {
             this.users.forEach((user) => {
-                checkSelected(user, id, false)
-                    ? (user.selected = true)
-                    : checkSelected(user, id, true) && (user.selected = false)
+                if (user._id == id) {
+                    user.selected = !user.selected ? true : false
+                }
             })
         },
         async searchUser(user) {
@@ -145,7 +145,7 @@ export const useAdminStore = defineStore("adminStore", {
             this.currentPage > 1 && this.currentPage--, this.loadUsers()
         },
         setPage(e) {
-            ;(this.currentPage = e), this.loadUsers()
+            ; (this.currentPage = e), this.loadUsers()
         },
     },
 })
