@@ -58,7 +58,15 @@
 
 <script setup>
 import { VButton } from "@/components"
+import { computed, onMounted } from 'vue'
+import { useAdminStore, refs } from "@/store";
 
+const { getRoles } = useAdminStore()
+const { roles } = refs(useAdminStore())
+
+onMounted(() => {
+    getRoles()
+})
 
 const props = defineProps({
     picture: {
@@ -89,6 +97,12 @@ const props = defineProps({
     },
     flag: String,
 })
+
+
+
+const getUserRole =() => {
+    console.log(roles.value)
+}
 
 </script>
 
