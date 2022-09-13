@@ -26,7 +26,7 @@
                 v-if="taskType === 'view'"
                 bgColor="red"
                 size="base"
-                @btnClick="deleteTask(task._id)">
+                @btnClick="deleteTask(taskData._id), closeModal()">
                 Delete
             </v-button>
         </div>
@@ -48,6 +48,10 @@ const [taskType, taskModal, taskData] = createRefs([null, null, {}])
 const title = computed(() => {
     return taskType.value && taskType.value.charAt(0).toUpperCase() + taskType.value.slice(1) + " Task"
 })
+
+const closeModal = () => {
+    taskModal.value.closeModal()
+}
 
 const submitModal = () => {
     taskModal.value.closeModal()

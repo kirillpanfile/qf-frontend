@@ -147,7 +147,6 @@
 import { VButton, AdminBlock, VListItem, VChart } from "@/components"
 import { ref, onMounted, inject } from "vue"
 import { useAdminStore, useTaskStore, refs } from "@/store"
-import { createRefs } from "@/helpers"
 
 const openTask = inject("openTaskModal")
 const openTaskCreate = () => openTask("create", {})
@@ -157,9 +156,7 @@ const openUserModal = inject("openUserModal")
 const openUserView = (item) => openUserModal("view", item)
 
 onMounted(() => {
-    getRoles()
     if (admins.value == null) getAdmins()
-    loadNewUsers()
     if (tasks.value.length == 0) getTasks()
 })
 
