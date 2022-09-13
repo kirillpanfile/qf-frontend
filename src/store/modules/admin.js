@@ -41,7 +41,9 @@ export const useAdminStore = defineStore("adminStore", {
         async loadUsers() {
             await errorHandler(
                 async function () {
-                    this.users = await $http.get(process.env.VUE_APP_GET_ALL_USERS + "?populate=roles&page=" + this.currentPage)
+                    this.users = await $http.get(
+                        process.env.VUE_APP_GET_ALL_USERS + "?populate=roles&page=" + this.currentPage
+                    )
                 }.bind(this),
                 "Users successfully loaded"
             )
@@ -107,17 +109,18 @@ export const useAdminStore = defineStore("adminStore", {
             ),
                 "Roles successfully loaded"
         },
-        async editUser({ username, email, roles, id }) {
+        async editUser({ username, email, roles, _id }) {
             await errorHandler(
                 async function () {
-                    const updatedUser = await $http.put(process.env.VUE_APP_UPDATE_USER + id, {
+                    const updatedUser = await $http.put(process.env.VUE_APP_UPDATE_USER + _id, {
                         username,
                         email,
                         roles,
                     })
-                    const userIndex = this.newUsers.findIndex((user) => user._id === id)
+                    const userIndex = this.newUsers.findIndex((user) => user._id === _id)
                     this.newUsers[userIndex] = updatedUser
-                }.bind(this)
+                }.bind(this),
+                "User successfully updated"
             )
         },
         async getAdmins() {

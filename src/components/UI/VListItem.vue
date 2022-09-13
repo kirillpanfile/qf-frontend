@@ -16,7 +16,9 @@
         </div>
     </li>
 
-    <li v-else-if="type === 'recipe'" class="py-3 sm:py-4 list-none cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-600 entranceFromRight">
+    <li
+        v-else-if="type === 'recipe'"
+        class="py-3 sm:py-4 list-none cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-600 entranceFromRight">
         <div class="items-center space-x-4 px-2 grid grid-cols-5">
             <div class="flex-1 min-w-0 col-span-3">
                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">{{ aditional }}</p>
@@ -34,7 +36,9 @@
                     <img class="h-10 w-10 rounded-full" :src="picture" alt="ProfilePic" />
                     <div class="text-sm font-normal text-gray-500 ml-4">
                         <div class="text-base font-semibold text-gray-900 dark:text-gray-200">{{ name }}</div>
-                        <div class="text-sm font-normal text-gray-500 dark:text-gray-400 text-ellipsis">{{ email }}</div>
+                        <div class="text-sm font-normal text-gray-500 dark:text-gray-400 text-ellipsis">
+                            {{ email }}
+                        </div>
                     </div>
                 </div>
                 <div class="px-4 hidden lg:block lg:col-span-4 xl:col-span-3 self-center">
@@ -58,15 +62,15 @@
 
 <script setup>
 import { VButton } from "@/components"
-import { computed, onMounted } from 'vue'
-import { useAdminStore, refs } from "@/store";
+import { computed, onMounted } from "vue"
+import { useAdminStore, refs } from "@/store"
 
 const { getRoles } = useAdminStore()
 const { roles } = refs(useAdminStore())
 
-onMounted(() => {
-    getRoles()
-})
+// onMounted(() => {
+//     getRoles()
+// })
 
 const props = defineProps({
     picture: {
@@ -98,12 +102,9 @@ const props = defineProps({
     flag: String,
 })
 
-
-
-const getUserRole =() => {
+const getUserRole = () => {
     console.log(roles.value)
 }
-
 </script>
 
 <style></style>

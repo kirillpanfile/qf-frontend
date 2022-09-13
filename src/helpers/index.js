@@ -100,8 +100,8 @@ export const $http = {
             body,
             options: options("PUT"),
         }
-        const { data } = await fetchData(helper)
-        return data
+        const res = await fetchData(helper)
+        return res
     },
 
     /**
@@ -153,8 +153,8 @@ export const Notify = async (msg, type) => {
  */
 
 const getMessage = (message) =>
-    new Promise((resolve, reject) =>
-        message && resolve({ message })
+    new Promise(
+        (resolve, reject) => message && resolve({ message })
         // message ? resolve({ message }) : reject({ message: `Error : ${message} cant be displayed` })
     )
 

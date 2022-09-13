@@ -4,19 +4,22 @@ import AppLoader from "./AppLoader.vue"
 import AppNavbar from "./AppNavbar"
 import AppModal from "./global/AppModal"
 
+export { AppLoader, AppNavbar, AppModal }
+
 // ======================== UI =========================
 
 import VButton from "./UI/VButton"
 import VListItem from "./UI/VListItem"
 import VChart from "./UI/VChart"
-import AppInput from "./UI/AppInput"
-import AppTextarea from "./UI/AppTextarea"
-import AppSelect from "./UI/AppSelect"
+import VInput from "./UI/VInput"
+import VSelect from "./UI/VSelect"
+import VTextarea from "./UI/VTextarea"
+
+export { VButton, VInput, VListItem, VTextarea, VChart, VSelect }
 
 // ====================== ADMIN ========================
 
 import AdminAside from "./pages/Admin/AdminAside"
-import AdminCard from "./pages/Admin/AdminCard"
 
 import AdminHeader from "./pages/Admin/AdminHeader"
 import AdminNotificationMenu from "./pages/Admin/AdminNotificationMenu"
@@ -28,26 +31,16 @@ import AdminTaskList from "./pages/Admin/AdminTaskList"
 import AdminWrapper from "./pages/Admin/AdminWrapper"
 import AdminBlock from "./pages/Admin/AdminBlock"
 
-// ====================== Export ========================
-
 export {
-    AppLoader,
-    AppNavbar,
     AdminAside,
-    AdminCard,
     AdminHeader,
     AdminNotificationMenu,
     AdminSidebarItem,
-    AdminBlock,
     adminCreateRecipe,
-    AppModal,
-    AppInput,
-    AppTextarea,
-    AppSelect,
     AdminTask,
     AdminTaskList,
     AdminWrapper,
-    VButton,
-    VListItem,
-    VChart,
+    AdminBlock,
 }
+
+// ====================== Export ========================
