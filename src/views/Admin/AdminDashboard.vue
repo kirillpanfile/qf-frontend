@@ -157,7 +157,9 @@ const openUserModal = inject("openUserModal")
 const openUserView = (item) => openUserModal("view", item)
 
 onMounted(() => {
+    getRoles()
     if (admins.value == null) getAdmins()
+    loadNewUsers()
     if (tasks.value.length == 0) getTasks()
 })
 

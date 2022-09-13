@@ -39,18 +39,21 @@
             <div class="w-full whitespace-nowrap">
                 <ul class="bg-white text-gray-200 dark:bg-gray-900 divide-y w-full">
                     <li class="bg-gray-100 dark:bg-gray-800">
-                        <div class="py-4 grid grid-cols-12 gap-2">
-                            <div class="px-4 flex col-span-7 lg:col-span-4 xl:col-span-3">
-                                <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User</h1>
-                            </div>
-                            <div class="px-4 hidden lg:block lg:col-span-4 xl:col-span-3">
-                                <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Id</h1>
-                            </div>
-                            <div class="col-span-3 hidden xl:block px-4">
-                                <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Roles</h1>
-                            </div>
-                            <div class="col-span-5 md:col-span-3 lg:col-span-4 xl:col-span-3 px-4 flex gap-4">
-                                <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">Actions</h1>
+                        <div class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <!--? Nahuia aisi hover -->
+                            <div class="py-4 grid grid-cols-12 gap-2">
+                                <div class="px-4 flex col-span-7 lg:col-span-4 xl:col-span-3">
+                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User</h1>
+                                </div>
+                                <div class="px-4 hidden lg:block lg:col-span-4 xl:col-span-3">
+                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Id</h1>
+                                </div>
+                                <div class="col-span-3 hidden xl:block px-4">
+                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Roles</h1>
+                                </div>
+                                <div class="col-span-5 md:col-span-3 lg:col-span-4 xl:col-span-3 px-4 flex gap-4">
+                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">Actions</h1>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -130,7 +133,6 @@ const search = ref("")
 onMounted(() => {
     users.value.length == 0 && loadUsers()
 })
-
 /**
  * @description Create an array of pages to show in the pagination
  * @param {number} from  - start index
