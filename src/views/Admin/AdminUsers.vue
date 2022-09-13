@@ -1,11 +1,13 @@
 <template>
-    <div class="p-4 bg-white dark:bg-gray-900  block sm:flex items-center justify-between border-b dark:border-slate-600 border-gray-200">
+    <div
+        class="p-4 bg-white dark:bg-gray-900 block sm:flex items-center justify-between border-b dark:border-slate-600 border-gray-200">
         <div class="mb-1 w-full">
             <div class="mb-4">
                 <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-300">All users</h1>
             </div>
             <div class="sm:flex">
-                <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 dark:sm:divide-gray-600 mb-3 sm:mb-0">
+                <div
+                    class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 dark:sm:divide-gray-600 mb-3 sm:mb-0">
                     <form class="lg:pr-3" action="#" method="GET">
                         <label for="users-search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
@@ -37,20 +39,18 @@
             <div class="w-full whitespace-nowrap">
                 <ul class="bg-white text-gray-200 dark:bg-gray-900 divide-y w-full">
                     <li class="bg-gray-100 dark:bg-gray-800">
-                        <div class="hover:bg-gray-100 dark:hover:bg-gray-700"> <!--? Nahuia aisi hover -->
-                            <div class="py-4 grid grid-cols-12 gap-2">
-                                <div class="px-4 flex col-span-7 lg:col-span-4 xl:col-span-3">
-                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User</h1>
-                                </div>
-                                <div class="px-4 hidden lg:block lg:col-span-4 xl:col-span-3">
-                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Id</h1>
-                                </div>
-                                <div class="col-span-3 hidden xl:block px-4">
-                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Roles</h1>
-                                </div>
-                                <div class="col-span-5 md:col-span-3 lg:col-span-4 xl:col-span-3 px-4 flex gap-4">
-                                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">Actions</h1>
-                                </div>
+                        <div class="py-4 grid grid-cols-12 gap-2">
+                            <div class="px-4 flex col-span-7 lg:col-span-4 xl:col-span-3">
+                                <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User</h1>
+                            </div>
+                            <div class="px-4 hidden lg:block lg:col-span-4 xl:col-span-3">
+                                <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Id</h1>
+                            </div>
+                            <div class="col-span-3 hidden xl:block px-4">
+                                <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">User Roles</h1>
+                            </div>
+                            <div class="col-span-5 md:col-span-3 lg:col-span-4 xl:col-span-3 px-4 flex gap-4">
+                                <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">Actions</h1>
                             </div>
                         </div>
                     </li>
@@ -66,7 +66,7 @@
                             :id="item._id"
                             :userRoles="item.roles"
                             type="usersLarge"
-                            @select="selectUser">
+                            @click="selectUser(item._id)">
                         </v-list-item>
                     </sequential-entrance>
                 </ul>
@@ -123,13 +123,14 @@ import { VListItem, VButton } from "@/components"
 import { onMounted, computed, ref, watch } from "vue"
 import { useAdminStore, refs } from "@/store"
 
-const { loadUsers, selectUser, nextPage, prevPage, setPage, searchUser, deleteMultiple } = useAdminStore()
-const { users, pages, currentPage, selectedUsers } = refs(useAdminStore())
+const { loadUsers, selectUser, nextPage, prevPage, setPage } = useAdminStore()
+const { users, pages, currentPage } = refs(useAdminStore())
 const search = ref("")
 
 onMounted(() => {
     users.value.length == 0 && loadUsers()
 })
+
 /**
  * @description Create an array of pages to show in the pagination
  * @param {number} from  - start index

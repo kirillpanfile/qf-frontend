@@ -16,9 +16,12 @@
 </template>
 
 <script setup>
-import { ref, defineAsyncComponent, provide, watchEffect } from "vue"
+import { ref, defineAsyncComponent, provide, watchEffect, onMounted } from "vue"
 import { AdminHeader, AdminAside, AdminWrapper } from "@/components"
 import { createRefs } from "@/helpers"
+import { useAdminStore } from "@/store"
+
+const { getRoles, loadNewUsers } = useAdminStore()
 
 const TaskModal = defineAsyncComponent(() => import("@/components/UI/modals/TaskModal.vue"))
 const UserModal = defineAsyncComponent(() => import("@/components/UI/modals/UserModal.vue"))
@@ -36,6 +39,11 @@ provide("openUserModal", (type, user) => {
     userShow.value = true
     watchEffect(() => userRef.value && userRef.value.open({ type, user }))
     stop()
+})
+
+onMounted(() => {
+    getRoles()
+    loadNewUsers()
 })
 
 const sidemenu = ref(null)

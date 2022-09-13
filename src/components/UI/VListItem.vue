@@ -45,13 +45,13 @@
                     <h1 class="text-base text-gray-700 dark:text-gray-400 font-bold">{{ id }}</h1>
                 </div>
                 <div class="col-span-3 hidden xl:block px-4 self-center">
-                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">{{ userRoles[0].name }}</h1>
+                    <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">{{ getUserRole }}</h1>
                 </div>
                 <div class="col-span-5 md:col-span-3 lg:col-span-4 xl:col-span-3 px-4 flex gap-4">
-                    <v-button type="button" size="sm" bgColor="alternative">
-                        <i class="fa-solid fa-pen-to-square mr-2"></i>Edit User</v-button
-                    >
-                    <v-button type="button" size="sm" bgColor="red"
+                    <v-button type="button" size="sm" bgColor="alternative" @click="$emit('edit')">
+                        <i class="fa-solid fa-pen-to-square mr-2"></i>Edit User
+                    </v-button>
+                    <v-button type="button" size="sm" bgColor="red" @click="deleteUser(id)"
                         ><i class="fa-solid fa-trash-can mr-2"></i>Delete User</v-button
                     >
                 </div>
@@ -62,15 +62,11 @@
 
 <script setup>
 import { VButton } from "@/components"
-import { computed, onMounted } from "vue"
+import { computed } from "vue"
 import { useAdminStore, refs } from "@/store"
 
-const { getRoles } = useAdminStore()
+const { deleteUser } = useAdminStore()
 const { roles } = refs(useAdminStore())
-
-// onMounted(() => {
-//     getRoles()
-// })
 
 const props = defineProps({
     picture: {
@@ -102,9 +98,14 @@ const props = defineProps({
     flag: String,
 })
 
-const getUserRole = () => {
-    console.log(roles.value)
-}
+const getUserRole = computed(() => {
+    const priority = roles.value.map((role) => role.name)
+    return props.userRoles.sort((a, b) => {
+        return priority.indexOf(b.name) - priority.indexOf(a.name)
+    })[0].name
+})
+
+defineEmits(["edit"])
 </script>
 
 <style></style>

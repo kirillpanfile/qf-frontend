@@ -141,37 +141,10 @@
             </div>
             <span>View more -></span>
         </a>
-
-        <!--? User Modal -->
-        <app-modal title="User Modal" ref="userModal">
-            <div class="grid grid-cols-6 gap-x-6">
-                <div class="col-span-6">
-                    <app-input
-                        :disabled="!userEditFlag"
-                        title="Username"
-                        v-model="user.username"
-                        :placeholder="'Username ...'"></app-input>
-                    <app-input :disabled="!userEditFlag" title="Email" v-model="user.email" :placeholder="'Email ...'">
-                    </app-input>
-                </div>
-                <div class="col-span-6 sm:col-span-3 mb-2">
-                    <app-select :disabled="!userEditFlag" v-model="user.roles" title="User Role" :options="roles" />
-                </div>
-            </div>
-
-            <!--? Modal Footer-->
-
-            <div class="items-center py-6 border-t border-gray-200 rounded-b flex gap-4">
-                <v-button type="button" bgColor="default" size="base" @btnClick="closeUserModal(), editUser(user)">
-                    Submit</v-button
-                >
-                <v-button type="button" bgColor="alternative" size="base" @btnClick="editUserModal">Edit</v-button>
-            </div>
-        </app-modal>
     </main>
 </template>
 <script setup>
-import { AppModal, AppInput, AppSelect, VButton, AdminBlock, VListItem, VChart } from "@/components"
+import { VButton, AdminBlock, VListItem, VChart } from "@/components"
 import { ref, onMounted, inject } from "vue"
 import { useAdminStore, useTaskStore, refs } from "@/store"
 import { createRefs } from "@/helpers"
@@ -184,19 +157,16 @@ const openUserModal = inject("openUserModal")
 const openUserView = (item) => openUserModal("view", item)
 
 onMounted(() => {
-    getRoles()
     if (admins.value == null) getAdmins()
-    loadNewUsers()
     if (tasks.value.length == 0) getTasks()
 })
 
-const { editUser, getAdmins, loadNewUsers, getRoles } = useAdminStore()
-const { newUsers, roles, admins } = refs(useAdminStore())
+const { getAdmins } = useAdminStore()
+const { newUsers, admins } = refs(useAdminStore())
 const { getTasks } = useTaskStore()
 const { tasks, taskToDo } = refs(useTaskStore())
 
 const isDark = ref(window.matchMedia("(prefers-color-scheme: dark)").matches)
-const [userModal, userEditFlag, user] = createRefs([null, false, {}])
 
 const type = "line"
 const data = ref({
