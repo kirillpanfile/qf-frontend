@@ -57,14 +57,10 @@ export const useTaskStore = defineStore("taskStore", {
         async updateTask(_id, payload) {
             await errorHandler(
                 async function () {
-                    this.tasks.find((item) => {
-                        if (item._id === _id) {
-                            if (JSON.stringify(item) !== JSON.stringify(payload)) {
-                                $http.put(process.env.VUE_APP_UPDATE_TASK + item._id, payload)
-                                Object.assign(item, payload)
-                            }
-                        }
-                    })
+                    const taskToUpdate = this.tasks.find((task) => task._id == _id)
+                    if (JSON.stringify(taskToUpdate) != JSON.stringify(payload)) {
+                        await $http.put(process.env.VUE_APP_UPDATE_TASK + _id, payload)
+                    }
                 }.bind(this),
                 "Task updated successfully"
             )

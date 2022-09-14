@@ -56,7 +56,10 @@ const closeModal = () => {
 const submitModal = () => {
     taskModal.value.closeModal()
     if (taskType.value === "create") createTask(taskData)
-    if (taskType.value === "view") updateTask(taskData._id, taskData)
+    if (taskType.value === "view") {
+        taskData.user = admins.value.find((item) => item._id === taskData.user._id)
+        updateTask(taskData._id, taskData)
+    }
 }
 
 const open = (data) => {
