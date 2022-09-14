@@ -2,6 +2,22 @@
     <div class="grid grid-cols-4 gap-4">
         <div class="col-span-1 bg-white dark:bg-gray-800 dark:text-gray-300 p-6 rounded-lg shadow-sm">
             <h1 class="text-xl font-bold mb-4">Aditional information</h1>
+            <VSelect
+                name="tags"
+                type="tags"
+                v-model="recipe.title"
+                multiple
+                size="base"
+                placeholder="Cool Cookies..."
+                label="Tags" />
+            <VSelect
+                name="category"
+                type="category"
+                v-model="recipe.title"
+                multiple
+                size="base"
+                placeholder="Cool Cookies..."
+                label="Category" />
         </div>
         <div class="col-span-3 bg-white dark:bg-gray-800 dark:text-gray-300 p-6 rounded-lg shadow-sm">
             <h1 class="text-xl font-bold mb-4">General information</h1>
@@ -25,8 +41,16 @@
 
 <script setup>
 // import { createRefs } from "@/helpers"
-import { reactive } from "vue"
-import VInput from "../../UI/VInput.vue"
+import { onMounted, reactive, watch } from "vue"
+import { VInput, VSelect } from "@/components"
+
+import { useRecipeStore, refs } from "@/store"
+
+const { getTags } = useRecipeStore()
+
+onMounted(() => {
+    getTags()
+})
 
 const recipe = reactive({
     author: null,
