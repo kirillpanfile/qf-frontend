@@ -63,16 +63,19 @@ export const useAdminStore = defineStore("adminStore", {
             )
         },
         selectUser(id) {
-            this.users.forEach((user) => {
-                checkSelected(user, id, false)
-                    ? (user.selected = true)
-                    : checkSelected(user, id, true) && (user.selected = false)
+            this.users.forEach((user) => { 
+                if (user._id == id) {
+                    user.selected = !user.selected ? true : false
+                }
             })
         },
         async searchUser(user) {
             await errorHandler(
                 async function () {
+                    if(user = '' )
+                        this.users = sessionStorage.getItem(`Page ${this.currentPage}`, this.users)
                     const res = await $http.get(process.env.VUE_APP_SEARCH_USERS + user)
+                    sessionStorage.setItem(`Page ${this.currentPage}`,this.users)
                     res.forEach((user) => (user.selected = false)), (this.users = res)
                 }.bind(this)
             )
@@ -91,14 +94,12 @@ export const useAdminStore = defineStore("adminStore", {
             await errorHandler(
                 async function () {
                     const selectedUsers = this.selectedUsers.map((user) => user._id)
-                    if (selectedUsers.length === 0) throw { message: "No user selected" }
-
-                    await $http.post(process.env.VUE_APP_DELETE_MULTIPLE_USERS, {
+                    await $http.delete(process.env.VUE_APP_DELETE_MULTIPLE_USERS, {
                         ids: selectedUsers,
                     })
                     this.users = this.users.filter((user) => !selectedUsers.includes(user._id))
                 }.bind(this),
-                "Users deleted"
+                `${this.selectedUsers.length } Users deleted`
             )
         },
         async getRoles() {

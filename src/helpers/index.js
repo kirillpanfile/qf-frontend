@@ -171,7 +171,7 @@ export const errorHandler = async (fn, success) => {
     try {
         await fn(), Notify(getMessage(success), "success")
     } catch (error) {
-        const { message } = await error.json()
+        const { message } = await error
         Notify(getMessage(message), "error")
     }
 }
