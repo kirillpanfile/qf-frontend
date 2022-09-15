@@ -1,5 +1,5 @@
 <template>
-    <div class="min-w-[30rem] p-4">
+    <div class="min-w-[30rem] pr-4">
         <h1 class="text-gray-900 font-semibold text-base py-4 dark:text-gray-300">{{ list }}</h1>
         <div
             class="mb-4"
@@ -17,7 +17,8 @@
         <button
             type="button"
             class="text-gray-400 w-full font-bold outline-dashed outline-2 outline-gray-300 rounded-lg py-2"
-            v-if="buttonFlag" @click="$emit('addTask')">
+            v-if="buttonFlag"
+            @click="$emit('addTask')">
             + Add another Task
         </button>
     </div>
@@ -33,7 +34,7 @@ defineProps({
     data: { type: Object, required: true },
 })
 
-defineEmits(['addTask'])
+defineEmits(["addTask"])
 
 const onDrop = (event, list) => setTaskStatus(event.dataTransfer.getData("itemID"), list)
 </script>

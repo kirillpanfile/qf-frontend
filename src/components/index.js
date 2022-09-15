@@ -14,8 +14,10 @@ import VChart from "./UI/VChart"
 import VInput from "./UI/VInput"
 import VSelect from "./UI/VSelect"
 import VTextarea from "./UI/VTextarea"
+import VBreadcrumb from "./UI/VBreadcrumb"
+import VBadge from "./UI/VBadge"
 
-export { VButton, VInput, VListItem, VTextarea, VChart, VSelect }
+export { VButton, VInput, VBreadcrumb, VListItem, VTextarea, VChart, VSelect, VBadge }
 
 // ====================== ADMIN ========================
 

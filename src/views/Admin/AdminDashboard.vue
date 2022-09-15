@@ -1,5 +1,9 @@
 <template>
     <main class="pt-6 px-4">
+        <VBreadcrumb :routes="breadcrumbs" />
+        <div class="mb-6">
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-300">Dashboard</h1>
+        </div>
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <admin-block title="12" description="New users this week" size="2xl:col-span-2" h="mobile">
                 <template #aditional>
@@ -144,7 +148,7 @@
     </main>
 </template>
 <script setup>
-import { VButton, AdminBlock, VListItem, VChart } from "@/components"
+import { VButton, AdminBlock, VListItem, VChart, VBreadcrumb } from "@/components"
 import { ref, onMounted, inject } from "vue"
 import { useAdminStore, useTaskStore, refs } from "@/store"
 
@@ -159,6 +163,17 @@ onMounted(() => {
     if (admins.value == null) getAdmins()
     if (tasks.value.length == 0) getTasks()
 })
+
+const breadcrumbs = [
+    {
+        name: "Home",
+        link: "/admin",
+    },
+    {
+        name: "Dashboard",
+        link: "/admin/dashboard",
+    },
+]
 
 const { getAdmins } = useAdminStore()
 const { newUsers, admins } = refs(useAdminStore())

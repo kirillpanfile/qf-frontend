@@ -44,9 +44,6 @@ export const useRecipeStore = defineStore("recipeStore", {
     actions: {
         async createRecipe(recipe) {
             await errorHandler(async () => {
-                // const {}
-                //recipe validation
-
                 const { data } = await $http.post("/recipes", recipe)
                 this.recipes.push(data)
             })
@@ -54,7 +51,7 @@ export const useRecipeStore = defineStore("recipeStore", {
 
         async getTags() {
             await errorHandler(async () => {
-                const data = await $http.get(process.env.VUE_APP_GET_TAGS)
+                const data = await $http.get(process.env.VUE_APP_GET_TAGS + "/en")
                 this.tags = data
             })
         },
