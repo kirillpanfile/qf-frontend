@@ -63,7 +63,7 @@ export const useAdminStore = defineStore("adminStore", {
             )
         },
         selectUser(id) {
-            this.users.forEach((user) => { 
+            this.users.forEach((user) => {
                 if (user._id == id) {
                     user.selected = !user.selected ? true : false
                 }
@@ -72,11 +72,15 @@ export const useAdminStore = defineStore("adminStore", {
         async searchUser(user) {
             await errorHandler(
                 async function () {
-                    if(user = '' )
-                        this.users = sessionStorage.getItem(`Page ${this.currentPage}`, this.users)
-                    const res = await $http.get(process.env.VUE_APP_SEARCH_USERS + user)
-                    sessionStorage.setItem(`Page ${this.currentPage}`,this.users)
-                    res.forEach((user) => (user.selected = false)), (this.users = res)
+                    //if user - salvam in session si fasem fetch
+                    //daca nu luam din session
+                    if (user) {
+                        sessionStorage.setItem("Users", JSON.stringify(this.users))
+                        const res = await $http.get(process.env.VUE_APP_SEARCH_USERS + user)
+                        this.users = res
+                    } else {
+                        this.users = JSON.parse(sessionStorage.getItem("Users"))
+                    }
                 }.bind(this)
             )
         },
@@ -99,7 +103,7 @@ export const useAdminStore = defineStore("adminStore", {
                     })
                     this.users = this.users.filter((user) => !selectedUsers.includes(user._id))
                 }.bind(this),
-                `${this.selectedUsers.length } Users deleted`
+                `${this.selectedUsers.length} Users deleted`
             )
         },
         async getRoles() {

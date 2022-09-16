@@ -19,11 +19,11 @@
                                     id="users-search"
                                     class="bg-gray-50 dark:bg-slate-700 border dark:text-gray-200 border-gray-300 dark:border-slate-600 text-gray-900 outline-none sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                     placeholder="Search for users"
-                                    @input="searchUser($event.target.value)" />
+                                    v-model="search" />
                             </div>
                         </form>
                         <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
-                            <v-button type="button" size="xs" bgColor="no-color"
+                            <v-button type="button" size="xs" bgColor="no-color" @click="clearSearch()"
                                 ><i class="fa-solid fa-trash-can text-lg dark:text-gray-400"></i
                             ></v-button>
                         </div>
@@ -82,6 +82,7 @@
                                 :id="item._id"
                                 :userRoles="item.roles"
                                 type="usersLarge"
+                                @edit="openUserModal(item)"
                                 @click="selectUser(item._id)">
                             </v-list-item>
                         </sequential-entrance>
@@ -146,12 +147,18 @@
 
 <script setup>
 import { VListItem, VButton, VBreadcrumb } from "@/components"
-import { onMounted, computed, ref, watch } from "vue"
+import { onMounted, computed, ref, watch, inject } from "vue"
 import { useAdminStore, refs } from "@/store"
 
 const { loadUsers, selectUser, nextPage, prevPage, setPage, deleteMultiple, searchUser } = useAdminStore()
 const { users, pages, currentPage, selectedUsers } = refs(useAdminStore())
 const search = ref("")
+
+const userModal = inject("openUserModal")
+
+const openUserModal = (user) => {
+    userModal("view", user)
+}
 
 const breadcrumbs = [
     {
@@ -167,6 +174,18 @@ const breadcrumbs = [
 onMounted(() => {
     users.value.length == 0 && loadUsers()
 })
+
+//set timeou on search
+
+let timeout = null
+
+watch(search, (value) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        searchUser(value)
+    }, 700)
+})
+
 /**
  * @description Create an array of pages to show in the pagination
  * @param {number} from  - start index
@@ -175,6 +194,10 @@ onMounted(() => {
 
 const createPages = (from, to) => [...Array(to - from + 1).keys()].map((i) => i + from)
 
+const clearSearch = () => {
+    search.value = ""
+    searchUser("")
+}
 /**
  * @description Pages to show in the pagination depending on the current page
  */

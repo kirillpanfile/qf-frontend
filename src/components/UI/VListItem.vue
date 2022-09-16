@@ -48,7 +48,7 @@
                     <h1 class="text-base font-bold text-gray-700 dark:text-gray-400">{{ getUserRole }}</h1>
                 </div>
                 <div class="col-span-5 md:col-span-3 lg:col-span-4 xl:col-span-3 px-4 flex gap-4">
-                    <v-button type="button" size="sm" bgColor="alternative" @click.stop="openUserView()">
+                    <v-button type="button" size="sm" bgColor="alternative" @click.stop="openUserModal()">
                         <i class="fa-solid fa-pen-to-square mr-2"></i>Edit User</v-button
                     >
                     <v-button type="button" size="sm" bgColor="red"
@@ -62,15 +62,10 @@
 
 <script setup>
 import { VButton } from "@/components"
-import { computed, inject, ref } from "vue"
+import { computed } from "vue"
 import { useAdminStore, refs } from "@/store"
-const user = ref(null)
+
 const { roles } = refs(useAdminStore())
-const openUserModal = inject("openUserModal")
-const openUserView = () => {
-    Object.assign(user, { username: props.name, email: props.email, _id: props.id, roles: props.userRoles })
-    openUserModal("view", user)
-}
 
 const props = defineProps({
     picture: {
@@ -108,6 +103,16 @@ const getUserRole = computed(() => {
         return priority.indexOf(b.name) - priority.indexOf(a.name)
     })[0].name
 })
+
+const emit = defineEmits(["edit"])
+const openUserModal = () => {
+    emit("edit", {
+        username: props.name,
+        _id: props.id,
+        email: props.email,
+        roles: props.userRoles,
+    })
+}
 </script>
 
 <style></style>
