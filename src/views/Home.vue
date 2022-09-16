@@ -40,7 +40,7 @@
         </div>
     </div> -->
     <div class="w-screen h-screen flex items-center justify-center">
-        <router-link to="/admin" class="px-8 py-4 bg-lime font-bold text-white rounded-lg hover:bg-[#679160]">
+        <router-link to="/admin/dashboard" class="px-8 py-4 bg-lime font-bold text-white rounded-lg hover:bg-[#679160]">
             To Admin Page
         </router-link>
     </div>

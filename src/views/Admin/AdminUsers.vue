@@ -42,7 +42,7 @@
                             @click="deleteMultiple">
                             <i class="fa-solid fa-trash-can"></i>
                         </v-button>
-                        <v-button type="button" size="sm" bgColor="alternative">
+                        <v-button type="button" size="sm" bgColor="alternative" @click="openCreateModal()">
                             <i class="fa-solid fa-plus mr-2"></i>Add User
                         </v-button>
                     </div>
@@ -155,6 +155,9 @@ const { users, pages, currentPage, selectedUsers } = refs(useAdminStore())
 const search = ref("")
 
 const userModal = inject("openUserModal")
+const createModal = inject("openUserModal")
+
+const openCreateModal = () => createModal("create")
 
 const openUserModal = (user) => {
     userModal("view", user)

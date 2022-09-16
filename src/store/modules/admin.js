@@ -123,7 +123,9 @@ export const useAdminStore = defineStore("adminStore", {
                         roles,
                     })
                     const userIndex = this.newUsers.findIndex((user) => user._id === _id)
-                    this.newUsers[userIndex] = updatedUser
+                    if(userIndex >= 0) this.newUsers[userIndex] = updatedUser
+                    const userPlace = this.users.findIndex((user) => user._id === _id)
+                    if(userPlace >= 0) this.users[userPlace] = updatedUser
                 }.bind(this),
                 "User successfully updated"
             )
@@ -143,6 +145,14 @@ export const useAdminStore = defineStore("adminStore", {
                     await $http.delete(process.env.VUE_APP_LOGOUT)
                     this.$reset()
                     router.push("/admin-login")
+                }.bind(this)
+            )
+        },
+        async createUser(data) {
+            await errorHandler(
+                async function() {
+                    const res = await $http.post(process.env.VUE_APP_SIGNUP, data)
+                    this.users.push(res);
                 }.bind(this)
             )
         },

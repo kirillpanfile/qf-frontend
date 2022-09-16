@@ -57,12 +57,12 @@ import { createRefs } from "@/helpers"
 import { AppModal, VButton, VInput, VSelect } from "@/components"
 import { useAdminStore, refs } from "@/store"
 import { computed } from "vue"
-const { editUser } = useAdminStore()
+const { editUser, createUser } = useAdminStore()
 const { roles } = refs(useAdminStore())
 const [userType, userModal, userData, editFlag] = createRefs([null, null, {}, null])
 
 const title = computed(() => {
-    return userType.value && userType.value.charAt(0).toUpperCase() + userType.value.slice(1) + " Task"
+    return userType.value && userType.value.charAt(0).toUpperCase() + userType.value.slice(1) + " User"
 })
 
 const submitModal = () => {
