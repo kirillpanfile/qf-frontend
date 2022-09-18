@@ -72,8 +72,6 @@ export const useAdminStore = defineStore("adminStore", {
         async searchUser(user) {
             await errorHandler(
                 async function () {
-                    //if user - salvam in session si fasem fetch
-                    //daca nu luam din session
                     if (user) {
                         sessionStorage.setItem("Users", JSON.stringify(this.users))
                         const res = await $http.get(process.env.VUE_APP_SEARCH_USERS + user)
@@ -123,9 +121,9 @@ export const useAdminStore = defineStore("adminStore", {
                         roles,
                     })
                     const userIndex = this.newUsers.findIndex((user) => user._id === _id)
-                    if(userIndex >= 0) this.newUsers[userIndex] = updatedUser
+                    if (userIndex >= 0) this.newUsers[userIndex] = updatedUser
                     const userPlace = this.users.findIndex((user) => user._id === _id)
-                    if(userPlace >= 0) this.users[userPlace] = updatedUser
+                    if (userPlace >= 0) this.users[userPlace] = updatedUser
                 }.bind(this),
                 "User successfully updated"
             )
@@ -150,9 +148,9 @@ export const useAdminStore = defineStore("adminStore", {
         },
         async createUser(data) {
             await errorHandler(
-                async function() {
+                async function () {
                     const res = await $http.post(process.env.VUE_APP_SIGNUP, data)
-                    this.users.push(res);
+                    this.users.push(res)
                 }.bind(this)
             )
         },

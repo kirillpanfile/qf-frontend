@@ -73,37 +73,19 @@ const { loading, setLoader } = loader
 const remember = ref(false)
 
 onMounted(() => {
-    ;(remember.value = false), authRemeber().finally(() => (remember.value = true))
+    remember.value = false
+    authRemeber().finally(() => (remember.value = true))
 })
 
 const login = () => {
-    const priority = ["Urgent", "High", "Normal", "Low"]
-
-    const arr = [
-        {
-            flag: "Normal",
-        },
-        {
-            flag: "Urgent",
-        },
-        {
-            flag: "Low",
-        },
-    ]
-
-    const sorted = arr.sort((a, b) => {
-        return priority.indexOf(a.flag) - priority.indexOf(b.flag)
-    })
-
-    console.log(sorted)
-
-    setLoader(true),
-        authAdmin(user)
-            .then(() => {
-                push("/admin/dashboard"), setLoader(false)
-            })
-            .catch(() => {
-                setLoader(false)
-            })
+    setLoader(true)
+    authAdmin(user)
+        .then(() => {
+            push("/admin/dashboard")
+            setLoader(false)
+        })
+        .catch(() => {
+            setLoader(false)
+        })
 }
 </script>

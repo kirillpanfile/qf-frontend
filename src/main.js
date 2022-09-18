@@ -10,7 +10,11 @@ import VWave from "v-wave"
 import sequentialEntrance from "vue3-sequential-entrance"
 import "vue3-sequential-entrance/vue-sequential-entrance.css"
 
+import { initComponents } from "./globals"
+
 const app = createApp(App)
+
+initComponents(app)
 
 if (process.env.NODE_ENV === "development") {
     app.config.devtools = true

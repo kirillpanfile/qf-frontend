@@ -52,6 +52,7 @@
                 </template>
             </admin-block>
         </div>
+        <TreeSelect :data="tags" v-model="model" by="tag" />
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 pt-6">
             <admin-block title="976" description="Total users" v-wave h="standart">
                 <template #aditional>
@@ -150,7 +151,16 @@
 <script setup>
 import { VButton, AdminBlock, VListItem, VChart, VBreadcrumb } from "@/components"
 import { ref, onMounted, inject } from "vue"
-import { useAdminStore, useTaskStore, refs } from "@/store"
+import { useAdminStore, useTaskStore, useRecipeStore, refs } from "@/store"
+
+import TreeSelect from "../../components/UI/treeselect/TreeSelect.vue"
+
+// TREE SELECT ------------------
+
+const { tags } = useRecipeStore()
+const model = ref([])
+
+// ------------------------------
 
 const openTask = inject("openTaskModal")
 const openTaskCreate = () => openTask("create", {})

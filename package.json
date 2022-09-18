@@ -9,10 +9,8 @@
     },
     "dependencies": {
         "@kyvg/vue3-notification": "^2.3.5",
-        "axios": "^0.27.2",
         "chart.js": "^3.8.2",
         "core-js": "^3.8.3",
-        "firebase": "^9.9.2",
         "pinia": "^2.0.16",
         "sass-loader": "^13.0.2",
         "v-wave": "^1.5.0",
