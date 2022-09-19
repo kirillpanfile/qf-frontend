@@ -57,7 +57,7 @@ export const adminRoutes = [
                         name: "admin-recipes-create",
                         component: () =>
                             import(
-                                /* webpackChunkName: "AdminPostsCreate" */ "@/views/Admin/Admin Recipes/CreateRecipe.vue"
+                                /* webpackChunkName: "AdminPostsCreate" */ "@/views/Admin/Create Recipe/AdminCreateRecipe.vue"
                             ),
                     },
                     {

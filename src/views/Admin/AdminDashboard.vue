@@ -1,9 +1,5 @@
 <template>
     <main class="pt-6 px-4">
-        <VBreadcrumb :routes="breadcrumbs" />
-        <div class="mb-6">
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-300">Dashboard</h1>
-        </div>
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <admin-block title="12" description="New users this week" size="2xl:col-span-2" h="mobile">
                 <template #aditional>
@@ -52,7 +48,6 @@
                 </template>
             </admin-block>
         </div>
-        <TreeSelect :data="tags" v-model="model" by="tag" />
         <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 pt-6">
             <admin-block title="976" description="Total users" v-wave h="standart">
                 <template #aditional>
@@ -152,15 +147,6 @@
 import { VButton, AdminBlock, VListItem, VChart, VBreadcrumb } from "@/components"
 import { ref, onMounted, inject } from "vue"
 import { useAdminStore, useTaskStore, useRecipeStore, refs } from "@/store"
-
-import TreeSelect from "../../components/UI/treeselect/TreeSelect.vue"
-
-// TREE SELECT ------------------
-
-const { tags } = useRecipeStore()
-const model = ref([])
-
-// ------------------------------
 
 const openTask = inject("openTaskModal")
 const openTaskCreate = () => openTask("create", {})

@@ -19,6 +19,10 @@ import VBadge from "./UI/VBadge"
 
 export { VButton, VInput, VBreadcrumb, VListItem, VTextarea, VChart, VSelect, VBadge }
 
+import TreeSelect from "./UI/treeselect/TreeSelect"
+
+export { TreeSelect }
+
 // ====================== ADMIN ========================
 
 import AdminAside from "./pages/Admin/AdminAside"
