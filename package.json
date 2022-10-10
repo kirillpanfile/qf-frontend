@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "@kyvg/vue3-notification": "^2.3.5",
-        "axios": "^0.27.2",
+        "axios": "^1.1.2",
         "chart.js": "^3.8.2",
         "core-js": "^3.8.3",
         "firebase": "^9.9.2",
