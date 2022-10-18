@@ -21,25 +21,56 @@ export default function validator(data) {
         watch(reference, (e) => {
             !(typeof e.value == type) && console.error('Type is not correct')
             clearTimeout(timer)
-            timer = setTimeout(() => {
-                var valid = true
-                if (e.value.length < min)
-                    valid = {
-                        value: false,
-                        message: `Minimum length is ${min}`,
+
+            if( type === 'number' ){
+                timer = setTimeout(() => {
+                    var valid = true
+                    var message = ''
+
+                    if(e.value < min)
+                        {
+                            valid = false,
+                            message = `Minimum value is ${min}`
+                        }
+                    if(e.value > max){
+                        {
+                            valid = false,
+                            message = `Maximum value is ${max}`
+                        }
                     }
-                if (e.value.length > max) valid = false
-                if (required && e.value.length == 0) valid = false
-                // if(pattern && !pattern.test(e.value)) valid = false
-                e.valid = valid
-            }, 500)
+                    e.valid = valid
+                    e.message = message
+                    console.log(e.value)
+                }, 500)
+            } else {
+                timer = setTimeout(() => {
+                    var valid = true
+                    var message = ''
+
+                    if (e.value.length < min)
+                        {
+                            valid = false
+                            message = `Minimum value is ${min}`
+                        }
+                    if (e.value.length > max)
+                        {
+                            valid = false,
+                            message = `Maximum value is ${max}`
+                        }
+                    if (required && e.value.length == 0) valid = false
+                    // if(pattern && !pattern.test(e.value)) valid = false
+                    e.valid = valid
+                    e.message = message
+                }, 500)             
+            }           
         })
     })
 }
 
-export const createValidator = () =>
+export const createValidator = (payload) =>
     reactive({
-        value: '',
-        valid: {}, //true or false
-        // message: '',
+        value: payload,
+        valid: true, //true or false
+        message: '', // message: '',
+        
     })
