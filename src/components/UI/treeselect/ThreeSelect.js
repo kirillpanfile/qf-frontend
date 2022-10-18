@@ -4,6 +4,7 @@ import { VBadge } from "@/components"
 
 const setup = (props, { emit }) => {
     const inputData = ref(null)
+    const isFocus = ref(false)
     const [filteredItems, selectedItems] = createRefs([], 2)
     const { data, by } = props
 
@@ -60,6 +61,9 @@ const setup = (props, { emit }) => {
         clearData()
     }
 
+    const toggleFocus = () => (isFocus.value = !isFocus.value)
+    const removeFocus = () => (isFocus.value = false)
+
     // update model on select (v-model)
     const updateModel = (val) => emit("update:modelValue", val)
 
@@ -69,6 +73,9 @@ const setup = (props, { emit }) => {
         filteredItems,
         clearData,
         selectItem,
+        isFocus,
+        toggleFocus,
+        removeFocus,
     }
 }
 

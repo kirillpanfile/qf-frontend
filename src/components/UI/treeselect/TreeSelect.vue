@@ -1,47 +1,42 @@
 <template>
-    <span class="w-full block mt-12">
-        <div class="bg-white flex w-full relative">
-            <ul class="w-full flex border border-gray-300 focus:border-blue-500 rounded-md overflow-hidden p-2">
-                <li class="flex h-full items-center" v-for="(item, index) in selectedItems" :key="index">
-                    <v-badge class="bg-gray-200 w-full">{{ item[by] }}</v-badge>
-                </li>
-
-                <li class="w-full">
-                    <input
-                        @focusout="clearData"
-                        type="text"
-                        v-model="inputData"
-                        class="w-full h-full outline-none rounded-md" />
-                </li>
-            </ul>
-            <transition>
-                <ul
-                    v-if="filteredItems.length"
-                    class="absolute top-20 w-full p-2 z-50 max-h-32 overflow-y-scroll bg-white">
+    <div class="w-full text-sm rounded-md border relative" tabindex="0" @click="toggleFocus" v-outside="removeFocus">
+        <div class="w-full bg-white px-3 py-2 flex items-center cursor-pointer select-none">
+            <div class="text-gray-500 font-bold">States</div>
+            <i class="fa fa-chevron-down mt-1 ml-auto text-base text-gray-500 font-bold"></i>
+        </div>
+        <transition name="fadeHeight" mode="out-in">
+            <div class="max-h-48 absolute mt-1 bg-white overflow-y-scroll w-full" v-if="isFocus">
+                <div>
+                    <input type="search" placeholder="Search states" @click.stop class="border w-full p-2 mt-1" />
+                </div>
+                <ul @click.stop>
                     <li
-                        v-for="(item, index) in filteredItems"
+                        v-for="(item, index) in data"
                         :key="index"
-                        class="p-2 hover:bg-gray-300 cursor-pointer"
-                        @click="selectItem(item)">
-                        {{ item[by] }}
+                        @click="item.selected = !item.selected"
+                        class="select-none w-full py-2 hover:bg-gray-50">
+                        <div class="px-1 flex gap-2 text-base">
+                            <input v-model="item.selected" type="checkbox" class="w-4 bg-blue-300" />
+                            <span>{{ item[by] }}</span>
+                        </div>
                     </li>
                 </ul>
-            </transition>
-        </div>
-    </span>
+            </div>
+        </transition>
+    </div>
 </template>
 
 <script src="./ThreeSelect.js"></script>
 
 <style scoped>
-/* we will explain what these classes do next! */
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.1s ease;
+.fadeHeight-enter-active,
+.fadeHeight-leave-active {
+    transition: all 0.2s;
+    max-height: 230px;
 }
-
-.v-enter-from,
-.v-leave-to {
+.fadeHeight-enter,
+.fadeHeight-leave-to {
     opacity: 0;
+    max-height: 0px;
 }
 </style>
