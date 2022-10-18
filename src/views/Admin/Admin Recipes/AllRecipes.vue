@@ -10,11 +10,13 @@
                 :to="`/admin/recipes/${item._id}`"
                 class="w-auto flex rounded-lg overflow-hidden shadow-md hover:z-10"
                 v-for="item in recipe"
-                :key="item._id"
-            >
+                :key="item._id">
                 <!--? Card wrapper -->
                 <div class="w-[40%]">
-                    <img class="w-[100%] h-[100%] object-cover" :src="item.image" alt="recipeImage" />
+                    <img
+                        class="w-[100%] h-[100%] object-cover"
+                        :src="item.image"
+                        alt="recipeImage" />
                     <!--? Card image -->
                 </div>
                 <div class="w-[60%] flex flex-col px-4 py-2">
@@ -29,20 +31,19 @@
                             <small>minutes</small>
                         </div>
                         <div
-                            class="px-3 py-1 text-[10px] sm:text-sm md:text-base bg-yellow-300 rounded-md h-max"
-                            :class="
-                                item.approved == 'pending'
-                                    ? 'bg-yellow-300'
-                                    : item.approved == 'approved'
-                                    ? 'bg-green-300'
-                                    : 'bg-red-300'
-                            "
-                        >
+                            class="px-3 py-1 text-[10px] sm:text-sm md:text-base rounded-md h-max"
+                            :class="{
+                                'bg-lime': item.approved === 'approved',
+                                'bg-yellow-500': item.approved === 'pending',
+                                'bg-red-600': item.approved === 'rejected',
+                            }">
                             {{ item.approved }}
                             <!--? Card status -->
                         </div>
                         <div class="flex flex-col">
-                            <h1 class="font-bold text-center">{{ getTemperature(item) }}</h1>
+                            <h1 class="font-bold text-center">
+                                {{ getTemperature(item) }}
+                            </h1>
                             <!--? Card temperature -->
                             <small>temperature</small>
                         </div>
@@ -54,16 +55,15 @@
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue'
-import { useRecipeStore } from '@/store/recipeStore'
-import { AppLoader } from '@/components/'
-import { useLoader } from '@/composables/useLoader.js'
-import { storeToRefs } from 'pinia'
+import { onMounted, computed } from "vue"
+import { useRecipeStore, refs } from "@/store"
+import { AppLoader } from "@/components/"
+import { useLoader } from "@/composables/useLoader.js"
 
 const { loading, setLoader } = useLoader()
-const { recipe } = storeToRefs(useRecipeStore())
+const { recipe } = refs(useRecipeStore())
 
-const getTemperature = computed(() => (item) => item.hot == false ? 'Cold' : 'Hot')
+const getTemperature = computed(() => (item) => item.hot == false ? "Cold" : "Hot")
 
 onMounted(() => {
     setLoader(true)

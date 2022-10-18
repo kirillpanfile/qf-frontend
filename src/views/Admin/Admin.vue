@@ -1,23 +1,53 @@
 <template>
-    <div class="flex h-screen bg-gray-50">
-        <admin-aside ref="sidemenu"></admin-aside>
-        <section class="flex flex-col flex-1">
-            <admin-header @toggleSideMenu="openAside"></admin-header>
-            <div class="h-full pb-16 overflow-y-auto">
-                <div class="container max-w-7xl px-6 mx-auto grid">
-                    <router-view></router-view>
-                </div>
-            </div>
-        </section>
-    </div>
+    <admin-wrapper>
+        <template #header>
+            <AdminHeader @openSideMenu="openAside"></AdminHeader>
+        </template>
+        <template #aside>
+            <AdminAside ref="sidemenu"></AdminAside>
+        </template>
+        <template #view>
+            <router-view></router-view>
+        </template>
+    </admin-wrapper>
+
+    <TaskModal v-if="taskShow" ref="taskRef" />
+    <UserModal v-if="userShow" ref="userRef" />
 </template>
 
 <script setup>
-import { AdminHeader, AdminAside } from '@/components'
-import { ref } from 'vue'
+import { ref, defineAsyncComponent, provide, watchEffect, onMounted } from "vue"
+import { AdminHeader, AdminAside, AdminWrapper } from "@/components"
+import { createRefs } from "@/helpers"
+import { useAdminStore } from "@/store"
+
+const { getRoles, loadNewUsers } = useAdminStore()
+
+const TaskModal = defineAsyncComponent(() => import("@/components/UI/modals/TaskModal.vue"))
+const UserModal = defineAsyncComponent(() => import("@/components/UI/modals/UserModal.vue"))
+
+const [taskRef, taskShow] = createRefs([null, false])
+const [userRef, userShow] = createRefs([null, false])
+
+provide("openTaskModal", (type, task) => {
+    taskShow.value = true
+    watchEffect(() => taskRef.value && taskRef.value.open({ type, task }))
+    stop()
+})
+
+provide("openUserModal", (type, user) => {
+    userShow.value = true
+    watchEffect(() => userRef.value && userRef.value.open({ type, user }))
+    stop()
+})
+
+onMounted(() => {
+    getRoles()
+    loadNewUsers()
+})
 
 const sidemenu = ref(null)
-const openAside = () => sidemenu.value.open()
+const openAside = () => sidemenu.value.toggleAside()
 </script>
 
 <style></style>

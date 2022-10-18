@@ -1,5 +1,5 @@
 <template>
-    <div class="home__wrapper">
+    <!-- <div class="home__wrapper">
         <div>
             <div class="home__header">
                 <h1>Do you already know what you want to cook ?</h1>
@@ -11,16 +11,14 @@
                     v-model="product"
                     @keyup.enter="insertProduct"
                     type="text"
-                    placeholder="What ingrediends do you have?"
-                />
+                    placeholder="What ingrediends do you have?" />
                 <div class="home__products">
                     <div
                         class="product"
                         v-if="products.length > 0"
                         v-for="(item, index) in products"
                         :key="item.index"
-                        @click="removeProduct(index)"
-                    >
+                        @click="removeProduct(index)">
                         {{ item }}
                         <div class="product__X"><img src="@/assets/Ics.svg" /></div>
                     </div>
@@ -32,7 +30,7 @@
                 <div class="home__offers" v-if="products.length > 0">
                     <div class="offer" v-for="item in offers">
                         <img src="@/assets/Add.svg" />
-                        <h1>{{item}}</h1>
+                        <h1>{{ item }}</h1>
                     </div>
                 </div>
             </div>
@@ -40,6 +38,11 @@
         <div class="home__image">
             <img src="@/assets/food.png" />
         </div>
+    </div> -->
+    <div class="w-screen h-screen flex items-center justify-center">
+        <router-link to="/admin/dashboard" class="px-8 py-4 bg-lime font-bold text-white rounded-lg hover:bg-[#679160]">
+            To Admin Page
+        </router-link>
     </div>
 </template>
 
@@ -48,8 +51,8 @@ export default {
     data() {
         return {
             products: [],
-            offers: ['Tabasco', 'Tabbouleh', 'Tangelo', 'Tahini', 'Tapenade', 'Tuna'],
-            product: '',
+            offers: ["Tabasco", "Tabbouleh", "Tangelo", "Tahini", "Tapenade", "Tuna"],
+            product: "",
         }
     },
     methods: {
@@ -60,7 +63,7 @@ export default {
     computed: {
         insertProduct() {
             this.products.push(this.product)
-            this.product = ''
+            this.product = ""
         },
     },
 }

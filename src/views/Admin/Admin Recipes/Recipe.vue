@@ -8,7 +8,10 @@
             <div class="flex flex-col gap-3 max-w-[596px]">
                 <!--? Left side of card -->
                 <div>
-                    <img class="w-auto h-auto object-cover" src="@/assets/cookies.jpg" alt="recipeImage" />
+                    <img
+                        class="w-auto h-auto object-cover"
+                        src="@/assets/cookies.jpg"
+                        alt="recipeImage" />
                     <!--? Recipe image -->
                 </div>
                 <div class="flex gap-4 items-center">
@@ -16,8 +19,7 @@
                     <!--? Title -->
                     <div
                         class="flex items-center gap-1 rounded-md outline outline-1 text-xs px-3 py-1 font-bold outline-red-600"
-                        v-if="currentRecipeLang.hot"
-                    >
+                        v-if="currentRecipeLang.hot">
                         <!--? Temperature indicator -->
                         <h1>HOT</h1>
                         <i class="fa-solid fa-fire"></i>
@@ -33,15 +35,16 @@
                     <div class="w-full h-[1px] bg-main"></div>
                     <div class="flex items-center gap-1 w-max">
                         <i class="fa-solid fa-clock"></i>
-                        <div class="shrink-0 w-max">{{ currentRecipeLang.time }} mins</div>
+                        <div class="shrink-0 w-max">
+                            {{ currentRecipeLang.time }} mins
+                        </div>
                     </div>
                 </div>
                 <ul>
                     <li
                         class="flex gap-3 ml-4 mb-2"
                         v-for="(item, index) in currentRecipeLang.steps"
-                        :key="currentRecipeLang._id"
-                    >
+                        :key="currentRecipeLang._id">
                         <div class="font-extrabold">{{ index + 1 }}</div>
                         <div>{{ item }}</div>
                     </li>
@@ -51,7 +54,10 @@
             <div class="flex flex-col">
                 <!--? Right side of card -->
                 <div class="flex flex-wrap gap-[15px] font-Mont gap-x-4 gap-y-2">
-                    <div class="px-[10px] py-1 text-gray bg-[#E7E8E9] text-[12px] font-bold rounded-md">Desert</div>
+                    <div
+                        class="px-[10px] py-1 text-gray bg-[#E7E8E9] text-[12px] font-bold rounded-md">
+                        Desert
+                    </div>
                     <!--TODO Category -->
                 </div>
                 <div class="flex text-main items-center gap-3 mt-3">
@@ -62,14 +68,15 @@
                     <li
                         class="flex items-center mb-2 gap-2"
                         v-for="item in currentRecipeLang.ingredients"
-                        :key="item._id"
-                    >
+                        :key="item._id">
                         <!--? Ingredients -->
-                        <i class="fa-regular fa-circle-check font-light h-[26.5px] text-2xl text-lime"></i>
+                        <i
+                            class="fa-regular fa-circle-check font-light h-[26.5px] text-2xl text-lime"></i>
                         <div class="font-extrabold font-Manrope">{{ item }}</div>
                     </li>
                 </ul>
-                <div class="flex items-center p-3 rounded-md bg-favorite text-favText gap-2 cursor-pointer w-max mt-4">
+                <div
+                    class="flex items-center p-3 rounded-md bg-favorite text-favText gap-2 cursor-pointer w-max mt-4">
                     <!--? Favorite button -->
                     <i class="fa-regular text-2xl fa-heart"></i>
                     <!--TODO <i class="fa-solid text-xl fa-heart"></i> onclick sa faca inima filled -->
@@ -86,15 +93,14 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
-import { useRecipeStore } from '@/store/recipeStore'
-import { onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
-import { AppLoader } from '@/components'
-import { useLoader } from '@/composables/useLoader.js'
+import { onMounted } from "vue"
+import { useRoute } from "vue-router"
+import { useRecipeStore, refs } from "@/store"
+import { AppLoader } from "@/components"
+import { useLoader } from "@/composables/useLoader"
 
 const route = useRoute()
-const { currentRecipeLang } = storeToRefs(useRecipeStore())
+const { currentRecipeLang } = refs(useRecipeStore())
 const { getRecipe } = useRecipeStore()
 const { setLoader, loading } = useLoader()
 
