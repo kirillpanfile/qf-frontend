@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "@kyvg/vue3-notification": "^2.3.5",
-        "chart.js": "^3.8.2",
+        "chart.js": "^4.1.0",
         "core-js": "^3.8.3",
         "pinia": "^2.0.16",
         "sass-loader": "^13.0.2",
